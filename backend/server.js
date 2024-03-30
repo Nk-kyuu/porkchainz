@@ -1,16 +1,15 @@
-// Import the Express module
 const express = require('express');
 require('dotenv').config();
+const test = require('./test')
 
-// Create an Express application
 const app = express();
 
-// Define a route
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
 
-// Start the server
+app.use("/", test);
+
 const port = process.env.PORT 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
