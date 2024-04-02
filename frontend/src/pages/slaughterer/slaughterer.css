@@ -1,0 +1,22 @@
+.headerProduct{
+    display: flex;
+    justify-content: space-between; 
+    flex-direction: row;
+    width: 58%;
+   
+}
+.headerBatch{
+    display: flex;
+    justify-content: space-between; 
+    flex-direction: row;
+    width: 68%;
+}
+.headerShipment{
+    display: flex;
+    justify-content: space-between; 
+    flex-direction: row;
+    width: 75%;
+}
+.btn-addShip{
+    margin-top: 20px;
+}
