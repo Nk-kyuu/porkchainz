@@ -5,7 +5,8 @@ const test = require('./test')
 const farmerAdd = require('./farmerAdd') //add pig**
 const farmerAddBatch = require('./farmerAddBatch') //add batch**
 const slaughtererAdd = require('./slaughtererAdd') //add product**
-const slaughtererSend = require('./slaughtererSend') //add product**const login = require('./login')
+const slaughtererSend = require('./slaughtererSend') //add product**
+const login = require('./login')
 
 const app = express();
 //post
