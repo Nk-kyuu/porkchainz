@@ -1,6 +1,7 @@
 const express = require('express');
 require('dotenv').config();
 const test = require('./test')
+const login = require('./login')
 
 const app = express();
 
@@ -9,6 +10,7 @@ app.get('/', (req, res) => {
 });
 
 app.use("/", test);
+app.use("/", login);
 
 const port = process.env.PORT 
 app.listen(port, () => {
