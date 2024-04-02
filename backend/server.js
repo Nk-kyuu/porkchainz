@@ -5,7 +5,8 @@ const test = require('./test')
 const farmerAdd = require('./farmerAdd') //add pig**
 const farmerAddBatch = require('./farmerAddBatch') //add batch**
 const slaughtererAdd = require('./slaughtererAdd') //add product**
-const slaughtererSend = require('./slaughtererSend') //add product**
+const slaughtererSend = require('./slaughtererSend') //add product**const login = require('./login')
+
 const app = express();
 //post
 
@@ -25,6 +26,7 @@ app.use("/", farmerAdd);
 app.use("/", farmerAddBatch);
 app.use("/", slaughtererAdd );
 app.use("/", slaughtererSend );
+app.use("/", login);
 
 const port = process.env.PORT 
 

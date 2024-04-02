@@ -12,10 +12,26 @@ import SlaughtererDash from "./pages/slaughterer/slaughtererDash"
 import SlaughtererProduct from "./pages/slaughterer/slaughtererProduct"
 import SlaughtererAddShip from "./pages/slaughterer/slaughtererAddShip"
 import RetailerDash from "./pages/retailer/retailerDash"
+import "./App.css";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from './pages/login/login'
+import AdminHome from "./pages/admin/adminHome";
+import RegisterForm from "./pages/admin/registerForm";
+
 function App() {
   
 
   return (
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/admin/home" element={<AdminHome />} />
+          <Route path="/admin/adduser" element={<RegisterForm/>} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
     <div className="App">
       <BrowserRouter >
         <Routes>
@@ -36,4 +52,5 @@ function App() {
   
 }
 
-export default App
+export default App;
+
