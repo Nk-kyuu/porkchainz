@@ -1,0 +1,88 @@
+.login-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    color: black;
+    margin: 0 auto;
+    padding: 20px;
+    width: 400px;
+    height: 400px;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+form {
+    width: 100%;
+    max-width: 400px;
+}
+
+input[type="email"],
+input[type="password"],
+select {
+    width: 70%;
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+button[type="submit"] {
+    background-color: #1058C5;
+    color: white;
+    margin: 20px 0;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    width: 25%;
+}
+
+body {
+    background: linear-gradient(-45deg, #1058C5, #62BBC1);
+}
+
+/* button[type="submit"]:hover,
+button[type="button"]:hover {
+    background-color: #62BBC1;
+} */
+
+@media screen and (max-width: 600px) {
+    .login-container {
+        max-width: 100%;
+    }
+}
+
+.logo {
+    width: 50%;
+    height: 10%;
+    font-weight: bolder;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    color: #ffffff;
+    font-size: 1.7rem;
+
+    @supports (background-clip: text) or (-webkit-background-clip: text) {
+        background-image:
+            url("https://i.pinimg.com/564x/0a/a6/2d/0aa62da5f88a3e591835357f487553f7.jpg");
+        background-size: 110% auto;
+        background-position: center;
+        color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+}

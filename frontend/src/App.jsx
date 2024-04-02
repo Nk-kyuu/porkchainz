@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { BrowserRouter,Routes,Route, } from 'react-router-dom'
+import FarmerAdd from "./pages/farmer/farmerAdd"
+import FarmerDashBatch from "./pages/farmer/farmerDashBatch"
+import SlaughtererAdd from './pages/slaughterer/slaughtererAdd';
+import SlaughtererSend from './pages/slaughterer/slaughtererSend';
+import FarmerAddBatch from './pages/farmer/farmerAddBatch';
+import FarmerDashPig from "./pages/farmer/farmerDashPig"
+import SlaughtererDash from "./pages/slaughterer/slaughtererDash"
+import SlaughtererProduct from "./pages/slaughterer/slaughtererProduct"
+import SlaughtererAddShip from "./pages/slaughterer/slaughtererAddShip"
+import RetailerDash from "./pages/retailer/retailerDash"
+import Login from './pages/login/login'
+import AdminHome from "./pages/admin/adminHome";
+import RegisterForm from "./pages/admin/registerForm";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="App">
+      <BrowserRouter >
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/admin/home" element={<AdminHome />} />
+          <Route path="/admin/adduser" element={<RegisterForm/>} />
+          <Route path="/farmerDashPig" element={<FarmerDashPig/>}/>
+          <Route path="/slaughtererDash" element={<SlaughtererDash/>}/>
+          <Route path="/slaughtererProduct" element={<SlaughtererProduct />}/>
+          <Route path="/slaughtererAddShip" element={<SlaughtererAddShip />}/>
+          <Route path="/retailerDash" element={<RetailerDash />}/>
+          <Route path="/farmerAdd" element={<FarmerAdd/>} />
+          <Route path="/farmerDashBatch" element={<FarmerDashBatch/>} />
+          <Route path= "/slaughtererAdd" element={<SlaughtererAdd/>} />
+          <Route path="/slaughtererSend" element={<SlaughtererSend/>} />
+          <Route path="/farmerAddBatch" element={<FarmerAddBatch/>} />
+        </Routes>
+      </BrowserRouter >
+    </div>
   )
+  
 }
 
-export default App
+export default App;
+
