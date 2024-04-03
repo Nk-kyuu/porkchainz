@@ -1,6 +1,6 @@
-import { Button,TextField,Avatar,CssBaseline,Grid,Box,Typography,Container,MenuItem} from '@mui/material';
+import { Button,TextField,CssBaseline,Grid,Box,Typography,Container,MenuItem} from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Navbar from "../../components/navbarSlaghterer"
 
 
 const SlaughtererSend = () => {
@@ -34,6 +34,7 @@ const SlaughtererSend = () => {
 
     return (
         <ThemeProvider theme={defaultTheme}>
+          <Navbar />
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <Box
@@ -42,11 +43,13 @@ const SlaughtererSend = () => {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              bgcolor: 'white', // เพิ่มสีขาวให้กับกล่อง
+              border: '2px solid #ccc', // ขยายขอบกล่องให้ใหญ่ขึ้น
+              borderRadius: '12px', // ขอบมนขึ้น
+              padding: '20px', // เพิ่ม padding เพื่อให้มีพื้นที่ของข้อความ
+              boxShadow: '0px 0px 10px 5px rgba(0,0,0,0.1)' // เพิ่มเงาให้กล่อง,
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
             <Typography component="h1" variant="h5">
               Shipment Information
             </Typography>
@@ -97,16 +100,18 @@ const SlaughtererSend = () => {
                 </Grid>
                                                               
               </Grid>
-              <Button
-                href='/slaughterProduct'
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="warning"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                send
-              </Button>              
+              <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}> 
+                <Button
+                  href='/slaughtererProduct'
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="warning"
+                  sx={{ width: '50%' }}
+                            >
+                              send
+                </Button>
+              </Box>              
             </Box>
           </Box>
           

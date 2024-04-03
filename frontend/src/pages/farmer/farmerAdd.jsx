@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Button, TextField, Avatar, CssBaseline, Grid, Box, Typography, Container, MenuItem } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Navbar from "../../components/navbarFarmer";
+import axios from 'axios';
+
 
 const FarmerAdd = () => {
   const defaultTheme = createTheme();
@@ -56,19 +58,21 @@ const FarmerAdd = () => {
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      <Navbar/>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
-          sx={{
+           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    bgcolor: 'white', // เพิ่มสีขาวให้กับกล่อง
+    border: '2px solid #ccc', // ขยายขอบกล่องให้ใหญ่ขึ้น
+    borderRadius: '12px', // ขอบมนขึ้น
+    padding: '20px', // เพิ่ม padding เพื่อให้มีพื้นที่ของข้อความ
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
           <Typography component="h1" variant="h5">
             Add Pig
           </Typography>
@@ -133,15 +137,17 @@ const FarmerAdd = () => {
                 </TextField>
               </Grid>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="error"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Add
-            </Button>
+              <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Button
+                href="/farmerDashPig"
+                  type="submit"
+                  variant="contained"
+                  color="error"
+                  sx={{ mt: 3, mb: 2 }}
+                      >
+                    Add
+                </Button>
+              </Box>
           </Box>
         </Box>
       </Container>

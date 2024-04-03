@@ -1,6 +1,7 @@
 import { Button, TextField, Avatar, CssBaseline, Grid, Box, Typography, Container, MenuItem } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Navbar from "../../components/navbarFarmer";
 
 const FarmerAddBatch = () => {
     const defaultTheme = createTheme();
@@ -15,6 +16,7 @@ const FarmerAddBatch = () => {
 
     return (
         <ThemeProvider theme={defaultTheme}>
+            <Navbar/>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box

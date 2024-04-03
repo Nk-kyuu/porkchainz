@@ -44,7 +44,7 @@ function FarmerDashPig() {
               <p>Pig Information</p>
             </div>
             <div className="btn-addPig">
-              <Button href="/farmerAddPig" variant="contained">Add Pig</Button>
+              <Button href="/farmerAdd" variant="contained">Add Pig</Button>
             </div>
           </div>
           <div className="pig-table">

@@ -35,7 +35,7 @@ function slaughtererDash() {
                         <p>Batch Information</p>
                     </div>
                     <div className="btn-addProduct">
-                    <Button href="/slaughtererAddProduct" variant="contained">Add Product</Button>
+                    <Button href="/slaughtererAdd" variant="contained">Add Product</Button>
                     </div>
                 </div>
                 <div>

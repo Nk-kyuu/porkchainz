@@ -50,7 +50,7 @@ function slaughtererProduct() {
                     </div>
                 </div>
                 <div className="btn-addShip">
-                <Button href="/farmerAddBatch" variant="contained" color="error">Add Shipment</Button>
+                <Button href="/slaughtererSend" variant="contained" color="error">Add Shipment</Button>
                 </div>
 
             </div>
