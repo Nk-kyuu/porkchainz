@@ -28,6 +28,8 @@ const FarmerDashBatch = () => {
         setSelectedRow(null);
     };
 
+    
+
     return (
         <div style={{ textAlign: 'left', fontSize: '18px' }}>
             Batch Information

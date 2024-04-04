@@ -1,88 +1,70 @@
-import { Box } from '@mui/system';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
-import './adminHome.css';
+import Navbar from "../../components/navbarAdmin";
+import { useState, useEffect } from 'react';
+import "../farmer/farmerDashPig.css";
+import axios from 'axios';
 
-function adminHome() {
+const adminHome = () => {
     const columns = [
-        { field: 'userID', headerName: 'UserID', width: 90 },
-        {
-            field: 'role',
-            headerName: 'Role',
-            width: 110,
-            editable: true,
-        },
-        {
-            field: 'address',
-            headerName: 'Address',
-            width: 150,
-            editable: true,
-        },
-        {
-            field: 'username',
-            headerName: 'Username',
-            width: 150,
-            editable: true,
-        },
-        {
-            field: 'firstname',
-            headerName: 'First name',
-            width: 150,
-            editable: true,
-        },
-        {
-            field: 'lastname',
-            headerName: 'Last name',
-            width: 150,
-            editable: true,
-        },
-        {
-            field: 'email',
-            headerName: 'Email',
-            width: 150,
-            editable: true,
-        },
-        {
-            field: 'phone',
-            headerName: 'Phone',
-            width: 150,
-            editable: true,
-        },
-    ];
+    { field: 'ID', headerName: 'ID', width: 60 },
+    { field: 'role', headerName: 'role', width: 100 },
+    { field: 'firstName', headerName: 'First Name', width: 100 },
+    { field: 'lastName', headerName: 'Last Name', width: 100 },
+    { field: 'name', headerName: 'Company Name', width: 150 },
+    { field: 'location', headerName: 'Location', width: 100 },
+    { field: 'phone', headerName: 'Phone', width: 120 },
+];
 
-    const rows = [
-        { userID: 1, role: 'farmer', address: 'x0065454888', username: 'NK-Kyuu', firstname: 'Ingkamom', lastname: 'Chatree', email: 'namkhing1830@gmail.com', phone: '0950473789' },
-        { userID: 2, role: 'farmer', address: 'x0065454888', username: 'NK-Kyuu', firstname: 'Ingkamom', lastname: 'Chatree', email: 'namkhing1830@gmail.com', phone: '0950473789' },
-        { userID: 3, role: 'farmer', address: 'x0065454888', username: 'NK-Kyuu', firstname: 'Ingkamom', lastname: 'Chatree', email: 'namkhing1830@gmail.com', phone: '0950473789' },
-        { userID: 4, role: 'farmer', address: 'x0065454888', username: 'NK-Kyuu', firstname: 'Ingkamom', lastname: 'Chatree', email: 'namkhing1830@gmail.com', phone: '0950473789' },
-        { userID: 5, role: 'farmer', address: 'x0065454888', username: 'NK-Kyuu', firstname: 'Ingkamom', lastname: 'Chatree', email: 'namkhing1830@gmail.com', phone: '0950473789' },
-    ]
+
+    const [rows, setRows] = useState([]);
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/getUser');
+                setRows(response.data);
+            } catch (err) {
+                console.error('Error fetching data:', err);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+
 
     return (
-        <Box sx={{ height: 400, width: '100%' }}>
-            <h1 style={{ position: 'absolute', top: 100, left: 300}}>User Information</h1>
-            <Button variant='contained' color='warning' href='/admin/adduser' sx={{ position: 'absolute', top: 100, right: 100 }}>Add User</Button>
-        <Box sx={{ width: '80%', margin: 'auto', marginLeft: '300px', marginTop: '60px', display: 'flex'  }}>
-        <DataGrid
-            rows={rows}
-            columns={columns}
-            getRowId={(row) => row.userID}
-            initialState={{
-                pagination: {
-                    paginationModel: {
-                        pageSize: 5,
-                    },
-                },
-            }}
-            pageSizeOptions={[5]}
-            disableRowSelectionOnClick
-            checkboxSelection
-            autoPageSize
-            autoHeight
-        />
-        </Box>
-    </Box>
-    )
+        <div className="container">
+            <div className="Navbar">
+                <Navbar />
+            </div>
+            <div className="content">
+                <div className="headerFamer">
+                    <div className="pig-info">
+                        <p>User Information</p>
+                    </div>
+                    <div className="btn-addPig">
+                        <Button href="/admin/adduser" variant="contained" color='warning'>Add User</Button>
+                    </div>
+                </div>
+                <div className="pig-table">
+                    <div style={{ height: 370, width: '100%', backgroundColor: 'white' }}>
+                        <DataGrid
+                            rows={rows}
+                            getRowId={(row) => row.userID}
+                            columns={columns}
+                            pageSize={5}
+                            rowsPerPageOptions={[5, 10]}
+                            checkboxSelection
+
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default adminHome

@@ -28,6 +28,7 @@ h2 {
 form {
     width: 100%;
     max-width: 400px;
+    align-items: center;
 }
 
 input[type="email"],
@@ -51,9 +52,9 @@ button[type="submit"] {
     width: 25%;
 }
 
-body {
+/* body {
     background: linear-gradient(-45deg, #1058C5, #62BBC1);
-}
+} */
 
 /* button[type="submit"]:hover,
 button[type="button"]:hover {

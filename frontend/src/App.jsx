@@ -13,6 +13,8 @@ import RetailerDash from "./pages/retailer/retailerDash"
 import Login from './pages/login/login'
 import AdminHome from "./pages/admin/adminHome";
 import RegisterForm from "./pages/admin/registerForm";
+import LoginAdmin from './pages/login/loginAdmin';
+import AddAdmin from './pages/admin/addAdmin';
 
 function App() {
   return (
@@ -20,8 +22,10 @@ function App() {
       <BrowserRouter >
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/admin" element={<LoginAdmin/>} />
           <Route path="/admin/home" element={<AdminHome />} />
           <Route path="/admin/adduser" element={<RegisterForm/>} />
+          <Route path="/admin/addadmin" element={<AddAdmin/>} />
           <Route path="/farmerDashPig" element={<FarmerDashPig/>}/>
           <Route path="/slaughtererDash" element={<SlaughtererDash/>}/>
           <Route path="/slaughtererProduct" element={<SlaughtererProduct />}/>

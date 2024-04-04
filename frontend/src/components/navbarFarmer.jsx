@@ -3,8 +3,19 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link } from "react-router-dom";
 import { GiPig } from "react-icons/gi";
 import { Button } from "@mui/material";
+import axios from "axios";
 
 function navbar() {
+
+  const handleLogout = async () => {
+    try {
+        await axios.post('http://localhost:5000/logout');
+        localStorage.removeItem('token');
+        window.location.href = '/';
+    } catch (error) {
+        console.error('Logout error:', error);
+    }
+};
   return (
     <div className="navbar">
 
@@ -23,7 +34,7 @@ function navbar() {
             <Link to="/farmerDashBatch">Batch Information</Link>
           </li>
           <li>
-          <Button href="/logout" sx={{padding:'0 10px' }} variant="outlined">Logout</Button>
+          <Button onClick={handleLogout} sx={{padding:'0 10px' }} variant="outlined">Logout</Button>
           </li>
           <li>
           <Link to="/farmerDashPig"> <AccountCircleIcon  /></Link>
