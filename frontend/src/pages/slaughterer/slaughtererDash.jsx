@@ -1,61 +1,139 @@
 import Navbar from "../../components/navbarSlaghterer"
-import { DataGrid } from '@mui/x-data-grid';
 import "../slaughterer/slaughterer.css"
 import { Button } from "@mui/material";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+    Checkbox,
+    TablePagination
+} from '@mui/material';
 
-const columns = [
-    { field: 'batchID', headerName: 'batchID', width: 140 },
-    { field: 'batchName', headerName: 'group', width: 150 },
-    { field: 'quantity', headerName: 'quantity', width: 150 },
-    { field: 'weight',headerName: 'weight',width: 150,},
-    { field: 'description',headerName: 'description',width: 150,},
-    { field: 'farmName',headerName: 'farmName',width: 150,},
-    ];
 
-const rows = [
-    { id: 1, batchID: 1, batchName:'A', quantity: '3', weight: '130',description: '-' ,farmName: 'Chonti'},
-    { id: 2, batchID: 2, batchName:'A', quantity: '3', weight: '130',description: '-' ,farmName: 'Chonti' },
-    { id: 3, batchID: 3, batchName:'A', quantity: '3', weight: '130',description: '-' ,farmName: 'Chonti' },
-    { id: 4, batchID: 4, batchName:'A', quantity: '3', weight: '130',description: '-' ,farmName: 'Chonti' },
-    { id: 5, batchID: 6, batchName:'A', quantity: '3', weight: '130',description: '-' ,farmName: 'Chonti' },
-    { id: 6, batchID: 7, batchName:'A', quantity: '3', weight: '130',description: '-' ,farmName: 'Chonti' },
-    { id: 7, batchID: 8, batchName:'A', quantity: '3', weight: '130',description: '-' ,farmName: 'Chonti' },
-    { id: 8, batchID: 9, batchName:'A', quantity: '3', weight: '130',description: '-' ,farmName: 'Chonti'},
-    { id: 9, batchID: 10,batchName:'A', quantity: '3', weight: '130',description: '-' ,farmName: 'Chonti'},
-];
 function slaughtererDash() {
+    const [rows, setRows] = useState([]);
+    const [selectedRows, setSelectedRows] = useState([]);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/getInfo');
+                setRows(response.data);
+            } catch (err) {
+                console.error('Error fetching data:', err);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const handleRowCheckboxChange = (event, row) => {
+        const selectedRowIds = new Set(selectedRows);
+        if (event.target.checked) {
+            selectedRowIds.add(row.pigID);
+        } else {
+            selectedRowIds.delete(row.pigID);
+        }
+        setSelectedRows(Array.from(selectedRowIds));
+
+        const selectedRowsData = Array.from(selectedRowIds).map(id => {
+
+            const rowData = rows.find(r => r.pigID === id);
+            return { pigID: id, pigWeight: rowData.pigWeight };
+        });
+        localStorage.setItem('selectedRowsData', JSON.stringify(selectedRowsData));
+    };
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
     return (
         <div className="container">
-            <div className="Navbar">
-                <Navbar />
-            </div>
+            <Navbar />
             <div className="content">
-                <div className="headerBatch">
-                    <div className="batch-info">
+                <div className="headerFamer">
+                    <div className="pig-info">
                         <p>Batch Information</p>
                     </div>
-                    <div className="btn-addProduct">
-                    <Button href="/slaughtererAddProduct" variant="contained">Add Product</Button>
+                    <div className="btn-addPig">
+                        <Button href="/slaughtererAdd" color="warning" variant="contained">Add Product</Button>
                     </div>
                 </div>
-                <div>
-                    <div style={{ height: 370, width: '100%', backgroundColor:'white' }}>
-                        <DataGrid
-                            rows={rows}
-                            columns={columns}
-                            initialState={{
-                                pagination: {
-                                    paginationModel: { page: 0, pageSize: 5 },
-                                },
+                <div className="pig-table" style={{ fontSize: "13.5px", width: "80%" }}>
+                    <TableContainer component={Paper}>
+                        <Table style={{ minWidth: "700px" }}>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell >Select</TableCell>
+                                    <TableCell >batchID</TableCell>
+                                    <TableCell >batchName</TableCell>
+                                    <TableCell >batchQuantity</TableCell>
+                                    <TableCell >batchWeight</TableCell>
+                                    <TableCell >batchDescription</TableCell>
+                                    {/* <TableCell >farmerName</TableCell> */}
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+                                    <TableRow key={row.pigID}>
+                                        <TableCell style={{ padding: '5px' }}>
+                                            <Checkbox
+                                                checked={selectedRows.includes(row.pigID)}
+                                                onChange={(event) => handleRowCheckboxChange(event, row)}
+                                            />
+                                        </TableCell>
+                                        <TableCell >{row.batchID}</TableCell>
+                                        <TableCell >{row.batchName}</TableCell>
+                                        <TableCell >{row.batchQuantity}</TableCell>
+                                        <TableCell >{row.batchWeight}</TableCell>
+                                        <TableCell >{row.batchDescription}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <TablePagination
+                        rowsPerPageOptions={[5, 10, 25]}
+                        component="div"
+                        count={rows.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                    />
+                </div>
+                <div className="btn-addBatch">
+                    {selectedRows.length > 0 && (
+                        <Link
+                            to={{
+                                pathname: "/farmerAddBatch",
+                                state: { selectedRows: selectedRows }
                             }}
-                            pageSizeOptions={[5, 10]}
-                            checkboxSelection
-                        />
-                    </div>
+                        >
+                            <Button variant="contained" color="error">
+                                Add Batch
+                            </Button>
+                        </Link>
+                    )}
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 

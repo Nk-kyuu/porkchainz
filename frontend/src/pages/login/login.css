@@ -52,7 +52,21 @@ button[type="submit"] {
 }
 
 body {
-    background: linear-gradient(-45deg, #1058C5, #62BBC1);
+    background: linear-gradient(-45deg, #1058C5, #62BBC1) no-repeat;
+    background-size: 200% 200%; /* ขยายพื้นที่เพื่อให้ปรับตามขนาดหน้าจอ */
+    /* animation: gradientAnimation 10s ease infinite; เพิ่ม animation เพื่อให้สีเคลื่อนไหว */
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 /* button[type="submit"]:hover,
