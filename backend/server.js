@@ -24,7 +24,6 @@ app.use("/", test);
 app.use("/", pig);
 app.use("/",batch);
 
-
 app.use("/", farmerAdd);
 app.use("/", farmerAddBatch);
 app.use("/", slaughtererAdd );
