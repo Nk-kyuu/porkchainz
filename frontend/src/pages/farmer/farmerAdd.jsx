@@ -145,6 +145,7 @@ const FarmerAdd = () => {
             </Grid>
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 <Button
+                href='/farmerDashPig'
                   type="submit"
                   variant="contained"
                   color="error"

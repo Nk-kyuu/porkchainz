@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const test = require('./test')
 const farmer = require('./farmer')
-const batch = require('./batch')
+
 
 
 const batch = require('./batchTable');
