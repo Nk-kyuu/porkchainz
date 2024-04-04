@@ -7,7 +7,7 @@ const farmer = express();
 farmer.get('/farmer', (req,res) => {
     res.send("hello farmer");
 });
-
+ 
 //Add Pig Info
 farmer.post("/api/addpig", jsonParser, async (req, res) => {
     const { pigWeight, pigStartDate, pigEndDate, pigBreed, pigHealth } = req.body;

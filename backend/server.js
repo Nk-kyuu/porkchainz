@@ -35,8 +35,6 @@ app.use("/", test);
 
 app.use("/", farmer);
 
-app.use("/", batch);
-
 app.use("/", pig);
 
 

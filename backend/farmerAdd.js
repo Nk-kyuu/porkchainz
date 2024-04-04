@@ -3,7 +3,7 @@ const db = require('./database'); // เรียกใช้ไฟล์ databa
 
 const farmerAdd = express();
 
-farmerAdd.use(express.json());
+farmerAdd.use(express.json());    
 
 // API endpoint สำหรับการเพิ่มข้อมูลหมู
 farmerAdd.post('/api/addPig', (req, res) => {
@@ -21,5 +21,7 @@ farmerAdd.post('/api/addPig', (req, res) => {
     }
   });
 });
+
+
 
 module.exports = farmerAdd;
