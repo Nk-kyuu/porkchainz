@@ -2,35 +2,64 @@ import { Button,TextField,Avatar,CssBaseline,Grid,Box,Typography,Container,MenuI
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Navbar from "../../components/navbarSlaghterer"
 
+import React, { useState } from 'react';
+import axios from 'axios'; // เพิ่ม import สำหรับ axios
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DatePicker } from '@mui/x-date-pickers';
 
 const SlaughtererAdd = () => {
-    const defaultTheme = createTheme();
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        // console.log({
-        //   email: data.get('email'),
-        //   password: data.get('password'),
-        // });
-      };
-      const currencies = [
-        {
-          value: '1',
-          label: '00001',
-        },
-        
-        {
-          value: '2',
-          label: '00002',
-        },
+  const defaultTheme = createTheme();
+  const [formData, setFormData] = useState({
+    productName: '',
+    productWeight: '',
+    productDate: '',
+    batchID: '1', // default value
+  });
 
-        {
-          value: '3',
-          label: '00003',
-        }
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
+  const handleProductDateChange = (date) => {
+    setFormData({ ...formData, productDate: date });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:5000/api/slaughtererAdd', formData); // ใช้ axios.post แทน fetch
+      console.log(formData);
+      if (!response.data.success) {
+        throw new Error('Failed to add product');
+      }
+
+      // Redirect
+      window.location.href = '/slaughtererProduct';
+    } catch (error) {
+      console.error('Error adding product:', error);
+    }
+  };
+  
+
+  const currencies = [
+    {
+      value: '1',
+      label: '00001',
+    },
+        
+    {
+      value: '2',
+      label: '00002',
+    },
+
+    {
+      value: '3',
+      label: '00003',
+    }
         
         
-      ];
+  ];
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -61,37 +90,47 @@ const SlaughtererAdd = () => {
                     name="productName"                   
                     fullWidth
                     id="productName"
-                    label="ProductName"
+                    placeholder='Procuct Name'
+                    //label="productName"
                     autoFocus
+                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
                     id="productWeight"
-                    label="ProductWeight"
+                    placeholder='Product Weight'
+                    //label="productWeight"
                     name="productWeight"
                     autoComplete="productWeight"
+                    onChange={handleChange}
                   />
                 </Grid>
                 
-
                 <Grid item xs={12} sm={6}>
-                  <TextField
-                    fullWidth
-                    id="productDate"
-                    label="ProductDate"
-                    name="productDate"
-                    autoComplete="productDate"
-                  />
-                </Grid>
-                             
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker>
+                      {/* id="productDate" */}
+                      label="productDate"
+                      {/* name="productDate" */}
+                      {/* autoComplete="productDate" */}
+                      value={formData.productDate}
+                      onChange={handleProductDateChange}
+                      renderInput={(params) => <TextField {...params} />}
+                    </DatePicker>
+                  </LocalizationProvider>
+                </Grid>  
                 <Grid item xs={12} sm={4}>
                     <TextField
-                        id="outlined-select-currency"
+                        id="batchID"
                         select
-                        label="BatchID"
+                        //placeholder='batchID'
+                        //label="batchID"
                         defaultValue="1"
+                        value={formData.batchID}
+                        name="batchID"
+                        onChange={handleChange}
                         helperText="Please select BatchID">
                         {currencies.map((option) => (
                         <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>))}
@@ -113,10 +152,10 @@ const SlaughtererAdd = () => {
             </Box>
           </Box>
           
-        </Container>
-      </ThemeProvider>
+      </Container>
+    </ThemeProvider>
         
-    );
-  }
+  );
+}
   
-  export default SlaughtererAdd;
+export default SlaughtererAdd;

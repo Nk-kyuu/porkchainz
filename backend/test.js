@@ -35,4 +35,5 @@ test.get("/getTest", (req, res) => {
         }
     })
 })
+
 module.exports = test;

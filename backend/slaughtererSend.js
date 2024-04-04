@@ -5,19 +5,61 @@ const slaughtererSend = express();
 
 slaughtererSend.use(express.json());
 
-// API endpoint สำหรับการเพิ่มข้อมูลหมู
-slaughtererSend.post('/api/slaughtererSend', (req, res) => {
-  const { source, destination ,sendDate ,estimateArrivalDate } = req.body;
+slaughtererSend.get('/slaughterer', (req,res) => {
+  res.send("hello slaughterer");
+});
 
-  // Query เพื่อเพิ่มข้อมูลลงในฐานข้อมูล
-  const sql = 'INSERT INTO shipment ( source, destination ,sendDate ,estimateArrivalDate) VALUES (?, ?, ?, ?)';
-  db.query(sql, [source, destination ,sendDate ,estimateArrivalDate], (err, result) => {
+//API endpoint สำหรับการเพิ่มข้อมูลหมู
+slaughtererSend.post('/api/slaughtererSend', (req, res) => {
+  const { source, retailerID, sendDate, estimateArrivalDate } = req.body;
+
+  //ตรวจสอบว่าค่าถูกส่งมาครบถ้วน
+  if (!source || !retailerID || !sendDate || !estimateArrivalDate) {
+    return res.status(400).json({ success: false, message: 'Missing required fields' });
+  }
+
+  // Query เพื่อดึง retailerID จากตาราง retailer
+  const retailerQuery = 'SELECT * FROM retailer WHERE retailerID = ?';
+  db.query(retailerQuery, [retailerID], (retailerErr, retailerResult) => {
+    if (retailerErr) {
+      console.error('Error fetching retailer:', retailerErr);
+      res.status(500).json({ success: false, message: 'Failed to fetch retailer' });
+      return;
+    }
+    if (retailerResult.length === 0) {
+      res.status(404).json({ success: false, message: 'Retailer not found' });
+      return;
+    }
+
+    const destination = retailerResult[0].retailerID;
+
+    // Query เพื่อเพิ่มข้อมูลลง shipment
+    const sql = 'INSERT INTO shipment (source, destination, sendDate, estimateArrivalDate) VALUES (?, ?, ?, ?)';
+    db.query(sql, [source, destination, sendDate, estimateArrivalDate], (err, result) => {
+      if (err) {
+        console.error('Error adding shipment:', err);
+        res.status(500).json({ success: false, message: 'Failed to add shipment' });
+      } else {
+        console.log('Shipment added successfully');
+        res.status(200).json({ success: true, message: 'Shipment added successfully' });
+      }
+    });
+  });
+});
+
+
+
+// API endpoint สำหรับการดึงข้อมูล shipment ทั้งหมด
+slaughtererSend.get('/api/shipment', (req, res) => {
+  // Query เพื่อดึงข้อมูล shipment ทั้งหมด
+  const sql = 'SELECT * FROM shipment';
+  db.query(sql, (err, results) => {
     if (err) {
-      console.error('Error adding shipment:', err);
-      res.status(500).json({ success: false, message: 'Failed to add shipment' });
+      console.error('Error fetching shipments:', err);
+      res.status(500).json({ success: false, message: 'Failed to fetch shipments' });
     } else {
-      console.log('shipment added successfully');
-      res.status(200).json({ success: true, message: 'shipment added successfully' });
+      console.log('Shipments fetched successfully');
+      res.status(200).json({ success: true, message: 'Shipments fetched successfully', shipments: results });
     }
   });
 });
