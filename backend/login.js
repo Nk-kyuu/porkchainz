@@ -13,92 +13,6 @@ login.use(express.json());
 login.use(bodyParser.urlencoded({ extends: true }));
 login.use(bodyParser.json());
 
-// Admin add user/register endpoint
-login.post('/register', (req, res) => {
-    const { adminEmail,userData } = req.body;
-
-    // Check if admin exists
-    db.query(
-        'SELECT * FROM admin WHERE adminEmail = ?',
-        [adminEmail,],
-        (err, adminResult) => {
-            if (err) {
-                return res.status(500).json({ error: 'Internal server error' });
-            }
-
-            if (adminResult.length === 0) {
-                return res.status(403).json({ error: 'Unauthorized' });
-            }
-
-            // Iterate through user data array
-            userData.forEach(user => {
-                const { email, password, role, userInfo } = user;
-
-                // Insert new user
-                db.query(
-                    'INSERT INTO user (email, password, role, createBy) VALUES (?, ?, ?, ?)',
-                    [email, password, role, adminResult[0].adminID],
-                    (err, userResult) => {
-                        if (err) {
-                            return res.status(500).json({ error: 'Failed to register user' });
-                        }
-
-                        // Get the ID of the newly inserted user
-                        const userID = userResult.insertId;
-
-                        // Insert user-specific info into respective tables
-                        switch (role) {
-                            case 'farmer':
-                                const { farmerFirstName, farmerLastName, farmName, farmLocation, farmerPhone } = userInfo;
-                                db.query(
-                                    'INSERT INTO farmer (farmerFirstName, farmerLastName, farmName, farmLocation, farmerPhone, userID) VALUES (?, ?, ?, ?, ?, ?)',
-                                    [farmerFirstName, farmerLastName, farmName, farmLocation, farmerPhone, userID],
-                                    (err, farmerResult) => {
-                                        if (err) {
-                                            console.error(err);
-                                            return res.status(500).json({ error: 'Failed to register farmer' });
-                                        }
-                                    }
-                                );
-                                break;
-                            case 'slaughterer':
-                                const { slaughtererFirstName, slaughtererLastName, slaughterName, slaughterLocation, slaughtererPhone } = userInfo;
-                                db.query(
-                                    'INSERT INTO slaughterer (slaughtererFirstName, slaughtererLastName, slaughterName, slaughterLocation, slaughtererPhone, userID) VALUES (?, ?, ?, ?, ?, ?)',
-                                    [slaughtererFirstName, slaughtererLastName, slaughterName, slaughterLocation, slaughtererPhone, userID],
-                                    (err, slaughtererResult) => {
-                                        if (err) {
-                                            console.error(err);
-                                            return res.status(500).json({ error: 'Failed to register slaughterer' });
-                                        }
-                                    }
-                                );
-                                break;
-                            case 'retailer':
-                                const { retailerFirstName, retailerLastName, retailName, retailLocation, retailerPhone } = userInfo;
-                                db.query(
-                                    'INSERT INTO retailer (retailerFirstName, retailerLastName, retailName, retailLocation, retailerPhone, userID) VALUES (?, ?, ?, ?, ?, ?)',
-                                    [retailerFirstName, retailerLastName, retailName, retailLocation, retailerPhone, userID],
-                                    (err, retailerResult) => {
-                                        if (err) {
-                                            console.error(err);
-                                            return res.status(500).json({ error: 'Failed to register retailer' });
-                                        }
-                                    }
-                                );
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                );
-            });
-
-            res.status(200).json({ message: 'Users registered successfully' });
-        }
-    );
-});
-
 
 login.post("/login", jsonParser, (req, res) => {
     const email = req.body.email;
@@ -128,6 +42,32 @@ login.post("/login", jsonParser, (req, res) => {
     );
 });
 
+login.post('/admin/login', jsonParser, (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    db.query('SELECT * FROM admin WHERE adminEmail = ?',
+    [email],
+    (err, admin, fields) => {
+        if (err) {
+            return res.status(500).json({ status: "error", message: "Internal server error" });
+        }
+        if (admin.length === 0) {
+            return res.status(404).json({ status: "error", message: "No user found" });
+        }
+
+        // Compare passwords directly
+        if (password === admin[0].adminPassword) {
+            const token = jwt.sign({ email: admin[0].adminEmail }, secret, {
+                expiresIn: "1h",
+            });
+            return res.status(200).json({ status: "ok", message: "success", token });
+        } else {
+            return res.status(401).json({ status: "error", message: "Authentication failed" });
+        }
+    })
+})
+
 login.post('/login/metamask', (req, res) => {
     const { address, role } = req.body;
 
@@ -140,6 +80,16 @@ login.post('/login/metamask', (req, res) => {
     // Send token to the client
     return res.status(200).json({ status: "ok", message: "success", token });
     // res.json({ token });
+});
+
+login.post("/admin/authen", jsonParser, (req, res, next) => {
+    try {
+        const AdminToken = req.headers.authorization.split(" ")[1];
+        const decoded = jwt.verify(AdminToken, secret);
+        res.json({ status: "ok", decoded });
+    } catch (err) {
+        res.json({ status: "error", message: err.message });
+    }
 });
 
 login.post("/authen", jsonParser, (req, res, next) => {

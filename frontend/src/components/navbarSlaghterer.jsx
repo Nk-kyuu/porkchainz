@@ -2,8 +2,18 @@ import { Link } from "react-router-dom";
 import { GiPig } from "react-icons/gi";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Button } from "@mui/material";
+import axios from "axios";
 
 function navbarSlaghterer() {
+  const handleLogout = async () => {
+    try {
+        await axios.post('http://localhost:5000/logout');
+        localStorage.removeItem('token');
+        window.location.href = '/';
+    } catch (error) {
+        console.error('Logout error:', error);
+    }
+};
     return (
         <div className="navbar">
     
@@ -25,7 +35,7 @@ function navbarSlaghterer() {
               <Link to="/slaughtererAddShip">shipment information </Link>
               </li>
               <li>
-              <Button href="/" sx={{padding:'0 10px' }} variant="outlined">Logout</Button>
+              <Button onClick={handleLogout} sx={{padding:'0 10px' }} variant="outlined">Logout</Button>
               </li>
               <li>
               <Link to="/farmerDashPig"> <AccountCircleIcon  /></Link>

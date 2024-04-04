@@ -11,6 +11,8 @@ const slaughtererSend = require('./slaughtererSend') //add product**
 const addBatch = require('./addBatch') // add batch
 const slaughtererDash =  require('./slaughtererDash') // get data batch to slaughterer
 const login = require('./login')
+const addUser = require('./addUser')
+const retailer = require('./retailer')
 
 const app = express();
 //post
@@ -35,6 +37,8 @@ app.use("/", slaughtererAdd );
 app.use("/", slaughtererSend );
 app.use("/", slaughtererDash );
 app.use("/", login);
+app.use("/", addUser);
+app.use("/", retailer)
 
 const port = process.env.PORT 
 app.listen(port, () => {
