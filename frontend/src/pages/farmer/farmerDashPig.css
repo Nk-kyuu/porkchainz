@@ -14,11 +14,28 @@
     display: flex;
     justify-content: space-between; 
     flex-direction: row;
-    width: 70%;
-   
-    
+    width: 80%;
+ }
+ .pig-info{
+   color: rgb(0, 0, 0);
+   font-weight: bold;
+   font-size: 1.2rem;
  }
   .btn-addBatch{
     margin-top: 20px;
   }
-  
+
+  .table-pig {
+   border-collapse: collapse;
+   width: 100%;
+   background-color: white;
+ }
+ 
+ .table-pig th, .table-pig td {
+   border-bottom: 1px solid #ddd;
+   padding: 10px;
+   text-align: left;
+ }
+ 
+
+ 

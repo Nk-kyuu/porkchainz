@@ -20,7 +20,7 @@ function navbarRetailer() {
             </ul>
             <ul className="item-2">
               <li>
-              <Button href="/logout" sx={{padding:'0 10px' }} variant="outlined">Logout</Button>
+              <Button href="/" sx={{padding:'0 10px' }} variant="outlined">Logout</Button>
               </li>
               <li>
               <Link to="/farmerDashPig"> <AccountCircleIcon  /></Link>
