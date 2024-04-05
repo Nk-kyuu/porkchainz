@@ -93,7 +93,7 @@ user.post('/admin/register', jsonParser, (req, res) => {
 
 user.post('/register', jsonParser, (req, res) => {
     const adminEmail = req.body.adminEmail;
-    const userData = req.body.userData;
+    const userData = req.body.user;
 
     // Start a transaction
     db.beginTransaction(err => {
@@ -118,105 +118,97 @@ user.post('/register', jsonParser, (req, res) => {
                     });
                 }
 
-                // Array to store promises for user creation
-                const userCreationPromises = [];
+                // Define a promise for user creation
+                const userCreationPromise = new Promise((resolve, reject) => {
+                    const { email, password, role, userInfo } = userData;
 
-                // Iterate through user data array
-                userData.forEach(user => {
-                    const { email, password, role, userInfo } = user;
-
-                    // Define a promise for user creation
-                    const userCreationPromise = new Promise((resolve, reject) => {
-                        // Insert user into `user` table
-                        db.query(
-                            'INSERT INTO user (email, password, role, createBy) VALUES (?, ?, ?, ?)',
-                            [email, password, role, adminResult[0].adminID],
-                            (err, userResult) => {
-                                if (err) {
-                                    console.error(err);
-                                    return reject('Failed to register user');
-                                }
-
-                                const userID = userResult.insertId; // Obtain the ID of the newly inserted user
-
-                                // Insert user-specific info into respective tables based on role
-                                switch (role) {
-                                    case 'farmer':
-                                        // Insert farmer
-                                        db.query(
-                                            'INSERT INTO farmer (farmerFirstName, farmerLastName, farmName, farmLocation, farmerPhone, userID) VALUES (?, ?, ?, ?, ?, ?)',
-                                            [userInfo.farmerFirstName, userInfo.farmerLastName, userInfo.farmName, userInfo.farmLocation, userInfo.farmerPhone, userID],
-                                            (err, farmerResult) => {
-                                                if (err) {
-                                                    console.error(err);
-                                                    return reject('Failed to register farmer');
-                                                }
-                                                resolve(); // Resolve the promise once farmer is inserted successfully
-                                            }
-                                        );
-                                        break;
-                                    case 'slaughterer':
-                                        // Insert slaughterer
-                                        db.query(
-                                            'INSERT INTO slaughterer (slaughtererFirstName, slaughtererLastName, slaughterName, slaughterLocation, slaughtererPhone, userID) VALUES (?, ?, ?, ?, ?, ?)',
-                                            [userInfo.slaughtererFirstName, userInfo.slaughtererLastName, userInfo.slaughterName, userInfo.slaughterLocation, userInfo.slaughtererPhone, userID],
-                                            (err, slaughtererResult) => {
-                                                if (err) {
-                                                    console.error(err);
-                                                    return reject('Failed to register slaughterer');
-                                                }
-                                                resolve(); // Resolve the promise once slaughterer is inserted successfully
-                                            }
-                                        );
-                                        break;
-                                    case 'retailer':
-                                        // Insert retailer
-                                        db.query(
-                                            'INSERT INTO retailer (retailerFirstName, retailerLastName, retailName, retailLocation, retailerPhone, userID) VALUES (?, ?, ?, ?, ?, ?)',
-                                            [userInfo.retailerFirstName, userInfo.retailerLastName, userInfo.retailName, userInfo.retailLocation, userInfo.retailerPhone, userID],
-                                            (err, retailerResult) => {
-                                                if (err) {
-                                                    console.error(err);
-                                                    return reject('Failed to register retailer');
-                                                }
-                                                resolve(); // Resolve the promise once retailer is inserted successfully
-                                            }
-                                        );
-                                        break;
-                                    default:
-                                        reject('Unknown role'); // Reject for unknown role
-                                        break;
-                                }
+                    // Insert user into `user` table
+                    db.query(
+                        'INSERT INTO user (email, password, role, createBy) VALUES (?, ?, ?, ?)',
+                        [email, password, role, adminResult[0].adminID],
+                        (err, userResult) => {
+                            if (err) {
+                                console.error(err);
+                                return reject('Failed to register user');
                             }
-                        );
-                    });
 
-                    // Add the promise to the array
-                    userCreationPromises.push(userCreationPromise);
+                            const userID = userResult.insertId; // Obtain the ID of the newly inserted user
+
+                            // Insert user-specific info into respective tables based on role
+                            switch (role) {
+                                case 'farmer':
+                                    // Insert farmer
+                                    db.query(
+                                        'INSERT INTO farmer (farmerFirstName, farmerLastName, farmName, farmLocation, farmerPhone, userID) VALUES (?, ?, ?, ?, ?, ?)',
+                                        [userInfo.farmerFirstName, userInfo.farmerLastName, userInfo.farmName, userInfo.farmLocation, userInfo.farmerPhone, userID],
+                                        (err, farmerResult) => {
+                                            if (err) {
+                                                console.error(err);
+                                                return reject('Failed to register farmer');
+                                            }
+                                            resolve(); // Resolve the promise once farmer is inserted successfully
+                                        }
+                                    );
+                                    break;
+                                case 'slaughterer':
+                                    // Insert slaughterer
+                                    db.query(
+                                        'INSERT INTO slaughterer (slaughtererFirstName, slaughtererLastName, slaughterName, slaughterLocation, slaughtererPhone, userID) VALUES (?, ?, ?, ?, ?, ?)',
+                                        [userInfo.slaughtererFirstName, userInfo.slaughtererLastName, userInfo.slaughterName, userInfo.slaughterLocation, userInfo.slaughtererPhone, userID],
+                                        (err, slaughtererResult) => {
+                                            if (err) {
+                                                console.error(err);
+                                                return reject('Failed to register slaughterer');
+                                            }
+                                            resolve(); // Resolve the promise once slaughterer is inserted successfully
+                                        }
+                                    );
+                                    break;
+                                case 'retailer':
+                                    // Insert retailer
+                                    db.query(
+                                        'INSERT INTO retailer (retailerFirstName, retailerLastName, retailName, retailLocation, retailerPhone, userID) VALUES (?, ?, ?, ?, ?, ?)',
+                                        [userInfo.retailerFirstName, userInfo.retailerLastName, userInfo.retailName, userInfo.retailLocation, userInfo.retailerPhone, userID],
+                                        (err, retailerResult) => {
+                                            if (err) {
+                                                console.error(err);
+                                                return reject('Failed to register retailer');
+                                            }
+                                            resolve(); // Resolve the promise once retailer is inserted successfully
+                                        }
+                                    );
+                                    break;
+                                default:
+                                    reject('Unknown role'); // Reject for unknown role
+                                    break;
+                            }
+                        }
+                    );
                 });
 
-                // Execute all promises within the transaction
-                Promise.all(userCreationPromises)
+                // Execute the user creation promise
+                userCreationPromise
                     .then(() => {
-                        // Commit the transaction if all promises are resolved
+                        // Commit the transaction if promise is resolved
                         db.commit(err => {
                             if (err) {
                                 console.error(err);
                                 return res.status(500).json({ error: 'Failed to commit transaction' });
                             }
-                            // All users and corresponding info inserted successfully
-                            res.status(200).json({ message: 'Users registered successfully' });
+                            // User and corresponding info inserted successfully
+                            res.status(200).json({status: 'ok', message: 'User registered successfully' });
                         });
                     })
                     .catch(error => {
-                        // Rollback the transaction if any promise is rejected
+                        // Rollback the transaction if promise is rejected
                         db.rollback(() => {
-                            res.status(500).json({ error, message: 'Users registration failed' });
+                            res.status(500).json({ error, message: 'User registration failed' });
                         });
                     });
             }
         );
     });
 });
+
 
 module.exports = user;
