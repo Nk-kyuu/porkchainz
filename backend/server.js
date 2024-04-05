@@ -13,6 +13,7 @@ const slaughtererDash =  require('./slaughtererDash') // get data batch to slaug
 const login = require('./login')
 const addUser = require('./addUser')
 const retailer = require('./retailer')
+const consumer = require('./consumer')
 const slaughtererProduct = require('./slaughterProduct')// show product that add
 const slaughtererShip = require('./slaughtererShip') // show shipment that add
 
@@ -43,6 +44,7 @@ app.use("/", slaughtererDash );
 app.use("/", login);
 app.use("/", addUser);
 app.use("/", retailer)
+app.use("/", consumer)
 
 const port = process.env.PORT 
 app.listen(port, () => {

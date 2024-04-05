@@ -5,18 +5,25 @@ const bodyParser = require('body-parser')
 const retailer = express();
 const jsonParser = bodyParser.json();
 
-retailer.get('/retailer/getShipment', (req, res) => {
-    db.query(`SELECT shipment.shipmentID, shipment.source, retailer.retailName, shipment.sendDate, 
-    shipment.estimateArrivalDate, shipment.shipmentStatus FROM shipment 
-    INNER JOIN retailer ON shipment.shipmentID = retailer.retailerID`,
-    (err, result) => {
-        if(err){
-            res.status(500).json({ status: "error", message: "Internal server"})
-        }else {
-            res.json(result)
+retailer.get('/retailer/getShipment/:retailerID', (req, res) => {
+    const retailerID = req.params.retailerID;
+    db.query(
+        `SELECT shipment.shipmentID, shipment.source, retailer.retailName, shipment.sendDate, 
+        shipment.estimateArrivalDate, shipment.shipmentStatus 
+        FROM shipment 
+        INNER JOIN retailer ON shipment.destination = retailer.retailerID
+        WHERE retailer.retailerID = ?`,
+        [retailerID],
+        (err, result) => {
+            if(err) {
+                res.status(500).json({ status: "error", message: "Internal server error" });
+            } else {
+                res.json(result);
+            }
         }
-    })
-})
+    );
+});
+
 
 retailer.put('/retailer/updateShipmentStatus/:shipmentID', (req, res) => {
     const shipmentID = req.params.shipmentID;
