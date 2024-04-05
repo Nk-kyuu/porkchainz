@@ -25,13 +25,42 @@ function FarmerDashPig() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/pigInfo');
-        setRows(response.data);
+        const farmerID = localStorage.getItem('farmerID');
+        if (!farmerID) {
+          console.error('Farmer ID not found ');
+          return;
+        }
+        const response = await axios.post('http://localhost:5000/pigInfo', { farmerID });
+        setRows(response.data); 
       } catch (err) {
         console.error('Error fetching data:', err);
       }
     };
-
+    fetchData();
+  }, []);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const email = localStorage.getItem('email');
+        if (!email) {
+          console.error('Email not found in localStorage');
+          return;
+        }
+        const response = await axios.post('http://localhost:5000/pigFarmerID', {
+          email: email 
+        });
+        console.log('Response data:', response.data);
+        const farmerID = response.data.farmerID;
+        if (!farmerID) {
+          console.error('Farmer ID not ');
+          return;
+        }
+        localStorage.setItem('farmerID', farmerID);
+      } catch (err) {
+        console.error('Error fetching data:', err);
+      }
+    };
     fetchData();
   }, []);
 
@@ -43,7 +72,6 @@ function FarmerDashPig() {
       selectedRowIds.delete(row.pigID);
     }
     setSelectedRows(Array.from(selectedRowIds));
-
     const selectedRowsData = rows.filter(row => selectedRowIds.has(row.pigID))
       .map(row => ({ pigID: row.pigID, pigWeight: row.pigWeight }));
     localStorage.setItem('selectedRowsData', JSON.stringify(selectedRowsData));
@@ -57,7 +85,6 @@ function FarmerDashPig() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
   return (
     <div className="container">
       <Navbar />
@@ -70,9 +97,9 @@ function FarmerDashPig() {
             <Button href="/farmerAdd" color="warning" variant="contained">Add Pig</Button>
           </div>
         </div>
-        <div className="pig-table" style={{ fontSize: "13.5px", width: "80%" }}>
+        <div className="pig-table" style={{ fontSize: "13.5px", width: "80%",backgroundColor: "white" ,height:"300px" }}>
           <TableContainer component={Paper}>
-            <Table style={{ minWidth: "700px" }}>
+            <Table style={{ minWidth: "700px"  }}>
               <TableHead>
                 <TableRow>
                   <TableCell >Select</TableCell>
@@ -104,7 +131,8 @@ function FarmerDashPig() {
               </TableBody>
             </Table>
           </TableContainer>
-          <TablePagination
+        </div>
+        <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
             count={rows.length}
@@ -113,7 +141,6 @@ function FarmerDashPig() {
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
-        </div>
         <div className="btn-addBatch">
           {selectedRows.length > 0 && (
             <Link

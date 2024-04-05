@@ -2,32 +2,42 @@ const express = require("express");
 const db = require("./database");
 const batch = express();
 
-// Middleware เพื่อให้อ่านข้อมูลจาก request body ในรูปแบบ JSON
+
 batch.use(express.json());
 
-// GET endpoint เพื่อเรียกดูข้อมูลของ batch และ slaughterer
-batch.get('/batchInfo', (req, res) => {
-    db.query("SELECT * FROM batch", (err, batchResult) => {
-        if (err) {
-            res.status(500).json({ error: err.message });
-        } else {
-            db.query("SELECT * FROM slaughterer", (err, slaughtererResult) => {
-                if (err) {
-                    res.status(500).json({ error: err.message });
-                } else {
-                    res.json({ batch: batchResult, slaughterer: slaughtererResult });
-                }
-            });
-        }
-    });
+
+batch.post('/batchInfo', (req, res) => {
+    const farmerID = req.body.farmerID 
+
+
+db.query("SELECT batch.batchID FROM pig JOIN batch ON pig.batchID = batch.batchID WHERE pig.farmerID = ?", [farmerID], (err, batchIDResult) => {
+    if (err) {
+        res.status(500).json({ error: err.message });
+    } else {
+        const batchIDs = batchIDResult.map(row => row.batchID);
+        db.query("SELECT * FROM batch WHERE batchID IN (?)", [batchIDs], (err, batchResult) => {
+            if (err) {
+                res.status(500).json({ error: err.message });
+            } else {
+                db.query("SELECT * FROM slaughterer", (err, slaughtererResult) => {
+                    if (err) {
+                        res.status(500).json({ error: err.message });
+                    } else {
+                        res.json({ batch: batchResult, slaughterer: slaughtererResult, farmerID: farmerID });
+                    }
+                });
+            }
+        });
+    }
+});
 });
 
-// PUT endpoint เพื่ออัปเดต slaughtererID ในตาราง batch
+
 batch.put('/updateBatch/:batchID', (req, res) => {
     const batchID = req.params.batchID;
-    const slaughtererID = req.body.slaughtererID; // รับ slaughtererID จาก req.body
+    const slaughtererID = req.body.slaughtererID; 
 
-    // ตรวจสอบว่า slaughtererID ถูกส่งมาหรือไม่
+   
     if (!slaughtererID) {
         return res.status(400).json({ error: "Missing slaughtererID in request body" });
     }
@@ -56,3 +66,5 @@ batch.put('/updateBatch/:batchID', (req, res) => {
 });
 
 module.exports = batch;
+
+

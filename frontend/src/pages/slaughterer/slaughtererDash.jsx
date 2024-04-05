@@ -1,9 +1,10 @@
-import Navbar from "../../components/navbarSlaghterer"
-import "../slaughterer/slaughterer.css"
+// slaughtererDash.js
+import Navbar from "../../components/navbarSlaghterer";
+import "../slaughterer/slaughterer.css";
 import { Button } from "@mui/material";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+
 import {
     Table,
     TableBody,
@@ -12,46 +13,62 @@ import {
     TableHead,
     TableRow,
     Paper,
-    Checkbox,
     TablePagination
 } from '@mui/material';
 
-
-function slaughtererDash() {
+function SlaughtererDash() {
     const [rows, setRows] = useState([]);
-    const [selectedRows, setSelectedRows] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
+
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const response = await axios.get('http://localhost:5000/getInfo');
-                setRows(response.data);
-            } catch (err) {
-                console.error('Error fetching data:', err);
+          try {
+            const slaughtererID = localStorage.getItem('slaughtererID');
+            if (!slaughtererID) {
+              console.error('slaughterer ID not found ');
+              return;
             }
+            const response = await axios.post('http://localhost:5000/getInfo', { slaughtererID });
+            setRows(response.data); 
+          } catch (err) {
+            console.error('Error fetching data:', err);
+          }
         };
-
         fetchData();
-    }, []);
+      }, []);
+      
 
-    const handleRowCheckboxChange = (event, row) => {
-        const selectedRowIds = new Set(selectedRows);
-        if (event.target.checked) {
-            selectedRowIds.add(row.pigID);
-        } else {
-            selectedRowIds.delete(row.pigID);
-        }
-        setSelectedRows(Array.from(selectedRowIds));
+      useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const email = localStorage.getItem('email');
+            if (!email) {
+              console.error('Email not found in localStorage');
+              return;
+            }
+            const response = await axios.post('http://localhost:5000/slaughtererID', {
+              email: email 
+            });
+            console.log('Response data:', response.data);
+            const slaughtererID = response.data.slaughtererID;
+            if (!slaughtererID) {
+              console.error('slaughtererID not ');
+              return;
+            }
+            localStorage.setItem('slaughtererID', slaughtererID);
+          } catch (err) {
+            console.error('Error fetching data:', err);
+          }
+        };
+        fetchData();
+      }, []);
 
-        const selectedRowsData = Array.from(selectedRowIds).map(id => {
 
-            const rowData = rows.find(r => r.pigID === id);
-            return { pigID: id, pigWeight: rowData.pigWeight };
-        });
-        localStorage.setItem('selectedRowsData', JSON.stringify(selectedRowsData));
-    };
+
+
+
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -79,29 +96,23 @@ function slaughtererDash() {
                         <Table style={{ minWidth: "700px" }}>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell >Select</TableCell>
-                                    <TableCell >batchID</TableCell>
-                                    <TableCell >batchName</TableCell>
-                                    <TableCell >batchQuantity</TableCell>
-                                    <TableCell >batchWeight</TableCell>
-                                    <TableCell >batchDescription</TableCell>
-                                    {/* <TableCell >farmerName</TableCell> */}
+                                    <TableCell>batchID</TableCell>
+                                    <TableCell>batchName</TableCell>
+                                    <TableCell>batchQuantity</TableCell>
+                                    <TableCell>batchWeight</TableCell>
+                                    <TableCell>batchDescription</TableCell>
+                                    <TableCell>farmName</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-                                    <TableRow key={row.pigID}>
-                                        <TableCell style={{ padding: '5px' }}>
-                                            <Checkbox
-                                                checked={selectedRows.includes(row.pigID)}
-                                                onChange={(event) => handleRowCheckboxChange(event, row)}
-                                            />
-                                        </TableCell>
-                                        <TableCell >{row.batchID}</TableCell>
-                                        <TableCell >{row.batchName}</TableCell>
-                                        <TableCell >{row.batchQuantity}</TableCell>
-                                        <TableCell >{row.batchWeight}</TableCell>
-                                        <TableCell >{row.batchDescription}</TableCell>
+                                {rows.map(row => (
+                                    <TableRow key={row.batchID}>
+                                        <TableCell>{row.batchID}</TableCell>
+                                        <TableCell>{row.batchName}</TableCell>
+                                        <TableCell>{row.batchQuantity}</TableCell>
+                                        <TableCell>{row.batchWeight}</TableCell>
+                                        <TableCell>{row.batchDescription}</TableCell>
+                                        <TableCell>{row.farmName}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -117,24 +128,10 @@ function slaughtererDash() {
                         onRowsPerPageChange={handleChangeRowsPerPage}
                     />
                 </div>
-                <div className="btn-addBatch">
-                    {selectedRows.length > 0 && (
-                        <Link
-                            to={{
-                                pathname: "/farmerAddBatch",
-                                state: { selectedRows: selectedRows }
-                            }}
-                        >
-                            <Button variant="contained" color="error">
-                                Add Batch
-                            </Button>
-                        </Link>
-                    )}
-                </div>
+
             </div>
         </div>
     );
 }
 
-
-export default slaughtererDash
+export default SlaughtererDash;

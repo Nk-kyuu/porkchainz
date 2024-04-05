@@ -5,13 +5,13 @@ const farmerAdd = express();
 
 farmerAdd.use(express.json());
 
-// API endpoint สำหรับการเพิ่มข้อมูลหมู
-farmerAdd.post('/api/addPig', (req, res) => {
-  const { pigWeight, pigStartDate, pigHealth, pigEndDate, pigBreed } = req.body;
 
-  // Query เพื่อเพิ่มข้อมูลลงในฐานข้อมูล
-  const sql = 'INSERT INTO pig (pigWeight, pigStartDate, pigHealth, pigEndDate, pigBreed) VALUES (?, ?, ?, ?, ?)';
-  db.query(sql, [pigWeight, pigStartDate, pigHealth, pigEndDate, pigBreed], (err, result) => {
+farmerAdd.post('/api/addPig', (req, res) => {
+  const { pigWeight, pigStartDate, pigHealth, pigEndDate, pigBreed, farmerID } = req.body;
+
+  
+  const sql = 'INSERT INTO pig (pigWeight, pigStartDate, pigHealth, pigEndDate, pigBreed, farmerID) VALUES (?, ?, ?, ?, ?, ?)';
+  db.query(sql, [pigWeight, pigStartDate, pigHealth, pigEndDate, pigBreed, farmerID], (err, result) => {
     if (err) {
       console.error('Error adding pig:', err);
       res.status(500).json({ success: false, message: 'Failed to add pig' });

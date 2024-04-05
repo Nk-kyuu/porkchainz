@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 
 app.use("/", test);
 app.use("/", pig);
-app.use("/",batch);
+app.use("/", batch);
 app.use("/", addBatch)
 
 
