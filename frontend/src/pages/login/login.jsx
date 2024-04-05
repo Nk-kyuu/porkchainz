@@ -2,6 +2,8 @@ import './login.css';
 import { useState } from 'react';
 import axios from 'axios';
 import { GiPig } from "react-icons/gi";
+import { Button } from '@mui/material';
+
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -12,21 +14,25 @@ const Login = () => {
         axios.post("http://localhost:5000/login", {
             email: email,
             password: password,
-            role: role
+            role: role,
         }).then((response) => {
             if (response.data.status === 'ok') {
-                const { token } = response.data;
+                const { token, userID } = response.data;
                 console.log('Token:', token);
                 localStorage.setItem('token', response.data.token)
                 localStorage.setItem('email', email)
+                localStorage.setItem('userID', userID)
+                window.alert('Login successful!');
                 connectMetamask();
                 redirectToHomePage();
             } else {
                 // Handle failed login (e.g., display error message)
                 console.log('Login failed:', response.data.message);
+                window.alert('Login failed. Please check your email and password.');
             }
         }).catch((error) => {
             console.error(error);
+            window.alert('An error occurred. Please try again later.');
         });
     }
 
@@ -76,16 +82,6 @@ const Login = () => {
         }
     };
 
-    const handleLogout = async () => {
-        try {
-            await axios.post('http://localhost:5000/logout');
-            localStorage.removeItem('token');
-            window.location.href = '/';
-        } catch (error) {
-            console.error('Logout error:', error);
-        }
-    };
-
     return (
         <div className='bg-container'>
             <div className='login-container'>
@@ -93,7 +89,8 @@ const Login = () => {
                     <GiPig style={{ color: '#074cb3', fontSize: '12rem', paddingRight: '3px' }} />
                     <p> PorkChain</p>
                 </div>
-                <form>
+                <h3>User Login</h3>
+                <form className='login-form'>
                     <div className='form-group'>
                         <input type="email" placeholder="Email" value={email} required onChange={(e) => setEmail(e.target.value)} />
                     </div>
@@ -107,9 +104,10 @@ const Login = () => {
                             <option value="retailer">Retailer</option>
                         </select>
                     </div>
-                    <button type='button' onClick={handleLogin}>Login</button>
-                    <button type='button' onClick={handleLogout}>Logout</button>
+                    <Button sx={{marginLeft: "100px"}} variant='contained' type='button' onClick={handleLogin}>Login</Button>
+                    
                 </form>
+                <Button sx={{marginTop: "15px"}} variant='text' type='button' href='/admin'>For admin</Button>
             </div>
         </div>
     );

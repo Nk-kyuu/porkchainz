@@ -57,15 +57,16 @@ function retailerDash() {
                     </div>
                 </div>
                 <div>
-                    <div style={{ height: 370, width: '100%', backgroundColor: 'white' }}>
+                    <div style={{ height: 370, width: '100%', backgroundColor: 'white', borderRadius: '15px' }}>
                         <DataGrid
                             rows={rows}
                             columns={columns}
                             getRowId={(row) => row.shipmentID}
                             pageSize={5}
                             pagination
+                            sx={{borderRadius: '15px'}}
                         />
-                    </div>
+                </div>
                 </div>
             </div>
         </div>
