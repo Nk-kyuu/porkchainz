@@ -1,14 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const db = require("./database");
-const cors = require("cors");
 
 const user = express();
 const jsonParser = bodyParser.json();
 
-user.use(cors());
 user.use(express.json());
-user.use(bodyParser.urlencoded({ extends: true }));
 user.use(bodyParser.json());
 
 user.get('/getUser', (req, res) => {

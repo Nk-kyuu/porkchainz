@@ -3,23 +3,36 @@ import "../retailer/retailerDash.css"
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../../components/navbarConsumer";
+import { auto } from '@popperjs/core';
+import { useParams } from "react-router-dom";
 
 // Assume the existing imports and component structure
 
 const Consumer = () => {
     const [rows, setRows] = useState([]);
 
+    const { shipmentID } = useParams();
+
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get('http://localhost:5000/consumer/2');
+                const response = await axios.get(`http://localhost:5000/consumer/${shipmentID}`);
                 setRows(response.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         }
         fetchData();
-    }, []);
+    }, [shipmentID]);
+
+    const blockStyle = {
+        height: '25%', 
+        width: '100%', 
+        backgroundColor: 'white', 
+        borderRadius: '15px', 
+        padding: '20px',
+        marginBottom: '10px'
+    }
 
     return (
         <div className="container">
@@ -38,36 +51,38 @@ const Consumer = () => {
                     </div>
                 </div>
                 <div>
-                    <div style={{ height: 300, width: '100%', backgroundColor: 'white', borderRadius: '15px' }}>
+                    <div style={blockStyle}>
                         {rows.map(row => (
                             <div key={row.shipmentID}>
-                                <h3>Farmer</h3>
-                                <p>Source: {row.source}</p>
-                                <p>Destination: {row.retailName}</p>
-                                <p>Send Date: {row.sendDate}</p>
-                                <p>Estimated Arrival Date: {row.estimateArrivalDate}</p>
+                                <h3>Farm</h3>
+                                <p>Farm: {row.farmName}</p>
+                                <p>Location: {row.farmLocation}</p>
+                                <p>Batch ID: {row.batchID}</p>
+                                <p>Start-date: {row.pigStartDate}</p>
+                                <p>End-date: {row.pigEndDate}</p>
                             </div>
                         ))}
                     </div>
-                    <div style={{ height: 300, width: '100%', backgroundColor: 'white', borderRadius: '15px' }}>
+                    <div style={blockStyle}>
                         {rows.map(row => (
                             <div key={row.shipmentID}>
                                 <h3>Slaughter house</h3>
-                                <p>Source: {row.source}</p>
-                                <p>Destination: {row.retailName}</p>
-                                <p>Send Date: {row.sendDate}</p>
-                                <p>Estimated Arrival Date: {row.estimateArrivalDate}</p>
+                                <p>Slaughter house: {row.source}</p>
+                                <p>Location: {row.slaughterLocation}</p>
+                                <p>Product ID: {row.productID}</p>
+                                <p>Product: {row.productName}</p>
+                                <p>Proceed-date: {row.productDate}</p>
+                                <p>shipment-date: {row.sendDate}</p>
                             </div>
                         ))}
                     </div>
-                    <div style={{ height: 300, width: '100%', backgroundColor: 'white', borderRadius: '15px' }}>
+                    <div style={blockStyle}>
                         {rows.map(row => (
                             <div key={row.shipmentID}>
-                                <h3>Retailer</h3>
-                                <p>Source: {row.source}</p>
-                                <p>Destination: {row.retailName}</p>
-                                <p>Send Date: {row.sendDate}</p>
-                                <p>Estimated Arrival Date: {row.estimateArrivalDate}</p>
+                                <h3>Retail</h3>
+                                <p>Retail: {row.retailName}</p>
+                                <p>Location: {row.retailLocation}</p>
+                                <p>Received-date: {row.estimateArrivalDate}</p>
                             </div>
                         ))}
                     </div>
