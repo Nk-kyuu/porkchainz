@@ -5,7 +5,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Button } from '@mui/material';
 
-function retailerDash() {
+function RetailerDash() {
+    const retailerID = localStorage.getItem("userID");
     const columns = [
         { field: 'shipmentID', headerName: 'Shipment ID', width: 120 },
         { field: 'source', headerName: 'Source', width: 120 },
@@ -35,7 +36,7 @@ function retailerDash() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/retailer/getShipment');
+                const response = await axios.get(`http://localhost:5000/retailer/getShipment/${retailerID}`); // Pass retailerID as URL parameter
                 setRows(response.data);
             } catch (err) {
                 console.error('Error fetching data:', err);
@@ -43,7 +44,7 @@ function retailerDash() {
         };
 
         fetchData();
-    }, []);
+    }, [retailerID]); // Add retailerID as a dependency for useEffect
 
     return (
         <div className="container">
@@ -66,11 +67,11 @@ function retailerDash() {
                             pagination
                             sx={{borderRadius: '15px'}}
                         />
-                </div>
+                    </div>
                 </div>
             </div>
         </div>
     );
 }
 
-export default retailerDash;
+export default RetailerDash;
