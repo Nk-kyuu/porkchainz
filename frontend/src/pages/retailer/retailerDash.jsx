@@ -6,7 +6,7 @@ import axios from "axios";
 import { Button } from '@mui/material';
 
 function RetailerDash() {
-    const retailerID = localStorage.getItem("userID");
+    const userID = localStorage.getItem("userID");
     const columns = [
         { field: 'shipmentID', headerName: 'Shipment ID', width: 120 },
         { field: 'source', headerName: 'Source', width: 120 },
@@ -36,15 +36,20 @@ function RetailerDash() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/retailer/getShipment/${retailerID}`); // Pass retailerID as URL parameter
-                setRows(response.data);
+                const response = await axios.get(`http://localhost:5000/retailer/getShipment/${userID}`); // Pass retailerID as URL parameter
+                if (!response.data) {
+                    throw new Error("No data received from the server");
+                }
+                setRows(response.data.shipments);
+                const retailerID = response.data.retailerID;
+                localStorage.setItem('retailerID', retailerID);
             } catch (err) {
                 console.error('Error fetching data:', err);
             }
         };
 
         fetchData();
-    }, [retailerID]); // Add retailerID as a dependency for useEffect
+    }, [userID]); // Add userID as a dependency for useEffect
 
     return (
         <div className="container">

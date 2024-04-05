@@ -15,7 +15,7 @@ consumer.get('/consumer/:shipmentID', async (req, res) => {
             s.slaughtererFirstName, s.slaughtererLastName, s.slaughterName, s.slaughterLocation,
             r.retailerFirstName, r.retailerLastName, r.retailName, r.retailLocation,
             p.productName, p.productWeight, p.productDate, p.productStatus,
-            sh.source, sh.destination, sh.sendDate, sh.estimateArrivalDate, sh.shipmentStatus
+            sh.shipmentID, sh.source, sh.destination, sh.sendDate, sh.estimateArrivalDate, sh.shipmentStatus
             FROM shipment sh
             LEFT JOIN product p ON p.shipmentID = sh.shipmentID
             LEFT JOIN retailer r ON sh.destination = r.retailerID
