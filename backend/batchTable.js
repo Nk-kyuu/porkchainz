@@ -5,31 +5,40 @@ const batch = express();
 
 batch.use(express.json());
 
-
 batch.post('/batchInfo', (req, res) => {
-    const farmerID = req.body.farmerID 
-
-
-db.query("SELECT batch.batchID FROM pig JOIN batch ON pig.batchID = batch.batchID WHERE pig.farmerID = ?", [farmerID], (err, batchIDResult) => {
-    if (err) {
-        res.status(500).json({ error: err.message });
-    } else {
-        const batchIDs = batchIDResult.map(row => row.batchID);
-        db.query("SELECT * FROM batch WHERE batchID IN (?)", [batchIDs], (err, batchResult) => {
+    const userID = req.body.userID;
+    const farmerIDQuery = 'SELECT farmer.farmerID FROM farmer JOIN user ON user.userID = farmer.userID WHERE user.userID = ?';
+    db.query(farmerIDQuery, [userID], (err, farmerIDResult) => {
+        if (err) {
+            console.error('Error fetching farmerID:', err);
+            return res.status(500).json({ success: false, message: 'Failed to fetch farmerID' });
+        }
+        if (farmerIDResult.length === 0) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+        const farmerID = farmerIDResult[0].farmerID;
+        db.query("SELECT batch.batchID FROM pig JOIN batch ON pig.batchID = batch.batchID WHERE pig.farmerID = ?", [farmerID], (err, batchIDResult) => {
             if (err) {
                 res.status(500).json({ error: err.message });
             } else {
-                db.query("SELECT * FROM slaughterer", (err, slaughtererResult) => {
+                const batchIDs = batchIDResult.map(row => row.batchID);
+                db.query("SELECT * FROM batch WHERE batchID IN (?)", [batchIDs], (err, batchResult) => {
                     if (err) {
                         res.status(500).json({ error: err.message });
                     } else {
-                        res.json({ batch: batchResult, slaughterer: slaughtererResult, farmerID: farmerID });
+                        db.query("SELECT * FROM slaughterer", (err, slaughtererResult) => {
+                            if (err) {
+                                res.status(500).json({ error: err.message });
+                            } else {
+                                res.json({ batch: batchResult, slaughterer: slaughtererResult, farmerID: farmerID });
+                            }
+                        });
                     }
                 });
             }
         });
-    }
-});
+
+    })
 });
 
 

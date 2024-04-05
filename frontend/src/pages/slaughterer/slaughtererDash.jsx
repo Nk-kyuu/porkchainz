@@ -22,15 +22,16 @@ function SlaughtererDash() {
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
 
+
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const slaughtererID = localStorage.getItem('slaughtererID');
-            if (!slaughtererID) {
+            const userID= localStorage.getItem('userID');
+            if (!userID) {
               console.error('slaughterer ID not found ');
               return;
             }
-            const response = await axios.post('http://localhost:5000/getInfo', { slaughtererID });
+            const response = await axios.post('http://localhost:5000/getInfo', { userID });
             setRows(response.data); 
           } catch (err) {
             console.error('Error fetching data:', err);
@@ -40,30 +41,6 @@ function SlaughtererDash() {
       }, []);
       
 
-      useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const email = localStorage.getItem('email');
-            if (!email) {
-              console.error('Email not found in localStorage');
-              return;
-            }
-            const response = await axios.post('http://localhost:5000/slaughtererID', {
-              email: email 
-            });
-            console.log('Response data:', response.data);
-            const slaughtererID = response.data.slaughtererID;
-            if (!slaughtererID) {
-              console.error('slaughtererID not ');
-              return;
-            }
-            localStorage.setItem('slaughtererID', slaughtererID);
-          } catch (err) {
-            console.error('Error fetching data:', err);
-          }
-        };
-        fetchData();
-      }, []);
 
 
 
@@ -91,7 +68,7 @@ function SlaughtererDash() {
                         <Button href="/slaughtererAdd" color="warning" variant="contained">Add Product</Button>
                     </div>
                 </div>
-                <div className="pig-table" style={{ fontSize: "13.5px", width: "80%" }}>
+                <div className="pig-table" style={{ fontSize: "13.5px",  width: "80%",backgroundColor: "white" ,height:"300px" }}>
                     <TableContainer component={Paper}>
                         <Table style={{ minWidth: "700px" }}>
                             <TableHead>
@@ -118,7 +95,8 @@ function SlaughtererDash() {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <TablePagination
+                </div>
+                <TablePagination
                         rowsPerPageOptions={[5, 10, 25]}
                         component="div"
                         count={rows.length}
@@ -127,8 +105,6 @@ function SlaughtererDash() {
                         onPageChange={handleChangePage}
                         onRowsPerPageChange={handleChangeRowsPerPage}
                     />
-                </div>
-
             </div>
         </div>
     );

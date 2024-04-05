@@ -38,15 +38,15 @@ const FarmerAdd = () => {
     }
     
     // Get farmerID from localStorage
-    const farmerID = localStorage.getItem('farmerID');
-    if (!farmerID) {
+    const userID = localStorage.getItem('userID');
+    if (!userID) {
       alert('No farmerID found. Please log in.'); 
       return;
     }
     
     // Add farmerID to formData
-    const dataToSend = { ...formData, farmerID }; 
-    
+    const dataToSend = { ...formData, userID }; 
+    console.log(dataToSend)
     try {
       const response = await axios.post('http://localhost:5000/api/addPig', dataToSend);
       if (!response.data.success) {
@@ -79,7 +79,7 @@ const FarmerAdd = () => {
         <CssBaseline />
         <Box
            sx={{
-            marginTop: 8,
+            marginTop: 5,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',

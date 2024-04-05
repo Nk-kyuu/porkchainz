@@ -12,6 +12,7 @@ function FarmerDashBatch() {
         { field: 'batchWeight', headerName: 'batchWeight', width: 150 },
         { field: 'batchDescription', headerName: 'batchDescription', width: 150 },
         {
+            
             field: 'slaughtererID',
             headerName: 'slaughtererID',
             width: 150,
@@ -43,11 +44,11 @@ function FarmerDashBatch() {
 
     const [rows, setRows] = useState([]);
     const [slaughterers, setSlaughterers] = useState([]);
-    const farmerID = localStorage.getItem('farmerID');
+    const userID = localStorage.getItem('userID');
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.post('http://localhost:5000/batchInfo', { farmerID });
+                const response = await axios.post('http://localhost:5000/batchInfo', { userID });
                 setRows(response.data.batch);
                 setSlaughterers(response.data.slaughterer);
             } catch (err) {
@@ -56,7 +57,7 @@ function FarmerDashBatch() {
         };
 
         fetchData();
-    }, [farmerID]);
+    }, [userID]);
 
     const handleSlaughtererChange = async (event, batchID) => {
         try {

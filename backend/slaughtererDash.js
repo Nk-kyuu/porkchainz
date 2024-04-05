@@ -5,25 +5,39 @@ const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
 
 
-getBash.post('/getInfo', (req,res)=>{
-    const slaughtererID = req.body.slaughtererID; 
-    const sql = `
+getBash.post('/getInfo',jsonParser , (req, res) => {
+  const userID = req.body.userID;
+  const slaughtererIDQuery = 'SELECT slaughterer.slaughtererID FROM slaughterer JOIN user ON user.userID = slaughterer.userID WHERE user.userID = ?';
+  db.query(slaughtererIDQuery, [userID], (err, slaughtererIDResult) => {
+      if (err) {
+          console.error('Error fetching slaughtererID:', err);
+          return res.status(500).json({ success: false, message: 'Failed to fetch slaughtererID' });
+      }
+      if (slaughtererIDResult.length === 0) {
+          return res.status(404).json({ success: false, message: 'User not found' });
+      }
+      const slaughtererID = slaughtererIDResult[0].slaughtererID;
+
+      const sql = `
       SELECT batch.batchID, batch.batchName, batch.batchWeight, batch.batchQuantity, batch.batchDescription, farmer.farmName
       FROM batch
       JOIN pig ON pig.batchID = batch.batchID
       JOIN farmer ON pig.farmerID = farmer.farmerID
       WHERE batch.slaughtererID = ?
-    `;
-    
-    db.query(sql, [slaughtererID], (err, result) => {
-      if (err) {
-        console.error('Error fetching data:', err);
-        res.status(500).json({ error: 'Internal server error' });
-      } else {
-        res.json(result);
-      }
-    });
+      GROUP BY batch.batchID
+      `;
+
+      db.query(sql, [slaughtererID], (err, result) => {
+          if (err) {
+              console.error('Error fetching data:', err);
+              return res.status(500).json({ error: 'Internal server error' });
+          }
+          res.json(result);
+      });
+  });
 });
+
+
 getBash.post('/slaughtererID', jsonParser,(req, res) => {
     const email = req.body.email; 
 

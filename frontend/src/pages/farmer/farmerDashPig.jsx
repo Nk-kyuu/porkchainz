@@ -16,6 +16,7 @@ import {
   TablePagination
 } from '@mui/material';
 
+
 function FarmerDashPig() {
   const [rows, setRows] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
@@ -25,12 +26,12 @@ function FarmerDashPig() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const farmerID = localStorage.getItem('farmerID');
-        if (!farmerID) {
+        const userID = localStorage.getItem('userID');
+        if (!userID) {
           console.error('Farmer ID not found ');
           return;
         }
-        const response = await axios.post('http://localhost:5000/pigInfo', { farmerID });
+        const response = await axios.post('http://localhost:5000/pigInfo', { userID });
         setRows(response.data); 
       } catch (err) {
         console.error('Error fetching data:', err);
@@ -39,30 +40,7 @@ function FarmerDashPig() {
     fetchData();
   }, []);
   
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const email = localStorage.getItem('email');
-        if (!email) {
-          console.error('Email not found in localStorage');
-          return;
-        }
-        const response = await axios.post('http://localhost:5000/pigFarmerID', {
-          email: email 
-        });
-        console.log('Response data:', response.data);
-        const farmerID = response.data.farmerID;
-        if (!farmerID) {
-          console.error('Farmer ID not ');
-          return;
-        }
-        localStorage.setItem('farmerID', farmerID);
-      } catch (err) {
-        console.error('Error fetching data:', err);
-      }
-    };
-    fetchData();
-  }, []);
+ 
 
   const handleRowCheckboxChange = (event, row) => {
     const selectedRowIds = new Set(selectedRows);
@@ -140,6 +118,7 @@ function FarmerDashPig() {
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
+            sx={{marginTop:"20px"}}
           />
         <div className="btn-addBatch">
           {selectedRows.length > 0 && (

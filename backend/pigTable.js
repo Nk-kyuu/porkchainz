@@ -4,23 +4,29 @@ const pig = express();
 const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
 
-pig.post('/pigInfo',jsonParser, (req, res) => {
-    const  farmerID  = req.body.farmerID;
-    // ปรับแต่งคำสั่ง SQL เพื่อดึงข้อมูล pigID ที่มี farmerID และ batchID เป็นค่า NULL
-    const sqlQuery = "SELECT * FROM pig WHERE farmerID = ? AND batchID IS NULL";
 
-    db.query(sqlQuery, farmerID, (err, result) => {
+pig.post('/pigInfo', jsonParser, (req, res) => {
+    const userID = req.body.userID;
+    const farmerIDQuery = 'SELECT farmer.farmerID FROM farmer JOIN user ON user.userID = farmer.userID WHERE user.userID = ?';
+    db.query(farmerIDQuery, [userID], (err, farmerIDResult) => {
         if (err) {
-            // การจัดการกับข้อผิดพลาด
-            console.error('Error fetching data:', err);
-            res.status(500).send('Error fetching pig information');
-        } else {
-            // ส่งผลลัพธ์กลับไปเป็น JSON
-            res.json(result);
+            console.error('Error fetching farmerID:', err);
+            return res.status(500).json({ success: false, message: 'Failed to fetch farmerID' });
         }
+        if (farmerIDResult.length === 0) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+        const farmerID = farmerIDResult[0].farmerID;
+        const sqlQuery = 'SELECT * FROM pig WHERE farmerID = ? AND batchID IS NULL';
+        db.query(sqlQuery, farmerID, (err, result) => {
+            if (err) {
+                console.error('Error fetching pig information:', err);
+                return res.status(500).json({ success: false, message: 'Failed to fetch pig information' });
+            }
+            res.json(result);
+        });
     });
 });
-
 
 pig.post('/pigFarmerID', jsonParser,(req, res) => {
     const email = req.body.email; 
