@@ -7,17 +7,20 @@ const test = require('./test')
 const farmerAdd = require('./farmerAdd') //add pig**
 const farmerAddBatch = require('./farmerAddBatch') //add batch**
 const slaughtererAdd = require('./slaughtererAdd') //add product**
-const slaughtererSend = require('./slaughtererSend') //add product**
+const slaughtererSend = require('./slaughtererSend') //add shipment**
 const addBatch = require('./addBatch') // add batch
 const slaughtererDash =  require('./slaughtererDash') // get data batch to slaughterer
 const login = require('./login')
 const addUser = require('./addUser')
 const retailer = require('./retailer')
+const slaughtererProduct = require('./slaughterProduct')// show product that add
+const slaughtererShip = require('./slaughtererShip') // show shipment that add
 
 const app = express();
 //post
 
-const cors = require('cors')
+const cors = require('cors');
+
 
 
 app.use(cors())
@@ -28,8 +31,9 @@ app.get('/', (req, res) => {
 app.use("/", test);
 app.use("/", pig);
 app.use("/",batch);
-app.use("/", addBatch)
-
+app.use("/", addBatch);
+app.use("/",slaughtererProduct);
+app.use("/",slaughtererShip);
 
 app.use("/", farmerAdd);
 app.use("/", farmerAddBatch);

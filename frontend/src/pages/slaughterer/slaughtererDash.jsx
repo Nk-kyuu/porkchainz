@@ -1,5 +1,6 @@
-import Navbar from "../../components/navbarSlaghterer"
-import "../slaughterer/slaughterer.css"
+// slaughtererDash.js
+import Navbar from "../../components/navbarSlaghterer";
+import "../slaughterer/slaughterer.css";
 import { Button } from "@mui/material";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -12,14 +13,11 @@ import {
     TableHead,
     TableRow,
     Paper,
-    Checkbox,
     TablePagination
 } from '@mui/material';
 
-
-function slaughtererDash() {
+function SlaughtererDash() {
     const [rows, setRows] = useState([]);
-    const [selectedRows, setSelectedRows] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -35,23 +33,6 @@ function slaughtererDash() {
 
         fetchData();
     }, []);
-
-    const handleRowCheckboxChange = (event, row) => {
-        const selectedRowIds = new Set(selectedRows);
-        if (event.target.checked) {
-            selectedRowIds.add(row.pigID);
-        } else {
-            selectedRowIds.delete(row.pigID);
-        }
-        setSelectedRows(Array.from(selectedRowIds));
-
-        const selectedRowsData = Array.from(selectedRowIds).map(id => {
-
-            const rowData = rows.find(r => r.pigID === id);
-            return { pigID: id, pigWeight: rowData.pigWeight };
-        });
-        localStorage.setItem('selectedRowsData', JSON.stringify(selectedRowsData));
-    };
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -79,29 +60,23 @@ function slaughtererDash() {
                         <Table style={{ minWidth: "700px" }}>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell >Select</TableCell>
-                                    <TableCell >batchID</TableCell>
-                                    <TableCell >batchName</TableCell>
-                                    <TableCell >batchQuantity</TableCell>
-                                    <TableCell >batchWeight</TableCell>
-                                    <TableCell >batchDescription</TableCell>
-                                    {/* <TableCell >farmerName</TableCell> */}
+                                    <TableCell>batchID</TableCell>
+                                    <TableCell>batchName</TableCell>
+                                    <TableCell>batchQuantity</TableCell>
+                                    <TableCell>batchWeight</TableCell>
+                                    <TableCell>batchDescription</TableCell>
+                                    <TableCell>farmName</TableCell> {/* เพิ่มคอลัมน์ farmName ที่นี่ */}
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                                     <TableRow key={row.pigID}>
-                                        <TableCell style={{ padding: '5px' }}>
-                                            <Checkbox
-                                                checked={selectedRows.includes(row.pigID)}
-                                                onChange={(event) => handleRowCheckboxChange(event, row)}
-                                            />
-                                        </TableCell>
-                                        <TableCell >{row.batchID}</TableCell>
-                                        <TableCell >{row.batchName}</TableCell>
-                                        <TableCell >{row.batchQuantity}</TableCell>
-                                        <TableCell >{row.batchWeight}</TableCell>
-                                        <TableCell >{row.batchDescription}</TableCell>
+                                        <TableCell>{row.batchID}</TableCell>
+                                        <TableCell>{row.batchName}</TableCell>
+                                        <TableCell>{row.batchQuantity}</TableCell>
+                                        <TableCell>{row.batchWeight}</TableCell>
+                                        <TableCell>{row.batchDescription}</TableCell>
+                                        <TableCell>{row.farmName}</TableCell> {/* เพิ่มคอลัมน์ farmName ที่นี่ */}
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -118,23 +93,11 @@ function slaughtererDash() {
                     />
                 </div>
                 <div className="btn-addBatch">
-                    {selectedRows.length > 0 && (
-                        <Link
-                            to={{
-                                pathname: "/farmerAddBatch",
-                                state: { selectedRows: selectedRows }
-                            }}
-                        >
-                            <Button variant="contained" color="error">
-                                Add Batch
-                            </Button>
-                        </Link>
-                    )}
+                    {/* ส่วนของปุ่มเพิ่ม Batch */}
                 </div>
             </div>
         </div>
     );
 }
 
-
-export default slaughtererDash
+export default SlaughtererDash;
