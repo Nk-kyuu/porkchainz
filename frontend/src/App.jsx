@@ -15,6 +15,7 @@ import AdminHome from "./pages/admin/adminHome";
 import RegisterForm from "./pages/admin/registerForm";
 import LoginAdmin from './pages/login/loginAdmin';
 import AddAdmin from './pages/admin/addAdmin';
+import Consumer from './pages/consumer/consumer'
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="/slaughtererAdd" element={<SlaughtererAdd />} />
           <Route path="/slaughtererSend" element={<SlaughtererSend />} />
           <Route path="/farmerAddBatch" element={<FarmerAddBatch />}/>
+          <Route path="/consumer/:shipmentID" element={<Consumer/>} />
         </Routes>
       </BrowserRouter >
     </div>

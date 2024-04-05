@@ -50,15 +50,14 @@ const adminHome = () => {
                     </div>
                 </div>
                 <div className="pig-table">
-                    <div style={{ height: 370, width: '100%', backgroundColor: 'white' }}>
+                    <div style={{ height: 480,backgroundColor: 'white', borderRadius: '15px' }}>
                         <DataGrid
                             rows={rows}
                             getRowId={(row) => row.userID}
                             columns={columns}
                             pageSize={5}
                             rowsPerPageOptions={[5, 10]}
-                            checkboxSelection
-
+                            sx={{paddingLeft: "20px", paddingRight: "20px", borderRadius: "15px"}}
                         />
                     </div>
                 </div>
