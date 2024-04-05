@@ -8,7 +8,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers';
 
 
-
 const FarmerAdd = () => {
   const defaultTheme = createTheme();
   const [formData, setFormData] = useState({
@@ -33,13 +32,23 @@ const FarmerAdd = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // ตรวจสอบว่าทุกช่องมีข้อมูลหรือไม่
     if (!formData.pigWeight || !formData.pigStartDate || !formData.pigHealth || !formData.pigEndDate || !formData.pigBreed) {
-      alert('Please fill in all fields'); // แสดงข้อความแจ้งเตือน
-      return; // ยกเลิกการทำงานของฟังก์ชันหากไม่มีข้อมูลที่ต้องการ
+      alert('Please fill in all fields'); 
+      return; 
     }
+    
+    // Get farmerID from localStorage
+    const userID = localStorage.getItem('userID');
+    if (!userID) {
+      alert('No farmerID found. Please log in.'); 
+      return;
+    }
+    
+    // Add farmerID to formData
+    const dataToSend = { ...formData, userID }; 
+    console.log(dataToSend)
     try {
-      const response = await axios.post('http://localhost:5000/api/addPig', formData);
+      const response = await axios.post('http://localhost:5000/api/addPig', dataToSend);
       if (!response.data.success) {
         throw new Error('Failed to add pig');
       }
@@ -48,7 +57,6 @@ const FarmerAdd = () => {
       console.error('Error adding pig:', error);
     }
   };
-
   const currencies = [
     {
       value: 'DorocJerse',
@@ -71,7 +79,7 @@ const FarmerAdd = () => {
         <CssBaseline />
         <Box
            sx={{
-            marginTop: 8,
+            marginTop: 5,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -92,7 +100,7 @@ const FarmerAdd = () => {
                   name="pigWeight"
                   fullWidth
                   id="pigWeight"
-                  label="weight"
+                  placeholder="weight"
                   autoFocus
                   onChange={handleChange}
                 />
@@ -100,7 +108,7 @@ const FarmerAdd = () => {
               <Grid item xs={12} sm={6}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
-                    label="Start Date"
+                    placeholder="Start Date"
                     value={formData.pigStartDate}
                     onChange={handleStartDateChange}
                     renderInput={(params) => <TextField {...params} />}
@@ -111,7 +119,7 @@ const FarmerAdd = () => {
                 <TextField
                   fullWidth
                   id="pigHealth"
-                  label="health"
+                  placeholder="health"
                   name="pigHealth"
                   autoComplete="health"
                   onChange={handleChange}
@@ -120,7 +128,8 @@ const FarmerAdd = () => {
               <Grid item xs={12} sm={6}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
-                    label="End Date"
+                  
+                    placeholder="End Date"
                     value={formData.pigEndDate}
                     onChange={handleEndDateChange}
                     renderInput={(params) => <TextField {...params} />}
@@ -130,8 +139,8 @@ const FarmerAdd = () => {
               <Grid item xs={12} sm={4}>
                 <TextField
                    id="pigBreed"
+                   placeholder="Breed"
                    select
-                   label="Breed"
                    name="pigBreed" // ตรงนี้ต้องตรงกับชื่อฟิลด์ในฐานข้อมูล
                    value={formData.pigBreed}
                    onChange={handleChange}
