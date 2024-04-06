@@ -17,6 +17,8 @@ const slaughtererDash =  require('./slaughtererDash') // get data batch to slaug
 const login = require('./login')
 const addUser = require('./addUser')
 const retailer = require('./retailer')
+const product = require('./slaughtererProduct')
+const consumer = require('./consumer')
 
 const app = express();
 //post
@@ -42,10 +44,10 @@ app.use("/", test);
 app.use("/", farmer);
 
 app.use("/", pig);
-app.use("/",batch);
+app.use("/", batch);
 app.use("/", addBatch)
 
-
+app.use("/", product)
 app.use("/", farmerAdd);
 app.use("/", farmerAddBatch);
 app.use("/", slaughtererAdd );
@@ -54,6 +56,7 @@ app.use("/", slaughtererDash );
 app.use("/", login);
 app.use("/", addUser);
 app.use("/", retailer)
+app.use("/", consumer)
 
 const port = process.env.PORT 
 app.listen(port, () => {

@@ -1,39 +1,28 @@
 const express = require('express');
 const db = require('./database'); // เรียกใช้ไฟล์ database.js
-
-const slaughtererAdd = express();
-
-slaughtererAdd.use(express.json());
-
-slaughtererAdd.get('/slaughterer', (req, res) => {
-  res.send("hello slaughterer");
-});
-
-// API endpoint สำหรับการเพิ่มข้อมูลหมู
-slaughtererAdd.post('/api/slaughtererAdd', (req, res) => {
-  const { productName, productWeight, productDate, batchID, email } = req.body;
+const bodyParser = require("body-parser");
+const jsonParser = bodyParser.json();
+const Add = express();
 
 
-  const findSlaughtererSql = `
-    SELECT user.userID, slaughterer.slaughtererID, user.email, user.role, slaughterer.slaughtererFirstName
-    FROM user
-    INNER JOIN slaughterer ON slaughterer.userID = user.userID
-    WHERE user.email = ?`;
 
-
-  db.query(findSlaughtererSql, [email], (err, results) => {
+//Add product
+Add.post('/api/slaughtererAdd', jsonParser, (req, res) => {
+  const userID = req.body.userID;
+  const { productName, productWeight, productDate, batchID} = req.body;
+  const slaughtererIDQuery = 'SELECT slaughterer.slaughtererID FROM slaughterer JOIN user ON user.userID = slaughterer.userID WHERE user.userID = ?';
+  db.query(slaughtererIDQuery, [userID], (err, slaughtererIDResult) => {
     if (err) {
-      console.error('Error finding slaughterer:', err);
-      return res.status(500).json({ success: false, message: 'Error finding slaughterer' });
+      console.error('Error fetching slaughtererID:', err);
+      return res.status(500).json({ success: false, message: 'Failed to fetch slaughtererID' });
     }
-    if (results.length === 0) {
-      return res.status(404).json({ success: false, message: 'slaughterer not found' });
+    if (slaughtererIDResult.length === 0) {
+      return res.status(404).json({ success: false, message: 'User not found' });
     }
-
-    // ถ้ามี slaughtererID, เพิ่มข้อมูลหมู
-    const slaughtererID = results[0].slaughtererID; // หรือใช้ userID ตามโครงสร้างของคุณ
-    const sql =  'INSERT INTO product (productName, productWeight, productDate, batchID) VALUES (?, ?, ?, ?)';
-    db.query(sql, [productName, productWeight, productDate, batchID], (err, result) => {
+    const slaughtererID = slaughtererIDResult[0].slaughtererID;
+   
+    const sql = 'INSERT INTO product (productName, productWeight, productDate, batchID, slaughtererID) VALUES (?, ?, ?, ?, ?)';
+    db.query(sql, [productName, productWeight, productDate, batchID, slaughtererID], (err, result) => {
       if (err) {
         console.error('Error adding product:', err);
         res.status(500).json({ success: false, message: 'Failed to add product' });
@@ -45,4 +34,30 @@ slaughtererAdd.post('/api/slaughtererAdd', (req, res) => {
   });
 });
 
-module.exports = slaughtererAdd;
+//SendBatchID
+Add.post('/api/slaughtererBatchID', jsonParser, (req, res) => {
+  const userID = req.body.userID;
+  const slaughtererIDQuery = 'SELECT slaughterer.slaughtererID FROM slaughterer JOIN user ON user.userID = slaughterer.userID WHERE user.userID = ?';
+  db.query(slaughtererIDQuery, [userID], (err, slaughtererIDResult) => {
+    if (err) {
+      console.error('Error fetching slaughtererID:', err);
+      return res.status(500).json({ success: false, message: 'Failed to fetch slaughtererID' });
+    }
+    if (slaughtererIDResult.length === 0) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+    const slaughtererID = slaughtererIDResult[0].slaughtererID;
+    const sql = 'SELECT batch.batchID FROM batch WHERE batch.slaughtererID = ?';
+    db.query(sql, [slaughtererID], (err, result) => {
+      if (err) {
+        console.error('Error fetching batchID:', err);
+        res.status(500).json({ success: false, message: 'Failed to fetch batchID' });
+      } else {
+        const batchID = result.map(row => row.batchID); // แปลงเป็นอาร์เรย์ของตัวเลข batchID เท่านั้น
+        res.status(200).json({ success: true, batchID: batchID });
+      }
+    });
+  });
+});
+
+module.exports = Add;

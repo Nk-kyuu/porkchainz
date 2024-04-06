@@ -10,13 +10,11 @@ const secret = "secretlog";
 
 login.use(cors());
 login.use(express.json());
-login.use(bodyParser.urlencoded({ extends: true }));
 login.use(bodyParser.json());
 
 
 login.post("/login", jsonParser, (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
+    const { email, password, role } = req.body;
 
     db.query(
         'SELECT * FROM user WHERE email = ?',
@@ -30,17 +28,21 @@ login.post("/login", jsonParser, (req, res) => {
             }
 
             // Compare passwords directly
-            if (password === user[0].password) {
+            if (password === user[0].password && role === user[0].role) {
                 const token = jwt.sign({ email: user[0].email, role: user[0].role }, secret, {
                     expiresIn: "1h",
                 });
-                return res.status(200).json({ status: "ok", message: "success", token });
+                return res.status(200).json({ status: "ok", message: "success", token, userID: user[0].userID });
             } else {
                 return res.status(401).json({ status: "error", message: "Authentication failed" });
             }
         }
     );
 });
+
+
+
+
 
 login.post('/admin/login', jsonParser, (req, res) => {
     const email = req.body.email;

@@ -3,6 +3,7 @@
     background-color: #f4f4f4;
     color: black;
     margin: 0 auto;
+    margin-top: 100px;
     padding: 20px;
     width: 400px;
     height: 400px;
@@ -16,24 +17,24 @@
     align-items: center;
 }
 
-h2 {
+h3 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
+    justify-content: center;
 }
 
-form {
+.login-form {
     width: 100%;
-    max-width: 400px;
-    align-items: center;
+    margin-left: 120px;
 }
 
-input[type="email"],
-input[type="password"],
-select {
+.form-group > input[type="email"],
+.form-group > input[type="password"],
+.form-group > select {
     width: 70%;
     padding: 10px;
     margin: 8px 0;
@@ -45,7 +46,7 @@ select {
 button[type="submit"] {
     background-color: #1058C5;
     color: white;
-    margin: 20px 0;
+    margin-left: 100px;
     border: none;
     border-radius: 7px;
     cursor: pointer;
@@ -54,7 +55,7 @@ button[type="submit"] {
 
 body {
     background: linear-gradient(-45deg, #1058C5, #62BBC1) no-repeat;
-    background-size: 200% 200%; /* ขยายพื้นที่เพื่อให้ปรับตามขนาดหน้าจอ */
+    background-size: 200% 320%; /* ขยายพื้นที่เพื่อให้ปรับตามขนาดหน้าจอ */
     /* animation: gradientAnimation 10s ease infinite; เพิ่ม animation เพื่อให้สีเคลื่อนไหว */
 }
 
