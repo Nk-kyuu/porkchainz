@@ -9,6 +9,7 @@ import { DatePicker } from '@mui/x-date-pickers';
 import { ethers } from 'ethers'; // Import ethers
 import { contractAbi, contractAddress } from '../../Constant/constant'; // Import contract ABI and address
 
+
 const FarmerAdd = () => {
   const defaultTheme = createTheme();
   const [formData, setFormData] = useState({
@@ -37,8 +38,19 @@ const FarmerAdd = () => {
       alert('Please fill in all fields');
       return;
     }
+    
+    // Get farmerID from localStorage
+    const userID = localStorage.getItem('userID');
+    if (!userID) {
+      alert('No farmerID found. Please log in.'); 
+      return;
+    }
+    
+    // Add farmerID to formData
+    const dataToSend = { ...formData, userID }; 
+    console.log(dataToSend)
     try {
-      const response = await axios.post('http://localhost:5000/api/addPig', formData);
+      const response = await axios.post('http://localhost:5000/api/addPig', dataToSend);
       if (!response.data.success) {
         throw new Error('Failed to add pig');
       }
@@ -55,7 +67,6 @@ const FarmerAdd = () => {
       console.error('Error adding pig:', error);
     }
   };
-
   const currencies = [
     {
       value: 'DorocJerse',
@@ -134,7 +145,7 @@ const FarmerAdd = () => {
                   name="pigWeight"
                   fullWidth
                   id="pigWeight"
-                  label="Weight"
+                  placeholder="weight"
                   autoFocus
                   onChange={handleChange}
                 />
@@ -142,7 +153,7 @@ const FarmerAdd = () => {
               <Grid item xs={12} sm={6}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
-                    label="Start Date"
+                    placeholder="Start Date"
                     value={formData.pigStartDate}
                     onChange={handleStartDateChange}
                     renderInput={(params) => <TextField {...params} />}
@@ -153,7 +164,7 @@ const FarmerAdd = () => {
                 <TextField
                   fullWidth
                   id="pigHealth"
-                  label="Health"
+                  placeholder="health"
                   name="pigHealth"
                   autoComplete="health"
                   onChange={handleChange}
@@ -162,7 +173,8 @@ const FarmerAdd = () => {
               <Grid item xs={12} sm={6}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
-                    label="End Date"
+                  
+                    placeholder="End Date"
                     value={formData.pigEndDate}
                     onChange={handleEndDateChange}
                     renderInput={(params) => <TextField {...params} />}
@@ -171,13 +183,13 @@ const FarmerAdd = () => {
               </Grid>
               <Grid item xs={12} sm={4}>
                 <TextField
-                  id="pigBreed"
-                  select
-                  label="Breed"
-                  name="pigBreed"
-                  value={formData.pigBreed}
-                  onChange={handleChange}
-                  helperText="Please select Breed"
+                   id="pigBreed"
+                   placeholder="Breed"
+                   select
+                   name="pigBreed" // ตรงนี้ต้องตรงกับชื่อฟิลด์ในฐานข้อมูล
+                   value={formData.pigBreed}
+                   onChange={handleChange}
+                   helperText="Please select Breed"
                 >
                   {currencies.map((option) => (
                     <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>

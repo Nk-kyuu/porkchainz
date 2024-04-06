@@ -14,6 +14,7 @@ batch.post("/createBatch", jsonParser, (req, res) => {
             res.json({ status: "error", message: err });
             return;
         }
+        
         db.query(
             `
             INSERT INTO batch (batchID, batchName, batchWeight, batchQuantity, batchDescription)

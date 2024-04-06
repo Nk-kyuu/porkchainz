@@ -1,64 +1,63 @@
 const express = require('express');
 const db = require('./database'); // เรียกใช้ไฟล์ database.js
+const bodyParser = require("body-parser");
+const jsonParser = bodyParser.json();
+const Add = express();
 
-const slaughtererAdd = express();
 
-slaughtererAdd.use(express.json());
 
-slaughtererAdd.get('/slaughterer', (req,res) => {
-  res.send("hello slaughterer");
-});
-
-// // API endpoint สำหรับการเพิ่มข้อมูลหมู
-// slaughtererAdd.post('/api/slaughtererAdd', (req, res) => {
-//   const { productName,productWeight,productDate } = req.body;
-
-//   // Query เพื่อเพิ่มข้อมูลลงในฐานข้อมูล
-//   const sql = 'INSERT INTO product ( productName,productWeight,productDate) VALUES (?, ?, ?)';
-//   db.query(sql, [productName,productWeight,productDate], (err, result) => {
-//     if (err) {
-//       console.error('Error adding product:', err);
-//       res.status(500).json({ success: false, message: 'Failed to add product' });
-//     } else {
-//       console.log('Product added successfully');
-//       res.status(200).json({ success: true, message: 'Product added successfully' });
-//     }
-//   });
-// });
-
-///////////////////////////////////////////////////////////
-// API endpoint สำหรับการเพิ่มข้อมูลหมู
-slaughtererAdd.post('/api/slaughtererAdd', (req, res) => {
-  const { productName, productWeight, productDate, batchID } = req.body;
-
-  // Query เพื่อดึงข้อมูล batchID จากตาราง batch โดยใช้ batchName
-  const getBatchIDSql = 'SELECT batchID FROM batch WHERE batchID = ?';
-  db.query(getBatchIDSql, [batchID], (batchErr, batchResult) => {
-    if (batchErr) {
-      console.error('Error fetching batch ID:', batchErr);
-      res.status(500).json({ success: false, message: 'Failed to fetch batch ID' });
-      return;
+//Add product
+Add.post('/api/slaughtererAdd', jsonParser, (req, res) => {
+  const userID = req.body.userID;
+  const { productName, productWeight, productDate, batchID} = req.body;
+  const slaughtererIDQuery = 'SELECT slaughterer.slaughtererID FROM slaughterer JOIN user ON user.userID = slaughterer.userID WHERE user.userID = ?';
+  db.query(slaughtererIDQuery, [userID], (err, slaughtererIDResult) => {
+    if (err) {
+      console.error('Error fetching slaughtererID:', err);
+      return res.status(500).json({ success: false, message: 'Failed to fetch slaughtererID' });
     }
-    if (batchResult.length === 0) {
-      res.status(404).json({ success: false, message: 'Batch not found' });
-      return;
+    if (slaughtererIDResult.length === 0) {
+      return res.status(404).json({ success: false, message: 'User not found' });
     }
-
-    const batchID = batchResult[0].batchID;
-
-    // Query เพื่อเพิ่มข้อมูลลงในฐานข้อมูล product
-    const insertProductSql = 'INSERT INTO product (productName, productWeight, productDate, batchID) VALUES (?, ?, ?, ?)';
-    db.query(insertProductSql, [productName, productWeight, productDate, batchID], (err, result) => {
+    const slaughtererID = slaughtererIDResult[0].slaughtererID;
+   
+    const sql = 'INSERT INTO product (productName, productWeight, productDate, batchID, slaughtererID) VALUES (?, ?, ?, ?, ?)';
+    db.query(sql, [productName, productWeight, productDate, batchID, slaughtererID], (err, result) => {
       if (err) {
         console.error('Error adding product:', err);
         res.status(500).json({ success: false, message: 'Failed to add product' });
       } else {
         console.log('Product added successfully');
-        res.status(200).json({ success: true, message: 'Product added successfully' });
+        res.status(200).json({ success: true, message: 'Product added successfully', slaughtererID: slaughtererID });
       }
     });
   });
 });
 
+//SendBatchID
+Add.post('/api/slaughtererBatchID', jsonParser, (req, res) => {
+  const userID = req.body.userID;
+  const slaughtererIDQuery = 'SELECT slaughterer.slaughtererID FROM slaughterer JOIN user ON user.userID = slaughterer.userID WHERE user.userID = ?';
+  db.query(slaughtererIDQuery, [userID], (err, slaughtererIDResult) => {
+    if (err) {
+      console.error('Error fetching slaughtererID:', err);
+      return res.status(500).json({ success: false, message: 'Failed to fetch slaughtererID' });
+    }
+    if (slaughtererIDResult.length === 0) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+    const slaughtererID = slaughtererIDResult[0].slaughtererID;
+    const sql = 'SELECT batch.batchID FROM batch WHERE batch.slaughtererID = ?';
+    db.query(sql, [slaughtererID], (err, result) => {
+      if (err) {
+        console.error('Error fetching batchID:', err);
+        res.status(500).json({ success: false, message: 'Failed to fetch batchID' });
+      } else {
+        const batchID = result.map(row => row.batchID); // แปลงเป็นอาร์เรย์ของตัวเลข batchID เท่านั้น
+        res.status(200).json({ success: true, batchID: batchID });
+      }
+    });
+  });
+});
 
-module.exports = slaughtererAdd;
+module.exports = Add;
