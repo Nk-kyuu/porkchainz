@@ -10,7 +10,6 @@ const secret = "secretlog";
 
 login.use(cors());
 login.use(express.json());
-login.use(bodyParser.urlencoded({ extends: true }));
 login.use(bodyParser.json());
 
 
