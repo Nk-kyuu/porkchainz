@@ -63,24 +63,24 @@ slaughtererSend.post("/createShip", jsonParser, (req, res) => {
 
         const shipmentID = results.insertId;
 
-        // Update product table with shipmentID for each product in the array
-        for (const productID of productIDs) {
-          const updateProductQuery = `
-            UPDATE product
-            SET shipmentID = ${shipmentID}
-            WHERE productID = ${productID};
-          `;
+// Update product table with shipmentID and productStatus for each product in the array
+for (const productID of productIDs) {
+  const updateProductQuery = `
+    UPDATE product
+    SET shipmentID = ${shipmentID}, productStatus = 1
+    WHERE productID = ${productID};
+  `;
 
-          db.query(updateProductQuery, (updateErr, updateResult) => {
-            if (updateErr) {
-              console.error('Error updating product:', updateErr);
-              // Handle individual product update error (consider logging to a database)
-            }
-          });
-        }
+  db.query(updateProductQuery, (updateErr, updateResult) => {
+    if (updateErr) {
+      console.error('Error updating product:', updateErr);
+      // Handle individual product update error (consider logging to a database)
+    }
+  });
+}
 
-        res.json({ success: true, status: "ok" });
-      }
+res.json({ success: true, status: "ok" });
+      }  
     );
   });
 });
