@@ -16,7 +16,6 @@ import {
   TablePagination
 } from '@mui/material';
 
-
 function FarmerDashPig() {
   const [rows, setRows] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
@@ -26,21 +25,15 @@ function FarmerDashPig() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userID = localStorage.getItem('userID');
-        if (!userID) {
-          console.error('Farmer ID not found ');
-          return;
-        }
-        const response = await axios.post('http://localhost:5000/pigInfo', { userID });
-        setRows(response.data); 
+        const response = await axios.get('http://localhost:5000/pigInfo');
+        setRows(response.data);
       } catch (err) {
         console.error('Error fetching data:', err);
       }
     };
+
     fetchData();
   }, []);
-  
- 
 
   const handleRowCheckboxChange = (event, row) => {
     const selectedRowIds = new Set(selectedRows);
@@ -50,6 +43,7 @@ function FarmerDashPig() {
       selectedRowIds.delete(row.pigID);
     }
     setSelectedRows(Array.from(selectedRowIds));
+
     const selectedRowsData = rows.filter(row => selectedRowIds.has(row.pigID))
       .map(row => ({ pigID: row.pigID, pigWeight: row.pigWeight }));
     localStorage.setItem('selectedRowsData', JSON.stringify(selectedRowsData));
@@ -63,6 +57,7 @@ function FarmerDashPig() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
   return (
     <div className="container">
       <Navbar />
@@ -75,9 +70,9 @@ function FarmerDashPig() {
             <Button href="/farmerAdd" color="warning" variant="contained">Add Pig</Button>
           </div>
         </div>
-        <div className="pig-table" style={{ fontSize: "13.5px", width: "80%",backgroundColor: "white" ,height:"300px" }}>
+        <div className="pig-table" style={{ fontSize: "13.5px", width: "80%" }}>
           <TableContainer component={Paper}>
-            <Table style={{ minWidth: "700px"  }}>
+            <Table style={{ minWidth: "700px" }}>
               <TableHead>
                 <TableRow>
                   <TableCell >Select</TableCell>
@@ -109,8 +104,7 @@ function FarmerDashPig() {
               </TableBody>
             </Table>
           </TableContainer>
-        </div>
-        <TablePagination
+          <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
             count={rows.length}
@@ -118,8 +112,8 @@ function FarmerDashPig() {
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
-            sx={{marginTop:"20px"}}
           />
+        </div>
         <div className="btn-addBatch">
           {selectedRows.length > 0 && (
             <Link
