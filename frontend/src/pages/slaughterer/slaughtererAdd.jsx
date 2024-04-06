@@ -10,11 +10,13 @@ import { DatePicker } from '@mui/x-date-pickers';
 
 const SlaughtererAdd = () => {
   const defaultTheme = createTheme();
+  //const localEmail = localStorage.getItem("email") //เอา email จาก localStorage
   const [formData, setFormData] = useState({
     productName: '',
     productWeight: '',
     productDate: '',
     batchID: '1', // default value
+    //email: localEmail
   });
 
   const handleChange = (event) => {
@@ -27,13 +29,25 @@ const SlaughtererAdd = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!formData.productName || !formData.productWeight || !formData.productDate || !formData.batchID) {
+      alert('Please fill in all fields'); 
+      return; 
+    }
+  
+    const email = localStorage.getItem('email');
+    if (!email) {
+      alert('No email found. Please log in.'); 
+      return;
+    }
+    const dataToSend = { ...formData, email }; // เพิ่ม email ในข้อมูลที่จะส่งไป
+  
     try {
-      const response = await axios.post('http://localhost:5000/api/slaughtererAdd', formData); // ใช้ axios.post แทน fetch
-      console.log(formData);
+      const response = await axios.post('http://localhost:5000/api/slaughtererAdd', dataToSend); // ใช้ axios.post แทน fetch
+      //console.log(formData);
       if (!response.data.success) {
         throw new Error('Failed to add product');
       }
-
+  
       // Redirect
       window.location.href = '/slaughtererProduct';
     } catch (error) {
@@ -139,7 +153,7 @@ const SlaughtererAdd = () => {
               </Grid>
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
               <Button
-                href='/slaughtererDash'
+                href='/slaughtererProduct'
                 type="submit"
                 fullWidth
                 variant="contained"

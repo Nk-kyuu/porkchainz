@@ -9,7 +9,7 @@ farmer.get('/farmer', (req,res) => {
 });
  
 //Add Pig Info
-farmer.post("/api/addpig", jsonParser, async (req, res) => {
+farmer.post("/api/add", jsonParser, async (req, res) => {
     const { pigWeight, pigStartDate, pigEndDate, pigBreed, pigHealth } = req.body;
   
     if (!pigWeight || !pigStartDate || !pigEndDate || !pigBreed || !pigHealth ) {

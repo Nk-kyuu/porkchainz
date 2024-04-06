@@ -2,30 +2,85 @@ import { Button,TextField,CssBaseline,Grid,Box,Typography,Container,MenuItem} fr
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Navbar from "../../components/navbarSlaghterer"
 
+import React, { useState } from 'react';
+import axios from 'axios'; // เพิ่ม import สำหรับ axios
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DatePicker } from '@mui/x-date-pickers';
 
 const SlaughtererSend = () => {
     const defaultTheme = createTheme();
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        // console.log({
-        //   email: data.get('email'),
-        //   password: data.get('password'),
-        // });
-      };
+
+    const [formData, setFormData] = useState({
+      source: '',
+      retailerID: '1', // default value
+      sendDate: '',
+      estimateArrivalDate: '',
+      //email: localEmail
+    });
+
+    const handleChange = (event) => {
+      if (event.target.name === 'retailerID') {
+        setFormData({ ...formData, retailerID: event.target.value });
+      } else {
+        setFormData({ ...formData, [event.target.name]: event.target.value });
+      }
+    };
+
+    // const handleChange = (event) => {
+    //   setFormData({ ...formData, [event.target.name]: event.target.value });
+    // };
+
+    const handleSendDateChange = (date) => {
+      setFormData({ ...formData, sendDate: date });
+    };
+
+    const handleEstimateArrivaltDateChange = (date) => {
+      setFormData({ ...formData, estimateArrivalDate: date });
+    };
+
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+      if (!formData.source || !formData.retailerID || !formData.sendDate || !formData.estimateArrivalDate) {
+        alert('Please fill in all fields'); 
+        return; 
+      }
+    
+      // const email = localStorage.getItem('email');
+      // if (!email) {
+      //   alert('No email found. Please log in.'); 
+      //   return;
+      // }
+      // const dataToSend = { ...formData, email }; // เพิ่ม email ในข้อมูลที่จะส่งไป
+    
+      try {
+        const response = await axios.post('http://localhost:5000/api/slaughtererSend', formData); // ใช้ axios.post แทน fetch
+        //console.log(formData);
+        if (!response.data.success) {
+          throw new Error('Failed to add shipment');
+        }
+    
+        // Redirect
+        window.location.href = '/slaughtererAddShip';
+      } catch (error) {
+        console.error('Error adding shipment:', error);
+      }
+    };
+
+    
       const currencies = [
         {
-          value: 'R1',
+          value: '1',
           label: 'R00001',
         },
         
         {
-          value: 'R2',
+          value: '2',
           label: 'R00002',
         },
 
         {
-          value: 'R3',
+          value: '3',
           label: 'R00003',
         }
         
@@ -61,17 +116,21 @@ const SlaughtererSend = () => {
                     name="source"                   
                     fullWidth
                     id="source"
-                    label="Source"
+                    //label="Source"
+                    placeholder='Source'
                     autoFocus
+                    onChange={handleChange}
                   />
                 </Grid>
 
                 <Grid item xs={12} sm={4}>
                     <TextField
-                        id="outlined-select-currency"
+                        //id="outlined-select-currency"
+                        id='destination'
                         select
-                        label="destination"
-                        defaultValue="R1"
+                        //label="destination"
+                        defaultValue="1"
+                        onChange={handleChange}
                         helperText="Please select destination">
                         {currencies.map((option) => (
                         <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>))}
@@ -79,30 +138,38 @@ const SlaughtererSend = () => {
                 </Grid> 
 
                 <Grid item xs={12} sm={6}>
-                  <TextField
-                    fullWidth
-                    id="sendDate"
-                    label="SendDate"
-                    name="sendDate"
-                    autoComplete="sendDate"
-                  />
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker>
+                      {/* id="sendDate" */}
+                      label="sendDate"
+                      {/* name="sendDate" */}
+                      {/* autoComplete="sendDate" */}
+                      value={formData.sendDate}
+                      onChange={handleSendDateChange}
+                      renderInput={(params) => <TextField {...params} />}
+                    </DatePicker>
+                  </LocalizationProvider>
                 </Grid>
                 
 
                 <Grid item xs={12} sm={6}>
-                  <TextField
-                    fullWidth
-                    id="estimateArrivaltDate"
-                    label="EstimateArrivaltDate"
-                    name="estimateArrivaltDate"
-                    autoComplete="estimateArrivaltDate"
-                  />
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker>
+                      {/* id="estimateArrivaltDate" */}
+                      label="estimateArrivaltDate"
+                      {/* name="estimateArrivaltDate" */}
+                      {/* autoComplete="estimateArrivaltDate" */}
+                      value={formData.estimateArrivaltDate}
+                      onChange={handleEstimateArrivaltDateChange}
+                      renderInput={(params) => <TextField {...params} />}
+                    </DatePicker>
+                  </LocalizationProvider>
                 </Grid>
                                                               
               </Grid>
               <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}> 
                 <Button
-                  href='/slaughtererProduct'
+                  href='/slaughtererAddShip'
                   type="submit"
                   fullWidth
                   variant="contained"

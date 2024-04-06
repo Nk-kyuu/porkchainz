@@ -13,11 +13,6 @@ slaughtererSend.get('/slaughterer', (req,res) => {
 slaughtererSend.post('/api/slaughtererSend', (req, res) => {
   const { source, retailerID, sendDate, estimateArrivalDate } = req.body;
 
-  //ตรวจสอบว่าค่าถูกส่งมาครบถ้วน
-  if (!source || !retailerID || !sendDate || !estimateArrivalDate) {
-    return res.status(400).json({ success: false, message: 'Missing required fields' });
-  }
-
   // Query เพื่อดึง retailerID จากตาราง retailer
   const retailerQuery = 'SELECT * FROM retailer WHERE retailerID = ?';
   db.query(retailerQuery, [retailerID], (retailerErr, retailerResult) => {
@@ -48,20 +43,19 @@ slaughtererSend.post('/api/slaughtererSend', (req, res) => {
 });
 
 
-
-// API endpoint สำหรับการดึงข้อมูล shipment ทั้งหมด
-slaughtererSend.get('/api/shipment', (req, res) => {
-  // Query เพื่อดึงข้อมูล shipment ทั้งหมด
-  const sql = 'SELECT * FROM shipment';
-  db.query(sql, (err, results) => {
-    if (err) {
-      console.error('Error fetching shipments:', err);
-      res.status(500).json({ success: false, message: 'Failed to fetch shipments' });
-    } else {
-      console.log('Shipments fetched successfully');
-      res.status(200).json({ success: true, message: 'Shipments fetched successfully', shipments: results });
-    }
-  });
-});
-
 module.exports = slaughtererSend;
+
+// // API endpoint สำหรับการดึงข้อมูล shipment ทั้งหมด
+// slaughtererSend.get('/api/shipment', (req, res) => {
+//   // Query เพื่อดึงข้อมูล shipment ทั้งหมด
+//   const sql = 'SELECT * FROM shipment';
+//   db.query(sql, (err, results) => {
+//     if (err) {
+//       console.error('Error fetching shipments:', err);
+//       res.status(500).json({ success: false, message: 'Failed to fetch shipments' });
+//     } else {
+//       console.log('Shipments fetched successfully');
+//       res.status(200).json({ success: true, message: 'Shipments fetched successfully', shipments: results });
+//     }
+//   });
+// });
