@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
 
 
+
 pig.post('/pigInfo', jsonParser, (req, res) => {
     const userID = req.body.userID;
     const farmerIDQuery = 'SELECT farmer.farmerID FROM farmer JOIN user ON user.userID = farmer.userID WHERE user.userID = ?';
