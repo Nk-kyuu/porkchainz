@@ -1,86 +1,84 @@
-import { useState } from 'react';
-import { Button, CssBaseline, Grid, Box, Typography, Container, MenuItem,TextField } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { Button, TextField, Typography, Container, Box } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Navbar from "../../components/navbarFarmer";
-import axios from 'axios'; // เพิ่ม import สำหรับ axios
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { DatePicker } from '@mui/x-date-pickers';
-
-
+import axios from 'axios';
+import abiAddPig from '../../abi/ABI_AddPig';
+import Web3 from 'web3'
 
 const FarmerAdd = () => {
-  const defaultTheme = createTheme();
-  const [formData, setFormData] = useState({
-    pigWeight: '',
-    pigStartDate: null,
-    pigHealth: '',
-    pigEndDate: null,
-    pigBreed: 'DorocJerse', // default value
-  });
+  const [web3, setWeb3] = useState(null);
+  const [contract, setContract] = useState(null);
+  const [account, setAccount] = useState('');
+  const [pigWeight, setPigWeight] = useState('');
+  const [pigHealth, setPigHealth] = useState('');
 
-  const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
-  };
+  const [pigEndDate, setPigEndDate] = useState('');
+  
 
-  const handleStartDateChange = (date) => {
-    setFormData({ ...formData, pigStartDate: date });
-  };
+  const [transactionHash, setTransactionHash] = useState('');
 
-  const handleEndDateChange = (date) => {
-    setFormData({ ...formData, pigEndDate: date });
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (!formData.pigWeight || !formData.pigStartDate || !formData.pigHealth || !formData.pigEndDate || !formData.pigBreed) {
-      alert('Please fill in all fields'); 
-      return; 
-    }
-    
-    // Get farmerID from localStorage
-    const userID = localStorage.getItem('userID');
-    if (!userID) {
-      alert('No farmerID found. Please log in.'); 
-      return;
-    }
-    
-    // Add farmerID to formData
-    const dataToSend = { ...formData, userID }; 
-    console.log(dataToSend)
-    try {
-      const response = await axios.post('http://localhost:5000/api/addPig', dataToSend);
-      if (!response.data.success) {
-        throw new Error('Failed to add pig');
+  useEffect(() => {
+    async function initWeb3() {
+      try {
+        // Connect to the user's MetaMask provider
+        if (window.ethereum) {
+          const web3Instance = new Web3(window.ethereum);
+          await window.ethereum.request({ method: 'eth_requestAccounts' });
+          setWeb3(web3Instance);
+          // Set the default account
+          const accounts = await web3Instance.eth.getAccounts();
+          setAccount(accounts[0]);
+          // Create an instance of the contract using ABI and contract address
+          const contractAddress = '0xa41c9AFbFceefcC9AbBb4E477b5ff2060b4c8276'; // Use your contract address
+          const contractInstance = new web3Instance.eth.Contract(abiAddPig, contractAddress);
+          setContract(contractInstance);
+        } else {
+          console.error('Please install MetaMask');
+        }
+      } catch (error) {
+        console.error('Error initializing Web3:', error);
       }
-      window.location.href = '/farmerDashPig';
+    }
+    initWeb3();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Ensure Web3 and contract are initialized
+      if (!web3 || !contract) {
+        console.error('Web3 or contract not initialized');
+        return;
+      }
+      // Get the current user's account address
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const senderAddress = accounts[0];
+      // Call the addPig function in the smart contract
+      const transaction = await contract.methods.addPig(pigWeight, pigHealth, pigStartDate, pigEndDate, pigBreed).send({ from: senderAddress, gas: 5000000 });
+      // Retrieve the transaction hash
+      const txHash = transaction.transactionHash;
+      setTransactionHash(txHash);
+      // Store hash data in the backend database
+      await axios.post('http://localhost:5000/api/pigAdd', { pigWeight, pigHealth, pigStartDate, pigEndDate, pigBreed, transactionHash: txHash });
+      // Clear input fields after successful submission
+      setPigWeight('');
+      setPigHealth('');
+      setPigStartDate('');
+      setPigStartDate('');
+      setPigStartDate('');
+      setPigBreed('');
     } catch (error) {
-      console.error('Error adding pig:', error);
+      console.error('Error submitting transaction:', error);
     }
   };
-  const currencies = [
-    {
-      value: 'DorocJerse',
-      label: 'DorocJerse',
-    },
-    {
-      value: 'Landrace',
-      label: 'Landrace',
-    },
-    {
-      value: 'LargeWhite',
-      label: 'LargeWhite',
-    }
-  ];
+
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Navbar/>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
+    <ThemeProvider theme={createTheme()}>
+      <Container maxWidth="xs">
         <Box
-           sx={{
-            marginTop: 5,
+          sx={{
+            marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -94,80 +92,65 @@ const FarmerAdd = () => {
             Add Pig
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2} >
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="pigWeight"
-                  fullWidth
-                  id="pigWeight"
-                  placeholder="weight"
-                  autoFocus
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                    placeholder="Start Date"
-                    value={formData.pigStartDate}
-                    onChange={handleStartDateChange}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </LocalizationProvider>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  id="pigHealth"
-                  placeholder="health"
-                  name="pigHealth"
-                  autoComplete="health"
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                  
-                    placeholder="End Date"
-                    value={formData.pigEndDate}
-                    onChange={handleEndDateChange}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </LocalizationProvider>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <TextField
-                   id="pigBreed"
-                   placeholder="Breed"
-                   select
-                   name="pigBreed" // ตรงนี้ต้องตรงกับชื่อฟิลด์ในฐานข้อมูล
-                   value={formData.pigBreed}
-                   onChange={handleChange}
-                   helperText="Please select Breed"
-                >
-                  {currencies.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
-                  ))}
-                </TextField>
-              </Grid>
-            </Grid>
-              <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="error"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Add
-                </Button>
+            <TextField
+              type="text"
+              placeholder="Pig Weight"
+              value={pigWeight}
+              onChange={(e) => setPigWeight(e.target.value)}
+              fullWidth
+              autoFocus
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              type="text"
+              placeholder="Pig Health"
+              value={pigHealth}
+              onChange={(e) => setPigHealth(e.target.value)}
+              fullWidth
+              sx={{ mb: 2 }}
+            />
+             <TextField
+              type="text"
+              placeholder="PigStartDate"
+              value={pigStartDate}
+              onChange={(e) => setPigStartDate(e.target.value)}
+              fullWidth
+              sx={{ mb: 2 }}
+            />
+             <TextField
+              type="text"
+              placeholder="PigEndDate"
+              value={pigEndDate}
+              onChange={(e) => setPigEndDate(e.target.value)}
+              fullWidth
+              sx={{ mb: 2 }}
+            />
+             <TextField
+              type="text"
+              placeholder="PigBreed"
+              value={pigBreed}
+              onChange={(e) => setPigBreed(e.target.value)}
+              fullWidth
+              sx={{ mb: 2 }}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              color="error"
+              fullWidth
+            >
+              Add Pig
+            </Button>
+            {transactionHash && (
+              <Box mt={2}>
+                <Typography variant="body1">Transaction Hash: {transactionHash}</Typography>
               </Box>
+            )}
           </Box>
         </Box>
       </Container>
     </ThemeProvider>
   );
-}
+};
 
 export default FarmerAdd;

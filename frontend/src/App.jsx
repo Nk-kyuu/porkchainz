@@ -38,7 +38,7 @@ function App() {
           <Route path="/slaughtererSend" element={<SlaughtererSend />} />
           <Route path="/farmerAddBatch" element={<FarmerAddBatch />}/>
           <Route path="/consumer/:shipmentID" element={<Consumer/>} />
-          <Route path="testPig" element={<TestPig/>} />
+          <Route path="/testPig" element={<TestPig/>} />
         </Routes>
       </BrowserRouter >
     </div>

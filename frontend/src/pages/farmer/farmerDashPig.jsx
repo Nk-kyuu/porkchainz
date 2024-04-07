@@ -73,7 +73,7 @@ function FarmerDashPig() {
             <p>Pig Information</p>
           </div>
           <div className="btn-addPig">
-            <Button href="/farmerAdd" color="warning" variant="contained">Add Pig</Button>
+            <Button href="/testpig" color="warning" variant="contained">Add Pig</Button>
           </div>
         </div>
         <div className="pig-table" style={{ fontSize: "13.5px", width: "80%",backgroundColor: "white" ,height:"300px" }}>
@@ -84,9 +84,6 @@ function FarmerDashPig() {
                   <TableCell >Select</TableCell>
                   <TableCell >pigID</TableCell>
                   <TableCell >pigWeight(kg)</TableCell>
-                  <TableCell >pigStartDate</TableCell>
-                  <TableCell >pigEndDate</TableCell>
-                  <TableCell >pigBreed</TableCell>
                   <TableCell >pigHealth</TableCell>
                   <TableCell >pigHash</TableCell>
                 </TableRow>
@@ -102,9 +99,6 @@ function FarmerDashPig() {
                     </TableCell>
                     <TableCell >{row.pigID}</TableCell>
                     <TableCell >{row.pigWeight}</TableCell>
-                    <TableCell >{new Date(row.pigStartDate).toISOString().split('T')[0]}</TableCell>
-                    <TableCell >{new Date(row.pigEndDate).toISOString().split('T')[0]}</TableCell>
-                    <TableCell >{row.pigBreed}</TableCell>
                     <TableCell >{row.pigHealth}</TableCell>
                     <TableCell >{row.pigHash}</TableCell>
                   </TableRow>

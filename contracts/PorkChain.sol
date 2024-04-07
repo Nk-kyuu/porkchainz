@@ -2,10 +2,11 @@
 pragma solidity >=0.4.22 <0.9.0;
 
 contract PorkChain {
-    struct Pig {
+   struct Pig {
         uint8 pigID;
         uint8 pigWeight;
         string pigHealth;
+        
     }
 
     Pig[] public pigs;
@@ -27,4 +28,6 @@ contract PorkChain {
         }
         revert("Pig not found");
     }
+   
+  
 }
