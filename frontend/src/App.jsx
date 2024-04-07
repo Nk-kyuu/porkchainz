@@ -16,7 +16,7 @@ import RegisterForm from "./pages/admin/registerForm";
 import LoginAdmin from './pages/login/loginAdmin';
 import AddAdmin from './pages/admin/addAdmin';
 import Consumer from './pages/consumer/consumer'
-
+import TestPig from './pages/farmer/TestPig';
 function App() {
   return (
     <div className="App">
@@ -38,6 +38,7 @@ function App() {
           <Route path="/slaughtererSend" element={<SlaughtererSend />} />
           <Route path="/farmerAddBatch" element={<FarmerAddBatch />}/>
           <Route path="/consumer/:shipmentID" element={<Consumer/>} />
+          <Route path="testPig" element={<TestPig/>} />
         </Routes>
       </BrowserRouter >
     </div>

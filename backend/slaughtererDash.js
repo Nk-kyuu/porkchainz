@@ -35,6 +35,7 @@ getBash.post('/getInfo',jsonParser , (req, res) => {
           res.json(result);
       });
   });
+  
 });
 
 

@@ -1,21 +1,130 @@
 {
   "contractName": "PorkChain",
-  "abi": [],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.1+commit.c8a2cb62\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/PorkChain.sol\":\"PorkChain\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/PorkChain.sol\":{\"keccak256\":\"0xc849b2aaee8f48c880fd9853ec0f74b8709690bf058fc0753f8e342f7e54500b\",\"urls\":[\"bzzr://8a008385d63ca3c3013b1a31231d078cddbe59e5b4c247fff2d38ce4b03e3f86\"]}},\"version\":1}",
-  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3fe6080604052600080fdfea165627a7a7230582050c8a4b50bd77dbe6086c71a24dae12b9acc5e4f10d0c8ab9cfaa1194cad78940029",
-  "deployedBytecode": "0x6080604052600080fdfea165627a7a7230582050c8a4b50bd77dbe6086c71a24dae12b9acc5e4f10d0c8ab9cfaa1194cad78940029",
-  "sourceMap": "69:149:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;69:149:0;;;;;;;",
-  "deployedSourceMap": "69:149:0:-;;;;;",
-  "source": "// SPDX-License-Identifier: MIT\r\npragma solidity >=0.4.22 <0.9.0;\r\n\r\ncontract PorkChain {\r\n    struct Pig {\r\n        uint id;\r\n        string breed;\r\n        string birthDate;\r\n        string healthRecords;\r\n    }\r\n\r\n}",
-  "sourcePath": "D:\\Coding\\KMUTNB Coding\\Blockchain\\porkchain\\contracts\\PorkChain.sol",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "pigs",
+      "outputs": [
+        {
+          "name": "pigID",
+          "type": "uint8"
+        },
+        {
+          "name": "pigWeight",
+          "type": "uint8"
+        },
+        {
+          "name": "pigHealth",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "pigCount",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "pigId",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "name": "pigWeight",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "name": "pigHealth",
+          "type": "string"
+        }
+      ],
+      "name": "PigAdded",
+      "type": "event"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_pigWeight",
+          "type": "uint8"
+        },
+        {
+          "name": "_pigHealth",
+          "type": "string"
+        }
+      ],
+      "name": "addPig",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_pigId",
+          "type": "uint8"
+        }
+      ],
+      "name": "getPigDataById",
+      "outputs": [
+        {
+          "name": "pigID",
+          "type": "uint8"
+        },
+        {
+          "name": "pigWeight",
+          "type": "uint8"
+        },
+        {
+          "name": "pigHealth",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.1+commit.c8a2cb62\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"pigs\",\"outputs\":[{\"name\":\"pigID\",\"type\":\"uint8\"},{\"name\":\"pigWeight\",\"type\":\"uint8\"},{\"name\":\"pigHealth\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_pigId\",\"type\":\"uint8\"}],\"name\":\"getPigDataById\",\"outputs\":[{\"name\":\"pigID\",\"type\":\"uint8\"},{\"name\":\"pigWeight\",\"type\":\"uint8\"},{\"name\":\"pigHealth\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"pigCount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint8\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_pigWeight\",\"type\":\"uint8\"},{\"name\":\"_pigHealth\",\"type\":\"string\"}],\"name\":\"addPig\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"pigId\",\"type\":\"uint8\"},{\"indexed\":false,\"name\":\"pigWeight\",\"type\":\"uint8\"},{\"indexed\":false,\"name\":\"pigHealth\",\"type\":\"string\"}],\"name\":\"PigAdded\",\"type\":\"event\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/PorkChain.sol\":\"PorkChain\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/PorkChain.sol\":{\"keccak256\":\"0xa64539d436782fffe27ff3e42707ac5ccebd273b0d6390f72f5a057c446448bc\",\"urls\":[\"bzzr://597a75093857d69dd6f65035d82cbe510f119e1792610acf8ee12202e48f67e2\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50610882806100206000396000f3fe60806040526004361061005c576000357c0100000000000000000000000000000000000000000000000000000000900480631d0316de146100615780636ac9bc081461012f578063af81aac114610200578063d4756c7914610231575b600080fd5b34801561006d57600080fd5b5061009a6004803603602081101561008457600080fd5b8101908080359060200190929190505050610306565b604051808460ff1660ff1681526020018360ff1660ff16815260200180602001828103825283818151815260200191508051906020019080838360005b838110156100f25780820151818401526020810190506100d7565b50505050905090810190601f16801561011f5780820380516001836020036101000a031916815260200191505b5094505050505060405180910390f35b34801561013b57600080fd5b5061016b6004803603602081101561015257600080fd5b81019080803560ff1690602001909291905050506103f1565b604051808460ff1660ff1681526020018360ff1660ff16815260200180602001828103825283818151815260200191508051906020019080838360005b838110156101c35780820151818401526020810190506101a8565b50505050905090810190601f1680156101f05780820380516001836020036101000a031916815260200191505b5094505050505060405180910390f35b34801561020c57600080fd5b506102156105eb565b604051808260ff1660ff16815260200191505060405180910390f35b34801561023d57600080fd5b506103046004803603604081101561025457600080fd5b81019080803560ff1690602001909291908035906020019064010000000081111561027e57600080fd5b82018360208201111561029057600080fd5b803590602001918460018302840111640100000000831117156102b257600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f8201169050808301925050505050505091929192905050506105fe565b005b60008181548110151561031557fe5b90600052602060002090600202016000915090508060000160009054906101000a900460ff16908060000160019054906101000a900460ff1690806001018054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156103e75780601f106103bc576101008083540402835291602001916103e7565b820191906000526020600020905b8154815290600101906020018083116103ca57829003601f168201915b5050505050905083565b600080606060008090505b600080549050811015610575578460ff1660008281548110151561041c57fe5b906000526020600020906002020160000160009054906101000a900460ff1660ff1614156105685760008181548110151561045357fe5b906000526020600020906002020160000160009054906101000a900460ff1660008281548110151561048157fe5b906000526020600020906002020160000160019054906101000a900460ff166000838154811015156104af57fe5b9060005260206000209060020201600101808054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156105555780601f1061052a57610100808354040283529160200191610555565b820191906000526020600020905b81548152906001019060200180831161053857829003601f168201915b50505050509050935093509350506105e4565b80806001019150506103fc565b506040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252600d8152602001807f506967206e6f7420666f756e640000000000000000000000000000000000000081525060200191505060405180910390fd5b9193909250565b600160009054906101000a900460ff1681565b6001600081819054906101000a900460ff168092919060010191906101000a81548160ff021916908360ff160217905550506000606060405190810160405280600160009054906101000a900460ff1660ff1681526020018460ff168152602001838152509080600181540180825580915050906001820390600052602060002090600202016000909192909190915060008201518160000160006101000a81548160ff021916908360ff16021790555060208201518160000160016101000a81548160ff021916908360ff16021790555060408201518160010190805190602001906106ec9291906107b1565b50505050600160009054906101000a900460ff1660ff167f3d44945a367c40bd351c2224eac7b94d113d8d1f04c53630b90fa5fc2f59a0248383604051808360ff1660ff16815260200180602001828103825283818151815260200191508051906020019080838360005b83811015610772578082015181840152602081019050610757565b50505050905090810190601f16801561079f5780820380516001836020036101000a031916815260200191505b50935050505060405180910390a25050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106107f257805160ff1916838001178555610820565b82800160010185558215610820579182015b8281111561081f578251825591602001919060010190610804565b5b50905061082d9190610831565b5090565b61085391905b8082111561084f576000816000905550600101610837565b5090565b9056fea165627a7a72305820806e499f9e57f1f88d47869aeb227a9eb99bf5160ae2ca0d732be32c1d11852c0029",
+  "deployedBytecode": "0x60806040526004361061005c576000357c0100000000000000000000000000000000000000000000000000000000900480631d0316de146100615780636ac9bc081461012f578063af81aac114610200578063d4756c7914610231575b600080fd5b34801561006d57600080fd5b5061009a6004803603602081101561008457600080fd5b8101908080359060200190929190505050610306565b604051808460ff1660ff1681526020018360ff1660ff16815260200180602001828103825283818151815260200191508051906020019080838360005b838110156100f25780820151818401526020810190506100d7565b50505050905090810190601f16801561011f5780820380516001836020036101000a031916815260200191505b5094505050505060405180910390f35b34801561013b57600080fd5b5061016b6004803603602081101561015257600080fd5b81019080803560ff1690602001909291905050506103f1565b604051808460ff1660ff1681526020018360ff1660ff16815260200180602001828103825283818151815260200191508051906020019080838360005b838110156101c35780820151818401526020810190506101a8565b50505050905090810190601f1680156101f05780820380516001836020036101000a031916815260200191505b5094505050505060405180910390f35b34801561020c57600080fd5b506102156105eb565b604051808260ff1660ff16815260200191505060405180910390f35b34801561023d57600080fd5b506103046004803603604081101561025457600080fd5b81019080803560ff1690602001909291908035906020019064010000000081111561027e57600080fd5b82018360208201111561029057600080fd5b803590602001918460018302840111640100000000831117156102b257600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f8201169050808301925050505050505091929192905050506105fe565b005b60008181548110151561031557fe5b90600052602060002090600202016000915090508060000160009054906101000a900460ff16908060000160019054906101000a900460ff1690806001018054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156103e75780601f106103bc576101008083540402835291602001916103e7565b820191906000526020600020905b8154815290600101906020018083116103ca57829003601f168201915b5050505050905083565b600080606060008090505b600080549050811015610575578460ff1660008281548110151561041c57fe5b906000526020600020906002020160000160009054906101000a900460ff1660ff1614156105685760008181548110151561045357fe5b906000526020600020906002020160000160009054906101000a900460ff1660008281548110151561048157fe5b906000526020600020906002020160000160019054906101000a900460ff166000838154811015156104af57fe5b9060005260206000209060020201600101808054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156105555780601f1061052a57610100808354040283529160200191610555565b820191906000526020600020905b81548152906001019060200180831161053857829003601f168201915b50505050509050935093509350506105e4565b80806001019150506103fc565b506040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252600d8152602001807f506967206e6f7420666f756e640000000000000000000000000000000000000081525060200191505060405180910390fd5b9193909250565b600160009054906101000a900460ff1681565b6001600081819054906101000a900460ff168092919060010191906101000a81548160ff021916908360ff160217905550506000606060405190810160405280600160009054906101000a900460ff1660ff1681526020018460ff168152602001838152509080600181540180825580915050906001820390600052602060002090600202016000909192909190915060008201518160000160006101000a81548160ff021916908360ff16021790555060208201518160000160016101000a81548160ff021916908360ff16021790555060408201518160010190805190602001906106ec9291906107b1565b50505050600160009054906101000a900460ff1660ff167f3d44945a367c40bd351c2224eac7b94d113d8d1f04c53630b90fa5fc2f59a0248383604051808360ff1660ff16815260200180602001828103825283818151815260200191508051906020019080838360005b83811015610772578082015181840152602081019050610757565b50505050905090810190601f16801561079f5780820380516001836020036101000a031916815260200191505b50935050505060405180910390a25050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106107f257805160ff1916838001178555610820565b82800160010185558215610820579182015b8281111561081f578251825591602001919060010190610804565b5b50905061082d9190610831565b5090565b61085391905b8082111561084f576000816000905550600101610837565b5090565b9056fea165627a7a72305820806e499f9e57f1f88d47869aeb227a9eb99bf5160ae2ca0d732be32c1d11852c0029",
+  "sourceMap": "69:840:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;69:840:0;;;;;;;",
+  "deployedSourceMap": "69:840:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;197:17;;8:9:-1;5:2;;;30:1;27;20:12;5:2;197:17:0;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;197:17:0;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;197:17:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;551:355;;8:9:-1;5:2;;;30:1;27;20:12;5:2;551:355:0;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;551:355:0;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;551:355:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;221:21;;8:9:-1;5:2;;;30:1;27;20:12;5:2;221:21:0;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;330:213;;8:9:-1;5:2;;;30:1;27;20:12;5:2;330:213:0;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;330:213:0;;;;;;;;;;;;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;330:213:0;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;330:213:0;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;330:213:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;330:213:0;;;;;;;;;;;;;;;:::i;:::-;;197:17;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;551:355::-;610:11;623:15;640:23;681:6;690:1;681:10;;676:189;697:4;:11;;;;693:1;:15;676:189;;;751:6;734:23;;:4;739:1;734:7;;;;;;;;;;;;;;;;;;;;:13;;;;;;;;;;;;:23;;;730:124;;;786:4;791:1;786:7;;;;;;;;;;;;;;;;;;;;:13;;;;;;;;;;;;801:4;806:1;801:7;;;;;;;;;;;;;;;;;;;;:17;;;;;;;;;;;;820:4;825:1;820:7;;;;;;;;;;;;;;;;;;;;:17;;778:60;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;730:124;710:3;;;;;;;676:189;;;;875:23;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;551:355;;;;;;:::o;221:21::-;;;;;;;;;;;;;:::o;330:213::-;408:8;;:10;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;429:4;439:37;;;;;;;;;443:8;;;;;;;;;;;439:37;;;;;;453:10;439:37;;;;;;465:10;439:37;;;429:48;;39:1:-1;33:3;27:10;23:18;57:10;52:3;45:23;79:10;72:17;;0:93;429:48:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;502:8;;;;;;;;;;;493:42;;;512:10;524;493:42;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;493:42:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;330:213;;:::o;69:840::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
+  "source": "// SPDX-License-Identifier: MIT\r\npragma solidity >=0.4.22 <0.9.0;\r\n\r\ncontract PorkChain {\r\n    struct Pig {\r\n        uint8 pigID;\r\n        uint8 pigWeight;\r\n        string pigHealth;\r\n    }\r\n\r\n    Pig[] public pigs;\r\n    uint8 public pigCount;\r\n\r\n    event PigAdded(uint8 indexed pigId, uint8 pigWeight, string pigHealth);\r\n\r\n    function addPig(uint8 _pigWeight, string memory _pigHealth) public {\r\n        pigCount++;\r\n        pigs.push(Pig(pigCount, _pigWeight, _pigHealth));\r\n        emit PigAdded(pigCount, _pigWeight, _pigHealth);\r\n    }\r\n\r\n    function getPigDataById(uint8 _pigId) public view returns (uint8 pigID, uint8 pigWeight, string memory pigHealth) {\r\n        for (uint i = 0; i < pigs.length; i++) {\r\n            if (pigs[i].pigID == _pigId) {\r\n                return (pigs[i].pigID, pigs[i].pigWeight, pigs[i].pigHealth);\r\n            }\r\n        }\r\n        revert(\"Pig not found\");\r\n    }\r\n}",
+  "sourcePath": "C:\\Users\\lalaLyn\\Documents\\GitHub\\porkchainz\\contracts\\PorkChain.sol",
   "ast": {
     "absolutePath": "project:/contracts/PorkChain.sol",
     "exportedSymbols": {
       "PorkChain": [
-        11
+        100
       ]
     },
-    "id": 12,
+    "id": 101,
     "nodeType": "SourceUnit",
     "nodes": [
       {
@@ -38,38 +147,38 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 11,
+        "id": 100,
         "linearizedBaseContracts": [
-          11
+          100
         ],
         "name": "PorkChain",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "PorkChain.Pig",
-            "id": 10,
+            "id": 8,
             "members": [
               {
                 "constant": false,
                 "id": 3,
-                "name": "id",
+                "name": "pigID",
                 "nodeType": "VariableDeclaration",
-                "scope": 10,
-                "src": "117:7:0",
+                "scope": 8,
+                "src": "117:11:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_uint256",
-                  "typeString": "uint256"
+                  "typeIdentifier": "t_uint8",
+                  "typeString": "uint8"
                 },
                 "typeName": {
                   "id": 2,
-                  "name": "uint",
+                  "name": "uint8",
                   "nodeType": "ElementaryTypeName",
-                  "src": "117:4:0",
+                  "src": "117:5:0",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_uint256",
-                    "typeString": "uint256"
+                    "typeIdentifier": "t_uint8",
+                    "typeString": "uint8"
                   }
                 },
                 "value": null,
@@ -78,24 +187,24 @@
               {
                 "constant": false,
                 "id": 5,
-                "name": "breed",
+                "name": "pigWeight",
                 "nodeType": "VariableDeclaration",
-                "scope": 10,
-                "src": "135:12:0",
+                "scope": 8,
+                "src": "139:15:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_string_storage_ptr",
-                  "typeString": "string"
+                  "typeIdentifier": "t_uint8",
+                  "typeString": "uint8"
                 },
                 "typeName": {
                   "id": 4,
-                  "name": "string",
+                  "name": "uint8",
                   "nodeType": "ElementaryTypeName",
-                  "src": "135:6:0",
+                  "src": "139:5:0",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_string_storage_ptr",
-                    "typeString": "string"
+                    "typeIdentifier": "t_uint8",
+                    "typeString": "uint8"
                   }
                 },
                 "value": null,
@@ -104,10 +213,10 @@
               {
                 "constant": false,
                 "id": 7,
-                "name": "birthDate",
+                "name": "pigHealth",
                 "nodeType": "VariableDeclaration",
-                "scope": 10,
-                "src": "158:16:0",
+                "scope": 8,
+                "src": "165:16:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -118,33 +227,7 @@
                   "id": 6,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
-                  "src": "158:6:0",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_string_storage_ptr",
-                    "typeString": "string"
-                  }
-                },
-                "value": null,
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 9,
-                "name": "healthRecords",
-                "nodeType": "VariableDeclaration",
-                "scope": 10,
-                "src": "185:20:0",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_string_storage_ptr",
-                  "typeString": "string"
-                },
-                "typeName": {
-                  "id": 8,
-                  "name": "string",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "185:6:0",
+                  "src": "165:6:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_string_storage_ptr",
                     "typeString": "string"
@@ -156,23 +239,1185 @@
             ],
             "name": "Pig",
             "nodeType": "StructDefinition",
-            "scope": 11,
-            "src": "95:118:0",
+            "scope": 100,
+            "src": "95:94:0",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 11,
+            "name": "pigs",
+            "nodeType": "VariableDeclaration",
+            "scope": 100,
+            "src": "197:17:0",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_array$_t_struct$_Pig_$8_storage_$dyn_storage",
+              "typeString": "struct PorkChain.Pig[]"
+            },
+            "typeName": {
+              "baseType": {
+                "contractScope": null,
+                "id": 9,
+                "name": "Pig",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 8,
+                "src": "197:3:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Pig_$8_storage_ptr",
+                  "typeString": "struct PorkChain.Pig"
+                }
+              },
+              "id": 10,
+              "length": null,
+              "nodeType": "ArrayTypeName",
+              "src": "197:5:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_array$_t_struct$_Pig_$8_storage_$dyn_storage_ptr",
+                "typeString": "struct PorkChain.Pig[]"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 13,
+            "name": "pigCount",
+            "nodeType": "VariableDeclaration",
+            "scope": 100,
+            "src": "221:21:0",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint8",
+              "typeString": "uint8"
+            },
+            "typeName": {
+              "id": 12,
+              "name": "uint8",
+              "nodeType": "ElementaryTypeName",
+              "src": "221:5:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint8",
+                "typeString": "uint8"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "anonymous": false,
+            "documentation": null,
+            "id": 21,
+            "name": "PigAdded",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 20,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 15,
+                  "indexed": true,
+                  "name": "pigId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21,
+                  "src": "266:19:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint8",
+                    "typeString": "uint8"
+                  },
+                  "typeName": {
+                    "id": 14,
+                    "name": "uint8",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "266:5:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint8",
+                      "typeString": "uint8"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 17,
+                  "indexed": false,
+                  "name": "pigWeight",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21,
+                  "src": "287:15:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint8",
+                    "typeString": "uint8"
+                  },
+                  "typeName": {
+                    "id": 16,
+                    "name": "uint8",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "287:5:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint8",
+                      "typeString": "uint8"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 19,
+                  "indexed": false,
+                  "name": "pigHealth",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21,
+                  "src": "304:16:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 18,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "304:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "265:56:0"
+            },
+            "src": "251:71:0"
+          },
+          {
+            "body": {
+              "id": 47,
+              "nodeType": "Block",
+              "src": "397:146:0",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 29,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "UnaryOperation",
+                    "operator": "++",
+                    "prefix": false,
+                    "src": "408:10:0",
+                    "subExpression": {
+                      "argumentTypes": null,
+                      "id": 28,
+                      "name": "pigCount",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 13,
+                      "src": "408:8:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint8",
+                        "typeString": "uint8"
+                      }
+                    },
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint8",
+                      "typeString": "uint8"
+                    }
+                  },
+                  "id": 30,
+                  "nodeType": "ExpressionStatement",
+                  "src": "408:10:0"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 35,
+                            "name": "pigCount",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 13,
+                            "src": "443:8:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint8",
+                              "typeString": "uint8"
+                            }
+                          },
+                          {
+                            "argumentTypes": null,
+                            "id": 36,
+                            "name": "_pigWeight",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 23,
+                            "src": "453:10:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint8",
+                              "typeString": "uint8"
+                            }
+                          },
+                          {
+                            "argumentTypes": null,
+                            "id": 37,
+                            "name": "_pigHealth",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 25,
+                            "src": "465:10:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_string_memory_ptr",
+                              "typeString": "string memory"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_uint8",
+                              "typeString": "uint8"
+                            },
+                            {
+                              "typeIdentifier": "t_uint8",
+                              "typeString": "uint8"
+                            },
+                            {
+                              "typeIdentifier": "t_string_memory_ptr",
+                              "typeString": "string memory"
+                            }
+                          ],
+                          "id": 34,
+                          "name": "Pig",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 8,
+                          "src": "439:3:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_struct$_Pig_$8_storage_ptr_$",
+                            "typeString": "type(struct PorkChain.Pig storage pointer)"
+                          }
+                        },
+                        "id": 38,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "structConstructorCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "439:37:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Pig_$8_memory",
+                          "typeString": "struct PorkChain.Pig memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_Pig_$8_memory",
+                          "typeString": "struct PorkChain.Pig memory"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 31,
+                        "name": "pigs",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 11,
+                        "src": "429:4:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_struct$_Pig_$8_storage_$dyn_storage",
+                          "typeString": "struct PorkChain.Pig storage ref[] storage ref"
+                        }
+                      },
+                      "id": 33,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "push",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "429:9:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_arraypush_nonpayable$_t_struct$_Pig_$8_storage_$returns$_t_uint256_$",
+                        "typeString": "function (struct PorkChain.Pig storage ref) returns (uint256)"
+                      }
+                    },
+                    "id": 39,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "429:48:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 40,
+                  "nodeType": "ExpressionStatement",
+                  "src": "429:48:0"
+                },
+                {
+                  "eventCall": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 42,
+                        "name": "pigCount",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 13,
+                        "src": "502:8:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint8",
+                          "typeString": "uint8"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 43,
+                        "name": "_pigWeight",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 23,
+                        "src": "512:10:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint8",
+                          "typeString": "uint8"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 44,
+                        "name": "_pigHealth",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 25,
+                        "src": "524:10:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint8",
+                          "typeString": "uint8"
+                        },
+                        {
+                          "typeIdentifier": "t_uint8",
+                          "typeString": "uint8"
+                        },
+                        {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        }
+                      ],
+                      "id": 41,
+                      "name": "PigAdded",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 21,
+                      "src": "493:8:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_event_nonpayable$_t_uint8_$_t_uint8_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (uint8,uint8,string memory)"
+                      }
+                    },
+                    "id": 45,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "493:42:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 46,
+                  "nodeType": "EmitStatement",
+                  "src": "488:47:0"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 48,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "addPig",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 26,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 23,
+                  "name": "_pigWeight",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 48,
+                  "src": "346:16:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint8",
+                    "typeString": "uint8"
+                  },
+                  "typeName": {
+                    "id": 22,
+                    "name": "uint8",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "346:5:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint8",
+                      "typeString": "uint8"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 25,
+                  "name": "_pigHealth",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 48,
+                  "src": "364:24:0",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 24,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "364:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "345:44:0"
+            },
+            "returnParameters": {
+              "id": 27,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "397:0:0"
+            },
+            "scope": 100,
+            "src": "330:213:0",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 98,
+              "nodeType": "Block",
+              "src": "665:241:0",
+              "statements": [
+                {
+                  "body": {
+                    "id": 92,
+                    "nodeType": "Block",
+                    "src": "715:150:0",
+                    "statements": [
+                      {
+                        "condition": {
+                          "argumentTypes": null,
+                          "commonType": {
+                            "typeIdentifier": "t_uint8",
+                            "typeString": "uint8"
+                          },
+                          "id": 75,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftExpression": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "baseExpression": {
+                                "argumentTypes": null,
+                                "id": 70,
+                                "name": "pigs",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 11,
+                                "src": "734:4:0",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_array$_t_struct$_Pig_$8_storage_$dyn_storage",
+                                  "typeString": "struct PorkChain.Pig storage ref[] storage ref"
+                                }
+                              },
+                              "id": 72,
+                              "indexExpression": {
+                                "argumentTypes": null,
+                                "id": 71,
+                                "name": "i",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 60,
+                                "src": "739:1:0",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              },
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "nodeType": "IndexAccess",
+                              "src": "734:7:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_Pig_$8_storage",
+                                "typeString": "struct PorkChain.Pig storage ref"
+                              }
+                            },
+                            "id": 73,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "pigID",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 3,
+                            "src": "734:13:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint8",
+                              "typeString": "uint8"
+                            }
+                          },
+                          "nodeType": "BinaryOperation",
+                          "operator": "==",
+                          "rightExpression": {
+                            "argumentTypes": null,
+                            "id": 74,
+                            "name": "_pigId",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 50,
+                            "src": "751:6:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint8",
+                              "typeString": "uint8"
+                            }
+                          },
+                          "src": "734:23:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        "falseBody": null,
+                        "id": 91,
+                        "nodeType": "IfStatement",
+                        "src": "730:124:0",
+                        "trueBody": {
+                          "id": 90,
+                          "nodeType": "Block",
+                          "src": "759:95:0",
+                          "statements": [
+                            {
+                              "expression": {
+                                "argumentTypes": null,
+                                "components": [
+                                  {
+                                    "argumentTypes": null,
+                                    "expression": {
+                                      "argumentTypes": null,
+                                      "baseExpression": {
+                                        "argumentTypes": null,
+                                        "id": 76,
+                                        "name": "pigs",
+                                        "nodeType": "Identifier",
+                                        "overloadedDeclarations": [],
+                                        "referencedDeclaration": 11,
+                                        "src": "786:4:0",
+                                        "typeDescriptions": {
+                                          "typeIdentifier": "t_array$_t_struct$_Pig_$8_storage_$dyn_storage",
+                                          "typeString": "struct PorkChain.Pig storage ref[] storage ref"
+                                        }
+                                      },
+                                      "id": 78,
+                                      "indexExpression": {
+                                        "argumentTypes": null,
+                                        "id": 77,
+                                        "name": "i",
+                                        "nodeType": "Identifier",
+                                        "overloadedDeclarations": [],
+                                        "referencedDeclaration": 60,
+                                        "src": "791:1:0",
+                                        "typeDescriptions": {
+                                          "typeIdentifier": "t_uint256",
+                                          "typeString": "uint256"
+                                        }
+                                      },
+                                      "isConstant": false,
+                                      "isLValue": true,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "nodeType": "IndexAccess",
+                                      "src": "786:7:0",
+                                      "typeDescriptions": {
+                                        "typeIdentifier": "t_struct$_Pig_$8_storage",
+                                        "typeString": "struct PorkChain.Pig storage ref"
+                                      }
+                                    },
+                                    "id": 79,
+                                    "isConstant": false,
+                                    "isLValue": true,
+                                    "isPure": false,
+                                    "lValueRequested": false,
+                                    "memberName": "pigID",
+                                    "nodeType": "MemberAccess",
+                                    "referencedDeclaration": 3,
+                                    "src": "786:13:0",
+                                    "typeDescriptions": {
+                                      "typeIdentifier": "t_uint8",
+                                      "typeString": "uint8"
+                                    }
+                                  },
+                                  {
+                                    "argumentTypes": null,
+                                    "expression": {
+                                      "argumentTypes": null,
+                                      "baseExpression": {
+                                        "argumentTypes": null,
+                                        "id": 80,
+                                        "name": "pigs",
+                                        "nodeType": "Identifier",
+                                        "overloadedDeclarations": [],
+                                        "referencedDeclaration": 11,
+                                        "src": "801:4:0",
+                                        "typeDescriptions": {
+                                          "typeIdentifier": "t_array$_t_struct$_Pig_$8_storage_$dyn_storage",
+                                          "typeString": "struct PorkChain.Pig storage ref[] storage ref"
+                                        }
+                                      },
+                                      "id": 82,
+                                      "indexExpression": {
+                                        "argumentTypes": null,
+                                        "id": 81,
+                                        "name": "i",
+                                        "nodeType": "Identifier",
+                                        "overloadedDeclarations": [],
+                                        "referencedDeclaration": 60,
+                                        "src": "806:1:0",
+                                        "typeDescriptions": {
+                                          "typeIdentifier": "t_uint256",
+                                          "typeString": "uint256"
+                                        }
+                                      },
+                                      "isConstant": false,
+                                      "isLValue": true,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "nodeType": "IndexAccess",
+                                      "src": "801:7:0",
+                                      "typeDescriptions": {
+                                        "typeIdentifier": "t_struct$_Pig_$8_storage",
+                                        "typeString": "struct PorkChain.Pig storage ref"
+                                      }
+                                    },
+                                    "id": 83,
+                                    "isConstant": false,
+                                    "isLValue": true,
+                                    "isPure": false,
+                                    "lValueRequested": false,
+                                    "memberName": "pigWeight",
+                                    "nodeType": "MemberAccess",
+                                    "referencedDeclaration": 5,
+                                    "src": "801:17:0",
+                                    "typeDescriptions": {
+                                      "typeIdentifier": "t_uint8",
+                                      "typeString": "uint8"
+                                    }
+                                  },
+                                  {
+                                    "argumentTypes": null,
+                                    "expression": {
+                                      "argumentTypes": null,
+                                      "baseExpression": {
+                                        "argumentTypes": null,
+                                        "id": 84,
+                                        "name": "pigs",
+                                        "nodeType": "Identifier",
+                                        "overloadedDeclarations": [],
+                                        "referencedDeclaration": 11,
+                                        "src": "820:4:0",
+                                        "typeDescriptions": {
+                                          "typeIdentifier": "t_array$_t_struct$_Pig_$8_storage_$dyn_storage",
+                                          "typeString": "struct PorkChain.Pig storage ref[] storage ref"
+                                        }
+                                      },
+                                      "id": 86,
+                                      "indexExpression": {
+                                        "argumentTypes": null,
+                                        "id": 85,
+                                        "name": "i",
+                                        "nodeType": "Identifier",
+                                        "overloadedDeclarations": [],
+                                        "referencedDeclaration": 60,
+                                        "src": "825:1:0",
+                                        "typeDescriptions": {
+                                          "typeIdentifier": "t_uint256",
+                                          "typeString": "uint256"
+                                        }
+                                      },
+                                      "isConstant": false,
+                                      "isLValue": true,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "nodeType": "IndexAccess",
+                                      "src": "820:7:0",
+                                      "typeDescriptions": {
+                                        "typeIdentifier": "t_struct$_Pig_$8_storage",
+                                        "typeString": "struct PorkChain.Pig storage ref"
+                                      }
+                                    },
+                                    "id": 87,
+                                    "isConstant": false,
+                                    "isLValue": true,
+                                    "isPure": false,
+                                    "lValueRequested": false,
+                                    "memberName": "pigHealth",
+                                    "nodeType": "MemberAccess",
+                                    "referencedDeclaration": 7,
+                                    "src": "820:17:0",
+                                    "typeDescriptions": {
+                                      "typeIdentifier": "t_string_storage",
+                                      "typeString": "string storage ref"
+                                    }
+                                  }
+                                ],
+                                "id": 88,
+                                "isConstant": false,
+                                "isInlineArray": false,
+                                "isLValue": false,
+                                "isPure": false,
+                                "lValueRequested": false,
+                                "nodeType": "TupleExpression",
+                                "src": "785:53:0",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_tuple$_t_uint8_$_t_uint8_$_t_string_storage_$",
+                                  "typeString": "tuple(uint8,uint8,string storage ref)"
+                                }
+                              },
+                              "functionReturnParameters": 58,
+                              "id": 89,
+                              "nodeType": "Return",
+                              "src": "778:60:0"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "condition": {
+                    "argumentTypes": null,
+                    "commonType": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    },
+                    "id": 66,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "argumentTypes": null,
+                      "id": 63,
+                      "name": "i",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 60,
+                      "src": "693:1:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "<",
+                    "rightExpression": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 64,
+                        "name": "pigs",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 11,
+                        "src": "697:4:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_struct$_Pig_$8_storage_$dyn_storage",
+                          "typeString": "struct PorkChain.Pig storage ref[] storage ref"
+                        }
+                      },
+                      "id": 65,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "length",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "697:11:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "693:15:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 93,
+                  "initializationExpression": {
+                    "assignments": [
+                      60
+                    ],
+                    "declarations": [
+                      {
+                        "constant": false,
+                        "id": 60,
+                        "name": "i",
+                        "nodeType": "VariableDeclaration",
+                        "scope": 93,
+                        "src": "681:6:0",
+                        "stateVariable": false,
+                        "storageLocation": "default",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "typeName": {
+                          "id": 59,
+                          "name": "uint",
+                          "nodeType": "ElementaryTypeName",
+                          "src": "681:4:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "value": null,
+                        "visibility": "internal"
+                      }
+                    ],
+                    "id": 62,
+                    "initialValue": {
+                      "argumentTypes": null,
+                      "hexValue": "30",
+                      "id": 61,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "690:1:0",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_rational_0_by_1",
+                        "typeString": "int_const 0"
+                      },
+                      "value": "0"
+                    },
+                    "nodeType": "VariableDeclarationStatement",
+                    "src": "681:10:0"
+                  },
+                  "loopExpression": {
+                    "expression": {
+                      "argumentTypes": null,
+                      "id": 68,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "nodeType": "UnaryOperation",
+                      "operator": "++",
+                      "prefix": false,
+                      "src": "710:3:0",
+                      "subExpression": {
+                        "argumentTypes": null,
+                        "id": 67,
+                        "name": "i",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 60,
+                        "src": "710:1:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 69,
+                    "nodeType": "ExpressionStatement",
+                    "src": "710:3:0"
+                  },
+                  "nodeType": "ForStatement",
+                  "src": "676:189:0"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "506967206e6f7420666f756e64",
+                        "id": 95,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "882:15:0",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_26d88f79e381f58a6f7e487146f2e46d8602f340dc94587c6ba7b1e5fb4272e7",
+                          "typeString": "literal_string \"Pig not found\""
+                        },
+                        "value": "Pig not found"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_stringliteral_26d88f79e381f58a6f7e487146f2e46d8602f340dc94587c6ba7b1e5fb4272e7",
+                          "typeString": "literal_string \"Pig not found\""
+                        }
+                      ],
+                      "id": 94,
+                      "name": "revert",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        120,
+                        121
+                      ],
+                      "referencedDeclaration": 121,
+                      "src": "875:6:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (string memory) pure"
+                      }
+                    },
+                    "id": 96,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "875:23:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 97,
+                  "nodeType": "ExpressionStatement",
+                  "src": "875:23:0"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 99,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getPigDataById",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 51,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 50,
+                  "name": "_pigId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 99,
+                  "src": "575:12:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint8",
+                    "typeString": "uint8"
+                  },
+                  "typeName": {
+                    "id": 49,
+                    "name": "uint8",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "575:5:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint8",
+                      "typeString": "uint8"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "574:14:0"
+            },
+            "returnParameters": {
+              "id": 58,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 53,
+                  "name": "pigID",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 99,
+                  "src": "610:11:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint8",
+                    "typeString": "uint8"
+                  },
+                  "typeName": {
+                    "id": 52,
+                    "name": "uint8",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "610:5:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint8",
+                      "typeString": "uint8"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 55,
+                  "name": "pigWeight",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 99,
+                  "src": "623:15:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint8",
+                    "typeString": "uint8"
+                  },
+                  "typeName": {
+                    "id": 54,
+                    "name": "uint8",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "623:5:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint8",
+                      "typeString": "uint8"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 57,
+                  "name": "pigHealth",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 99,
+                  "src": "640:23:0",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 56,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "640:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "609:55:0"
+            },
+            "scope": 100,
+            "src": "551:355:0",
+            "stateMutability": "view",
+            "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 12,
-        "src": "69:149:0"
+        "scope": 101,
+        "src": "69:840:0"
       }
     ],
-    "src": "33:185:0"
+    "src": "33:876:0"
   },
   "legacyAST": {
     "attributes": {
       "absolutePath": "project:/contracts/PorkChain.sol",
       "exportedSymbols": {
         "PorkChain": [
-          11
+          100
         ]
       }
     },
@@ -205,77 +1450,77 @@
           "documentation": null,
           "fullyImplemented": true,
           "linearizedBaseContracts": [
-            11
+            100
           ],
           "name": "PorkChain",
-          "scope": 12
+          "scope": 101
         },
         "children": [
           {
             "attributes": {
               "canonicalName": "PorkChain.Pig",
               "name": "Pig",
-              "scope": 11,
+              "scope": 100,
               "visibility": "public"
             },
             "children": [
               {
                 "attributes": {
                   "constant": false,
-                  "name": "id",
-                  "scope": 10,
+                  "name": "pigID",
+                  "scope": 8,
                   "stateVariable": false,
                   "storageLocation": "default",
-                  "type": "uint256",
+                  "type": "uint8",
                   "value": null,
                   "visibility": "internal"
                 },
                 "children": [
                   {
                     "attributes": {
-                      "name": "uint",
-                      "type": "uint256"
+                      "name": "uint8",
+                      "type": "uint8"
                     },
                     "id": 2,
                     "name": "ElementaryTypeName",
-                    "src": "117:4:0"
+                    "src": "117:5:0"
                   }
                 ],
                 "id": 3,
                 "name": "VariableDeclaration",
-                "src": "117:7:0"
+                "src": "117:11:0"
               },
               {
                 "attributes": {
                   "constant": false,
-                  "name": "breed",
-                  "scope": 10,
+                  "name": "pigWeight",
+                  "scope": 8,
                   "stateVariable": false,
                   "storageLocation": "default",
-                  "type": "string",
+                  "type": "uint8",
                   "value": null,
                   "visibility": "internal"
                 },
                 "children": [
                   {
                     "attributes": {
-                      "name": "string",
-                      "type": "string"
+                      "name": "uint8",
+                      "type": "uint8"
                     },
                     "id": 4,
                     "name": "ElementaryTypeName",
-                    "src": "135:6:0"
+                    "src": "139:5:0"
                   }
                 ],
                 "id": 5,
                 "name": "VariableDeclaration",
-                "src": "135:12:0"
+                "src": "139:15:0"
               },
               {
                 "attributes": {
                   "constant": false,
-                  "name": "birthDate",
-                  "scope": 10,
+                  "name": "pigHealth",
+                  "scope": 8,
                   "stateVariable": false,
                   "storageLocation": "default",
                   "type": "string",
@@ -290,53 +1535,1275 @@
                     },
                     "id": 6,
                     "name": "ElementaryTypeName",
-                    "src": "158:6:0"
+                    "src": "165:6:0"
                   }
                 ],
                 "id": 7,
                 "name": "VariableDeclaration",
-                "src": "158:16:0"
-              },
+                "src": "165:16:0"
+              }
+            ],
+            "id": 8,
+            "name": "StructDefinition",
+            "src": "95:94:0"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "name": "pigs",
+              "scope": 100,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "struct PorkChain.Pig[]",
+              "value": null,
+              "visibility": "public"
+            },
+            "children": [
               {
                 "attributes": {
-                  "constant": false,
-                  "name": "healthRecords",
-                  "scope": 10,
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "type": "string",
-                  "value": null,
-                  "visibility": "internal"
+                  "length": null,
+                  "type": "struct PorkChain.Pig[]"
                 },
                 "children": [
                   {
                     "attributes": {
-                      "name": "string",
-                      "type": "string"
+                      "contractScope": null,
+                      "name": "Pig",
+                      "referencedDeclaration": 8,
+                      "type": "struct PorkChain.Pig"
                     },
-                    "id": 8,
-                    "name": "ElementaryTypeName",
-                    "src": "185:6:0"
+                    "id": 9,
+                    "name": "UserDefinedTypeName",
+                    "src": "197:3:0"
                   }
                 ],
-                "id": 9,
-                "name": "VariableDeclaration",
-                "src": "185:20:0"
+                "id": 10,
+                "name": "ArrayTypeName",
+                "src": "197:5:0"
               }
             ],
-            "id": 10,
-            "name": "StructDefinition",
-            "src": "95:118:0"
+            "id": 11,
+            "name": "VariableDeclaration",
+            "src": "197:17:0"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "name": "pigCount",
+              "scope": 100,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "uint8",
+              "value": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "name": "uint8",
+                  "type": "uint8"
+                },
+                "id": 12,
+                "name": "ElementaryTypeName",
+                "src": "221:5:0"
+              }
+            ],
+            "id": 13,
+            "name": "VariableDeclaration",
+            "src": "221:21:0"
+          },
+          {
+            "attributes": {
+              "anonymous": false,
+              "documentation": null,
+              "name": "PigAdded"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "indexed": true,
+                      "name": "pigId",
+                      "scope": 21,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint8",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint8",
+                          "type": "uint8"
+                        },
+                        "id": 14,
+                        "name": "ElementaryTypeName",
+                        "src": "266:5:0"
+                      }
+                    ],
+                    "id": 15,
+                    "name": "VariableDeclaration",
+                    "src": "266:19:0"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "indexed": false,
+                      "name": "pigWeight",
+                      "scope": 21,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint8",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint8",
+                          "type": "uint8"
+                        },
+                        "id": 16,
+                        "name": "ElementaryTypeName",
+                        "src": "287:5:0"
+                      }
+                    ],
+                    "id": 17,
+                    "name": "VariableDeclaration",
+                    "src": "287:15:0"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "indexed": false,
+                      "name": "pigHealth",
+                      "scope": 21,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "string",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "string",
+                          "type": "string"
+                        },
+                        "id": 18,
+                        "name": "ElementaryTypeName",
+                        "src": "304:6:0"
+                      }
+                    ],
+                    "id": 19,
+                    "name": "VariableDeclaration",
+                    "src": "304:16:0"
+                  }
+                ],
+                "id": 20,
+                "name": "ParameterList",
+                "src": "265:56:0"
+              }
+            ],
+            "id": 21,
+            "name": "EventDefinition",
+            "src": "251:71:0"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "addPig",
+              "scope": 100,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_pigWeight",
+                      "scope": 48,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint8",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint8",
+                          "type": "uint8"
+                        },
+                        "id": 22,
+                        "name": "ElementaryTypeName",
+                        "src": "346:5:0"
+                      }
+                    ],
+                    "id": 23,
+                    "name": "VariableDeclaration",
+                    "src": "346:16:0"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_pigHealth",
+                      "scope": 48,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "string",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "string",
+                          "type": "string"
+                        },
+                        "id": 24,
+                        "name": "ElementaryTypeName",
+                        "src": "364:6:0"
+                      }
+                    ],
+                    "id": 25,
+                    "name": "VariableDeclaration",
+                    "src": "364:24:0"
+                  }
+                ],
+                "id": 26,
+                "name": "ParameterList",
+                "src": "345:44:0"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 27,
+                "name": "ParameterList",
+                "src": "397:0:0"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "++",
+                          "prefix": false,
+                          "type": "uint8"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 13,
+                              "type": "uint8",
+                              "value": "pigCount"
+                            },
+                            "id": 28,
+                            "name": "Identifier",
+                            "src": "408:8:0"
+                          }
+                        ],
+                        "id": 29,
+                        "name": "UnaryOperation",
+                        "src": "408:10:0"
+                      }
+                    ],
+                    "id": 30,
+                    "name": "ExpressionStatement",
+                    "src": "408:10:0"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "uint256",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_struct$_Pig_$8_memory",
+                                  "typeString": "struct PorkChain.Pig memory"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "push",
+                              "referencedDeclaration": null,
+                              "type": "function (struct PorkChain.Pig storage ref) returns (uint256)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 11,
+                                  "type": "struct PorkChain.Pig storage ref[] storage ref",
+                                  "value": "pigs"
+                                },
+                                "id": 31,
+                                "name": "Identifier",
+                                "src": "429:4:0"
+                              }
+                            ],
+                            "id": 33,
+                            "name": "MemberAccess",
+                            "src": "429:9:0"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "isStructConstructorCall": true,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "type": "struct PorkChain.Pig memory",
+                              "type_conversion": false
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_uint8",
+                                      "typeString": "uint8"
+                                    },
+                                    {
+                                      "typeIdentifier": "t_uint8",
+                                      "typeString": "uint8"
+                                    },
+                                    {
+                                      "typeIdentifier": "t_string_memory_ptr",
+                                      "typeString": "string memory"
+                                    }
+                                  ],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 8,
+                                  "type": "type(struct PorkChain.Pig storage pointer)",
+                                  "value": "Pig"
+                                },
+                                "id": 34,
+                                "name": "Identifier",
+                                "src": "439:3:0"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 13,
+                                  "type": "uint8",
+                                  "value": "pigCount"
+                                },
+                                "id": 35,
+                                "name": "Identifier",
+                                "src": "443:8:0"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 23,
+                                  "type": "uint8",
+                                  "value": "_pigWeight"
+                                },
+                                "id": 36,
+                                "name": "Identifier",
+                                "src": "453:10:0"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 25,
+                                  "type": "string memory",
+                                  "value": "_pigHealth"
+                                },
+                                "id": 37,
+                                "name": "Identifier",
+                                "src": "465:10:0"
+                              }
+                            ],
+                            "id": 38,
+                            "name": "FunctionCall",
+                            "src": "439:37:0"
+                          }
+                        ],
+                        "id": 39,
+                        "name": "FunctionCall",
+                        "src": "429:48:0"
+                      }
+                    ],
+                    "id": 40,
+                    "name": "ExpressionStatement",
+                    "src": "429:48:0"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_uint8",
+                                  "typeString": "uint8"
+                                },
+                                {
+                                  "typeIdentifier": "t_uint8",
+                                  "typeString": "uint8"
+                                },
+                                {
+                                  "typeIdentifier": "t_string_memory_ptr",
+                                  "typeString": "string memory"
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 21,
+                              "type": "function (uint8,uint8,string memory)",
+                              "value": "PigAdded"
+                            },
+                            "id": 41,
+                            "name": "Identifier",
+                            "src": "493:8:0"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 13,
+                              "type": "uint8",
+                              "value": "pigCount"
+                            },
+                            "id": 42,
+                            "name": "Identifier",
+                            "src": "502:8:0"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 23,
+                              "type": "uint8",
+                              "value": "_pigWeight"
+                            },
+                            "id": 43,
+                            "name": "Identifier",
+                            "src": "512:10:0"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 25,
+                              "type": "string memory",
+                              "value": "_pigHealth"
+                            },
+                            "id": 44,
+                            "name": "Identifier",
+                            "src": "524:10:0"
+                          }
+                        ],
+                        "id": 45,
+                        "name": "FunctionCall",
+                        "src": "493:42:0"
+                      }
+                    ],
+                    "id": 46,
+                    "name": "EmitStatement",
+                    "src": "488:47:0"
+                  }
+                ],
+                "id": 47,
+                "name": "Block",
+                "src": "397:146:0"
+              }
+            ],
+            "id": 48,
+            "name": "FunctionDefinition",
+            "src": "330:213:0"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "getPigDataById",
+              "scope": 100,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_pigId",
+                      "scope": 99,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint8",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint8",
+                          "type": "uint8"
+                        },
+                        "id": 49,
+                        "name": "ElementaryTypeName",
+                        "src": "575:5:0"
+                      }
+                    ],
+                    "id": 50,
+                    "name": "VariableDeclaration",
+                    "src": "575:12:0"
+                  }
+                ],
+                "id": 51,
+                "name": "ParameterList",
+                "src": "574:14:0"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "pigID",
+                      "scope": 99,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint8",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint8",
+                          "type": "uint8"
+                        },
+                        "id": 52,
+                        "name": "ElementaryTypeName",
+                        "src": "610:5:0"
+                      }
+                    ],
+                    "id": 53,
+                    "name": "VariableDeclaration",
+                    "src": "610:11:0"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "pigWeight",
+                      "scope": 99,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint8",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint8",
+                          "type": "uint8"
+                        },
+                        "id": 54,
+                        "name": "ElementaryTypeName",
+                        "src": "623:5:0"
+                      }
+                    ],
+                    "id": 55,
+                    "name": "VariableDeclaration",
+                    "src": "623:15:0"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "pigHealth",
+                      "scope": 99,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "string",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "string",
+                          "type": "string"
+                        },
+                        "id": 56,
+                        "name": "ElementaryTypeName",
+                        "src": "640:6:0"
+                      }
+                    ],
+                    "id": 57,
+                    "name": "VariableDeclaration",
+                    "src": "640:23:0"
+                  }
+                ],
+                "id": 58,
+                "name": "ParameterList",
+                "src": "609:55:0"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "assignments": [
+                            60
+                          ]
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "constant": false,
+                              "name": "i",
+                              "scope": 93,
+                              "stateVariable": false,
+                              "storageLocation": "default",
+                              "type": "uint256",
+                              "value": null,
+                              "visibility": "internal"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "name": "uint",
+                                  "type": "uint256"
+                                },
+                                "id": 59,
+                                "name": "ElementaryTypeName",
+                                "src": "681:4:0"
+                              }
+                            ],
+                            "id": 60,
+                            "name": "VariableDeclaration",
+                            "src": "681:6:0"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "hexvalue": "30",
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "subdenomination": null,
+                              "token": "number",
+                              "type": "int_const 0",
+                              "value": "0"
+                            },
+                            "id": 61,
+                            "name": "Literal",
+                            "src": "690:1:0"
+                          }
+                        ],
+                        "id": 62,
+                        "name": "VariableDeclarationStatement",
+                        "src": "681:10:0"
+                      },
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "commonType": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "<",
+                          "type": "bool"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 60,
+                              "type": "uint256",
+                              "value": "i"
+                            },
+                            "id": 63,
+                            "name": "Identifier",
+                            "src": "693:1:0"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "length",
+                              "referencedDeclaration": null,
+                              "type": "uint256"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 11,
+                                  "type": "struct PorkChain.Pig storage ref[] storage ref",
+                                  "value": "pigs"
+                                },
+                                "id": 64,
+                                "name": "Identifier",
+                                "src": "697:4:0"
+                              }
+                            ],
+                            "id": 65,
+                            "name": "MemberAccess",
+                            "src": "697:11:0"
+                          }
+                        ],
+                        "id": 66,
+                        "name": "BinaryOperation",
+                        "src": "693:15:0"
+                      },
+                      {
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "operator": "++",
+                              "prefix": false,
+                              "type": "uint256"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 60,
+                                  "type": "uint256",
+                                  "value": "i"
+                                },
+                                "id": 67,
+                                "name": "Identifier",
+                                "src": "710:1:0"
+                              }
+                            ],
+                            "id": 68,
+                            "name": "UnaryOperation",
+                            "src": "710:3:0"
+                          }
+                        ],
+                        "id": 69,
+                        "name": "ExpressionStatement",
+                        "src": "710:3:0"
+                      },
+                      {
+                        "children": [
+                          {
+                            "attributes": {
+                              "falseBody": null
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "commonType": {
+                                    "typeIdentifier": "t_uint8",
+                                    "typeString": "uint8"
+                                  },
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "operator": "==",
+                                  "type": "bool"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": true,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "pigID",
+                                      "referencedDeclaration": 3,
+                                      "type": "uint8"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "isConstant": false,
+                                          "isLValue": true,
+                                          "isPure": false,
+                                          "lValueRequested": false,
+                                          "type": "struct PorkChain.Pig storage ref"
+                                        },
+                                        "children": [
+                                          {
+                                            "attributes": {
+                                              "argumentTypes": null,
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
+                                              "referencedDeclaration": 11,
+                                              "type": "struct PorkChain.Pig storage ref[] storage ref",
+                                              "value": "pigs"
+                                            },
+                                            "id": 70,
+                                            "name": "Identifier",
+                                            "src": "734:4:0"
+                                          },
+                                          {
+                                            "attributes": {
+                                              "argumentTypes": null,
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
+                                              "referencedDeclaration": 60,
+                                              "type": "uint256",
+                                              "value": "i"
+                                            },
+                                            "id": 71,
+                                            "name": "Identifier",
+                                            "src": "739:1:0"
+                                          }
+                                        ],
+                                        "id": 72,
+                                        "name": "IndexAccess",
+                                        "src": "734:7:0"
+                                      }
+                                    ],
+                                    "id": 73,
+                                    "name": "MemberAccess",
+                                    "src": "734:13:0"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 50,
+                                      "type": "uint8",
+                                      "value": "_pigId"
+                                    },
+                                    "id": 74,
+                                    "name": "Identifier",
+                                    "src": "751:6:0"
+                                  }
+                                ],
+                                "id": 75,
+                                "name": "BinaryOperation",
+                                "src": "734:23:0"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "functionReturnParameters": 58
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "isConstant": false,
+                                          "isInlineArray": false,
+                                          "isLValue": false,
+                                          "isPure": false,
+                                          "lValueRequested": false,
+                                          "type": "tuple(uint8,uint8,string storage ref)"
+                                        },
+                                        "children": [
+                                          {
+                                            "attributes": {
+                                              "argumentTypes": null,
+                                              "isConstant": false,
+                                              "isLValue": true,
+                                              "isPure": false,
+                                              "lValueRequested": false,
+                                              "member_name": "pigID",
+                                              "referencedDeclaration": 3,
+                                              "type": "uint8"
+                                            },
+                                            "children": [
+                                              {
+                                                "attributes": {
+                                                  "argumentTypes": null,
+                                                  "isConstant": false,
+                                                  "isLValue": true,
+                                                  "isPure": false,
+                                                  "lValueRequested": false,
+                                                  "type": "struct PorkChain.Pig storage ref"
+                                                },
+                                                "children": [
+                                                  {
+                                                    "attributes": {
+                                                      "argumentTypes": null,
+                                                      "overloadedDeclarations": [
+                                                        null
+                                                      ],
+                                                      "referencedDeclaration": 11,
+                                                      "type": "struct PorkChain.Pig storage ref[] storage ref",
+                                                      "value": "pigs"
+                                                    },
+                                                    "id": 76,
+                                                    "name": "Identifier",
+                                                    "src": "786:4:0"
+                                                  },
+                                                  {
+                                                    "attributes": {
+                                                      "argumentTypes": null,
+                                                      "overloadedDeclarations": [
+                                                        null
+                                                      ],
+                                                      "referencedDeclaration": 60,
+                                                      "type": "uint256",
+                                                      "value": "i"
+                                                    },
+                                                    "id": 77,
+                                                    "name": "Identifier",
+                                                    "src": "791:1:0"
+                                                  }
+                                                ],
+                                                "id": 78,
+                                                "name": "IndexAccess",
+                                                "src": "786:7:0"
+                                              }
+                                            ],
+                                            "id": 79,
+                                            "name": "MemberAccess",
+                                            "src": "786:13:0"
+                                          },
+                                          {
+                                            "attributes": {
+                                              "argumentTypes": null,
+                                              "isConstant": false,
+                                              "isLValue": true,
+                                              "isPure": false,
+                                              "lValueRequested": false,
+                                              "member_name": "pigWeight",
+                                              "referencedDeclaration": 5,
+                                              "type": "uint8"
+                                            },
+                                            "children": [
+                                              {
+                                                "attributes": {
+                                                  "argumentTypes": null,
+                                                  "isConstant": false,
+                                                  "isLValue": true,
+                                                  "isPure": false,
+                                                  "lValueRequested": false,
+                                                  "type": "struct PorkChain.Pig storage ref"
+                                                },
+                                                "children": [
+                                                  {
+                                                    "attributes": {
+                                                      "argumentTypes": null,
+                                                      "overloadedDeclarations": [
+                                                        null
+                                                      ],
+                                                      "referencedDeclaration": 11,
+                                                      "type": "struct PorkChain.Pig storage ref[] storage ref",
+                                                      "value": "pigs"
+                                                    },
+                                                    "id": 80,
+                                                    "name": "Identifier",
+                                                    "src": "801:4:0"
+                                                  },
+                                                  {
+                                                    "attributes": {
+                                                      "argumentTypes": null,
+                                                      "overloadedDeclarations": [
+                                                        null
+                                                      ],
+                                                      "referencedDeclaration": 60,
+                                                      "type": "uint256",
+                                                      "value": "i"
+                                                    },
+                                                    "id": 81,
+                                                    "name": "Identifier",
+                                                    "src": "806:1:0"
+                                                  }
+                                                ],
+                                                "id": 82,
+                                                "name": "IndexAccess",
+                                                "src": "801:7:0"
+                                              }
+                                            ],
+                                            "id": 83,
+                                            "name": "MemberAccess",
+                                            "src": "801:17:0"
+                                          },
+                                          {
+                                            "attributes": {
+                                              "argumentTypes": null,
+                                              "isConstant": false,
+                                              "isLValue": true,
+                                              "isPure": false,
+                                              "lValueRequested": false,
+                                              "member_name": "pigHealth",
+                                              "referencedDeclaration": 7,
+                                              "type": "string storage ref"
+                                            },
+                                            "children": [
+                                              {
+                                                "attributes": {
+                                                  "argumentTypes": null,
+                                                  "isConstant": false,
+                                                  "isLValue": true,
+                                                  "isPure": false,
+                                                  "lValueRequested": false,
+                                                  "type": "struct PorkChain.Pig storage ref"
+                                                },
+                                                "children": [
+                                                  {
+                                                    "attributes": {
+                                                      "argumentTypes": null,
+                                                      "overloadedDeclarations": [
+                                                        null
+                                                      ],
+                                                      "referencedDeclaration": 11,
+                                                      "type": "struct PorkChain.Pig storage ref[] storage ref",
+                                                      "value": "pigs"
+                                                    },
+                                                    "id": 84,
+                                                    "name": "Identifier",
+                                                    "src": "820:4:0"
+                                                  },
+                                                  {
+                                                    "attributes": {
+                                                      "argumentTypes": null,
+                                                      "overloadedDeclarations": [
+                                                        null
+                                                      ],
+                                                      "referencedDeclaration": 60,
+                                                      "type": "uint256",
+                                                      "value": "i"
+                                                    },
+                                                    "id": 85,
+                                                    "name": "Identifier",
+                                                    "src": "825:1:0"
+                                                  }
+                                                ],
+                                                "id": 86,
+                                                "name": "IndexAccess",
+                                                "src": "820:7:0"
+                                              }
+                                            ],
+                                            "id": 87,
+                                            "name": "MemberAccess",
+                                            "src": "820:17:0"
+                                          }
+                                        ],
+                                        "id": 88,
+                                        "name": "TupleExpression",
+                                        "src": "785:53:0"
+                                      }
+                                    ],
+                                    "id": 89,
+                                    "name": "Return",
+                                    "src": "778:60:0"
+                                  }
+                                ],
+                                "id": 90,
+                                "name": "Block",
+                                "src": "759:95:0"
+                              }
+                            ],
+                            "id": 91,
+                            "name": "IfStatement",
+                            "src": "730:124:0"
+                          }
+                        ],
+                        "id": 92,
+                        "name": "Block",
+                        "src": "715:150:0"
+                      }
+                    ],
+                    "id": 93,
+                    "name": "ForStatement",
+                    "src": "676:189:0"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_stringliteral_26d88f79e381f58a6f7e487146f2e46d8602f340dc94587c6ba7b1e5fb4272e7",
+                                  "typeString": "literal_string \"Pig not found\""
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                120,
+                                121
+                              ],
+                              "referencedDeclaration": 121,
+                              "type": "function (string memory) pure",
+                              "value": "revert"
+                            },
+                            "id": 94,
+                            "name": "Identifier",
+                            "src": "875:6:0"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "hexvalue": "506967206e6f7420666f756e64",
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "subdenomination": null,
+                              "token": "string",
+                              "type": "literal_string \"Pig not found\"",
+                              "value": "Pig not found"
+                            },
+                            "id": 95,
+                            "name": "Literal",
+                            "src": "882:15:0"
+                          }
+                        ],
+                        "id": 96,
+                        "name": "FunctionCall",
+                        "src": "875:23:0"
+                      }
+                    ],
+                    "id": 97,
+                    "name": "ExpressionStatement",
+                    "src": "875:23:0"
+                  }
+                ],
+                "id": 98,
+                "name": "Block",
+                "src": "665:241:0"
+              }
+            ],
+            "id": 99,
+            "name": "FunctionDefinition",
+            "src": "551:355:0"
           }
         ],
-        "id": 11,
+        "id": 100,
         "name": "ContractDefinition",
-        "src": "69:149:0"
+        "src": "69:840:0"
       }
     ],
-    "id": 12,
+    "id": 101,
     "name": "SourceUnit",
-    "src": "33:185:0"
+    "src": "33:876:0"
   },
   "compiler": {
     "name": "solc",
@@ -346,12 +2813,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x49289c4A846c9Ed41Da914516707de57E8dA3205",
-      "transactionHash": "0x3c0cef86ed21a88a9f40bd2a10ba52710b0bb6ef41bff1b875f2947e96a7573d"
+      "address": "0xa41c9AFbFceefcC9AbBb4E477b5ff2060b4c8276",
+      "transactionHash": "0x7c5a883abc5a50d2001fe35c641e7c2b4cd6970a5ce97a928f3bcbf587192809"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2024-04-06T18:27:51.905Z",
+  "updatedAt": "2024-04-07T07:50:51.947Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

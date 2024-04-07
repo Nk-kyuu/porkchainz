@@ -1,0 +1,110 @@
+[
+    {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "pigs",
+        "outputs": [
+          {
+            "name": "pigID",
+            "type": "uint8"
+          },
+          {
+            "name": "pigWeight",
+            "type": "uint8"
+          },
+          {
+            "name": "pigHealth",
+            "type": "string"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "pigCount",
+        "outputs": [
+          {
+            "name": "",
+            "type": "uint8"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "name": "pigId",
+            "type": "uint8"
+          },
+          {
+            "indexed": false,
+            "name": "pigWeight",
+            "type": "uint8"
+          },
+          {
+            "indexed": false,
+            "name": "pigHealth",
+            "type": "string"
+          }
+        ],
+        "name": "PigAdded",
+        "type": "event"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "_pigWeight",
+            "type": "uint8"
+          },
+          {
+            "name": "_pigHealth",
+            "type": "string"
+          }
+        ],
+        "name": "addPig",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "hash",
+            "type": "bytes32"
+          }
+        ],
+        "name": "getPigData",
+        "outputs": [
+          {
+            "name": "pigID",
+            "type": "uint8"
+          },
+          {
+            "name": "pigWeight",
+            "type": "uint8"
+          },
+          {
+            "name": "pigHealth",
+            "type": "string"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      }
+]
