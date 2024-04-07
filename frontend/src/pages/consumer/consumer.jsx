@@ -1,9 +1,7 @@
-import { DataGrid } from '@mui/x-data-grid';
 import "../retailer/retailerDash.css"
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../../components/navbarConsumer";
-import { auto } from '@popperjs/core';
 import { useParams } from "react-router-dom";
 
 // Assume the existing imports and component structure
