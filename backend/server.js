@@ -19,6 +19,7 @@ const addUser = require('./addUser')
 const retailer = require('./retailer')
 const product = require('./slaughtererProduct')
 const consumer = require('./consumer')
+const addPro = require('./addPro')
 
 const app = express();
 //post
@@ -57,7 +58,7 @@ app.use("/", login);
 app.use("/", addUser);
 app.use("/", retailer)
 app.use("/", consumer)
-
+app.use("/", addPro)
 const port = process.env.PORT 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

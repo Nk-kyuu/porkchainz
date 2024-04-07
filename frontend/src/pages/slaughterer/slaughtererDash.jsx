@@ -66,7 +66,7 @@ function SlaughtererDash() {
                         <p>Batch Information</p>
                     </div>
                     <div className="btn-addPig">
-                        <Button href="/slaughtererAdd" color="warning" variant="contained">Add Product</Button>
+                        <Button href="/AddProduct" color="warning" variant="contained">Add Product</Button>
                     </div>
                 </div>
                 <div className="pig-table" style={{ fontSize: "13.5px",  width: "80%",backgroundColor: "white" ,height:"300px" }}>

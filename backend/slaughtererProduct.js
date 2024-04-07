@@ -17,10 +17,10 @@ pro.post('/productInfo', jsonParser, (req, res) => {
             return res.status(404).json({ success: false, message: 'User not found' });
         }
         const slaughtererID = slaughtererIDResult[0].slaughtererID;
-        const sqlQuery = 'SELECT productID,productName,productWeight,productDate,productStatus FROM product WHERE slaughtererID = ? '
+        const sqlQuery = 'SELECT productID,productName,productWeight,productDate,productStatus,productHash FROM product WHERE slaughtererID = ? '
         db.query(sqlQuery, slaughtererID, (err, result) => {
             if (err) {
-                console.error('Error fetching pig information:', err);
+                console.error('Error fetching product information:', err);
                 return res.status(500).json({ success: false, message: 'Failed to fetch pig information' });
             }
             res.json(result);

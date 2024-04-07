@@ -29,5 +29,33 @@ contract PorkChain {
         revert("Pig not found");
     }
    
-  
+
+   struct Product {
+        uint8 productID;
+        uint8 productWeight;
+        string productName;
+    }
+
+    Product[] public products;
+    uint8 public productCount;
+
+    event ProductAdded(uint8 indexed productID, uint8 indexed productWeight , string productName);
+
+    // Function to add a product (only callable by slaughterer)
+    function addProduct(uint8 _productWeight, string memory _productName) public {
+        productCount++;
+        products.push(Product(productCount, _productWeight, _productName));
+        emit ProductAdded(productCount, _productWeight, _productName);
+    }
+
+    // Function to get product data by ID
+    function getProductDataById(uint8 _productID) public view returns (uint8 productID, uint8 productWeight, string memory productName) {
+        for (uint i = 0; i < products.length; i++) {
+            if (products[i].productID == _productID) {
+                return (products[i].productID, products[i].productWeight, products[i].productName);
+            }
+        }
+        revert("Product not found");
+    }
+
 }
