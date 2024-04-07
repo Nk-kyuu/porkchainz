@@ -88,6 +88,7 @@ function FarmerDashPig() {
                   <TableCell >pigEndDate</TableCell>
                   <TableCell >pigBreed</TableCell>
                   <TableCell >pigHealth</TableCell>
+                  <TableCell >pigHash</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -105,6 +106,7 @@ function FarmerDashPig() {
                     <TableCell >{new Date(row.pigEndDate).toISOString().split('T')[0]}</TableCell>
                     <TableCell >{row.pigBreed}</TableCell>
                     <TableCell >{row.pigHealth}</TableCell>
+                    <TableCell >{row.pigHash}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
