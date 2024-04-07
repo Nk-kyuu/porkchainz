@@ -3,11 +3,12 @@ const db = require('./database'); // เรียกใช้ไฟล์ databa
 
 const farmerAdd = express();
 
+
 farmerAdd.use(express.json());
 
 // farmerAdd.post('/api/addPig', (req, res) => {
-//   const { pigWeight, pigStartDate, pigEndDate, pigBreed, pigHealth, pigHash,  userID } = req.body;
-
+//   const { pigWeight, pigStartDate, pigEndDate, pigBreed, pigHealth, transactionHash,  userID } = req.body;
+  
 //   const farmerIDQuery = 'SELECT farmer.farmerID FROM farmer JOIN user ON user.userID = farmer.userID WHERE user.userID = ?';
 //   db.query(farmerIDQuery, [userID], (err, farmerIDResult) => {
 //     if (err) {
@@ -17,9 +18,8 @@ farmerAdd.use(express.json());
 //       return res.status(404).json({ success: false, message: 'User not found' });
 //     }
 //     const farmerID = farmerIDResult[0].farmerID;
-//     console.log(pigBreed)
 //     const insertPig = 'INSERT INTO pig (pigWeight, pigStartDate, pigEndDate, pigBreed, pigHealth, pigHash,  farmerID) VALUES (?, ?, ?, ?, ?, ?,?)';
-//     db.query(insertPig, [pigWeight, pigStartDate, pigEndDate, pigBreed, pigHealth, pigHash,  farmerID], (err, result) => {
+//     db.query(insertPig, [pigWeight, pigStartDate, pigEndDate, pigBreed, pigHealth, transactionHash,  farmerID], (err, result) => {
 //       if (err) {
 //         console.error('Failed to add pig:', err);
 //         return res.status(500).json({ success: false, message: 'Failed to add pig' });
@@ -30,32 +30,24 @@ farmerAdd.use(express.json());
 //     });
 //   });
 // });
-
-// farmerAdd.post('/api/addPig', async (req, res) => {
-//   try {
-//     const { pigWeight, pigHealth, transactionHash } = req.body;
-
-//     // Insert pig data into the database
-//     await db.query(
-//       'INSERT INTO pig (pigWeight, pigHealth, pigHash) VALUES (?, ?, ?)',
-//       [pigWeight, pigHealth, transactionHash]
-//     );
-
-//     res.status(201).json({ message: 'Pig data added successfully' });
-//   } catch (error) {
-//     console.error('Error adding pig data:', error);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// });
-
 farmerAdd.post('/api/addPig', async (req, res) => {
-  try {
-    const { pigWeight, pigHealth,pigBreed, transactionHash } = req.body;
+  const { pigWeight, pigHealth, transactionHash, userID } = req.body;
 
+const farmerIDQuery = 'SELECT farmer.farmerID FROM farmer JOIN user ON user.userID = farmer.userID WHERE user.userID = ?';
+db.query(farmerIDQuery, [userID], async (err, farmerIDResult) => {
+  if (err) {
+    return res.status(500).json({ success: false, message: 'Failed to fetch farmerID' });
+  }
+  if (farmerIDResult.length === 0) {
+    return res.status(404).json({ success: false, message: 'User not found' });
+  }
+  const farmerID = farmerIDResult[0].farmerID;
+  
+  try {
     // Insert pig data into the database
-    await db.query(
-      'INSERT INTO pig (pigWeight, pigHealth,pigBreed, pigHash) VALUES (?, ?, ?,?)',
-      [pigWeight, pigHealth,pigBreed, transactionHash]
+     db.query(
+      'INSERT INTO pig (pigWeight, pigHealth, pigHash, farmerID) VALUES (?, ?, ?, ?)',
+      [pigWeight, pigHealth, transactionHash, farmerID]
     );
 
     res.status(201).json({ message: 'Pig data added successfully' });
@@ -63,6 +55,7 @@ farmerAdd.post('/api/addPig', async (req, res) => {
     console.error('Error adding pig data:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
+})
 });
 
 farmerAdd.post('/api/storeHash', (req, res) => {
@@ -81,7 +74,6 @@ farmerAdd.post('/api/storeHash', (req, res) => {
     res.status(200).json({ success: true, message: 'Hash stored successfully' });
   });
 });
-
 
 
 module.exports = farmerAdd;

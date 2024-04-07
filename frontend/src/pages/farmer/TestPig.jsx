@@ -4,7 +4,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import abiAddPig from '../../abi/ABI_AddPig';
 import Web3 from 'web3'
-
+import Navbar from '../../components/navbarFarmer';
 const TestPig = () => {
     const [web3, setWeb3] = useState(null);
     const [contract, setContract] = useState(null);
@@ -25,7 +25,7 @@ const TestPig = () => {
                     const accounts = await web3Instance.eth.getAccounts();
                     setAccount(accounts[0]);
                     // Create an instance of the contract using ABI and contract address
-                    const contractAddress = '0xD14cC0f9984539093E5d721a42D6eA27449B643C'; // Use your contract address
+                    const contractAddress = '0xa41c9AFbFceefcC9AbBb4E477b5ff2060b4c8276'; // Use your contract address
                     const contractInstance = new web3Instance.eth.Contract(abiAddPig, contractAddress);
                     setContract(contractInstance);
                 } else {
@@ -40,6 +40,8 @@ const TestPig = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        const userID = localStorage.getItem('userID')
         try {
             // Ensure Web3 and contract are initialized
             if (!web3 || !contract) {
@@ -55,10 +57,12 @@ const TestPig = () => {
             const txHash = transaction.transactionHash;
             setTransactionHash(txHash);
             // Store hash data in the backend database
-            await axios.post('http://localhost:5000/api/addPig', { pigWeight, pigHealth, transactionHash: txHash });
+            await axios.post('http://localhost:5000/api/addPig', { pigWeight, pigHealth,userID, transactionHash: txHash });
             // Clear input fields after successful submission
             setPigWeight('');
             setPigHealth('');
+            
+            window.location='/farmerDashPig'
         } catch (error) {
             console.error('Error submitting transaction:', error);
         }
@@ -66,7 +70,12 @@ const TestPig = () => {
     
 
     return (
-        <ThemeProvider theme={createTheme()}>
+        <div>
+            <div>
+                <Navbar />
+            </div>
+            <div>
+            <ThemeProvider theme={createTheme()}>
             <Container maxWidth="xs">
                 <Box
                     sx={{
@@ -101,23 +110,20 @@ const TestPig = () => {
                             fullWidth
                             sx={{ mb: 2 }}
                         />
+                        
                         <Button
                             type="submit"
                             variant="contained"
                             color="error"
-                            fullWidth
+                            
                         >
                             Add Pig
-                        </Button>
-                        {transactionHash && (
-                            <Box mt={2}>
-                                <Typography variant="body1">Transaction Hash: {transactionHash}</Typography>
-                            </Box>
-                        )}
+                        </Button>         
                     </Box>
                 </Box>
             </Container>
-        </ThemeProvider>
+        </ThemeProvider></div></div>
+        
     );
 };
 

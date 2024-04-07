@@ -6,18 +6,18 @@ contract PorkChain {
         uint8 pigID;
         uint8 pigWeight;
         string pigHealth;
-        string pigBreed;
+        
     }
 
     Pig[] public pigs;
     uint8 public pigCount;
 
-    event PigAdded(uint8 indexed pigId, uint8 pigWeight, string pigHealth,string pigBreed);
+    event PigAdded(uint8 indexed pigId, uint8 pigWeight, string pigHealth);
 
-    function addPig(uint8 _pigWeight, string memory _pigHealth,string memory _pigBreed) public {
+    function addPig(uint8 _pigWeight, string memory _pigHealth) public {
         pigCount++;
-        pigs.push(Pig(pigCount, _pigWeight, _pigHealth, _pigBreed));
-        emit PigAdded(pigCount, _pigWeight, _pigHealth, _pigBreed);
+        pigs.push(Pig(pigCount, _pigWeight, _pigHealth));
+        emit PigAdded(pigCount, _pigWeight, _pigHealth);
     }
 
     function getPigDataById(uint8 _pigId) public view returns (uint8 pigID, uint8 pigWeight, string memory pigHealth) {

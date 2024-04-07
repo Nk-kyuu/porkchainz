@@ -1,31 +1,21 @@
 import React, { useState } from 'react';
 import { Button, CssBaseline, Grid, Box, Typography, Container, MenuItem, TextField } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Navbar from "../../components/navbarFarmer";
-import axios from 'axios'; // เพิ่ม import สำหรับ axios
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { DatePicker } from '@mui/x-date-pickers';
-
-
+import axios from 'axios';
+import abiAddPig from '../../abi/ABI_AddPig';
+import Web3 from 'web3'
 
 const FarmerAdd = () => {
-  const defaultTheme = createTheme();
-  const [formData, setFormData] = useState({
-    pigWeight: '',
-    pigStartDate: null,
-    pigHealth: '',
-    pigEndDate: null,
-    pigBreed: 'DorocJerse', // default value
-  });
+  const [web3, setWeb3] = useState(null);
+  const [contract, setContract] = useState(null);
+  const [account, setAccount] = useState('');
+  const [pigWeight, setPigWeight] = useState('');
+  const [pigHealth, setPigHealth] = useState('');
 
-  const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
-  };
+  const [pigEndDate, setPigEndDate] = useState('');
+  
 
-  const handleStartDateChange = (date) => {
-    setFormData({ ...formData, pigStartDate: date });
-  };
+  const [transactionHash, setTransactionHash] = useState('');
 
   const handleEndDateChange = (date) => {
     setFormData({ ...formData, pigEndDate: date });
@@ -43,9 +33,37 @@ const FarmerAdd = () => {
       if (!response.data.success) {
         throw new Error('Failed to add pig');
       }
-      window.location.href = '/farmerDashPig';
+    }
+    initWeb3();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Ensure Web3 and contract are initialized
+      if (!web3 || !contract) {
+        console.error('Web3 or contract not initialized');
+        return;
+      }
+      // Get the current user's account address
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const senderAddress = accounts[0];
+      // Call the addPig function in the smart contract
+      const transaction = await contract.methods.addPig(pigWeight, pigHealth, pigStartDate, pigEndDate, pigBreed).send({ from: senderAddress, gas: 5000000 });
+      // Retrieve the transaction hash
+      const txHash = transaction.transactionHash;
+      setTransactionHash(txHash);
+      // Store hash data in the backend database
+      await axios.post('http://localhost:5000/api/pigAdd', { pigWeight, pigHealth, pigStartDate, pigEndDate, pigBreed, transactionHash: txHash });
+      // Clear input fields after successful submission
+      setPigWeight('');
+      setPigHealth('');
+      setPigStartDate('');
+      setPigStartDate('');
+      setPigStartDate('');
+      setPigBreed('');
     } catch (error) {
-      console.error('Error adding pig:', error);
+      console.error('Error submitting transaction:', error);
     }
   };
 
@@ -160,6 +178,6 @@ const FarmerAdd = () => {
       </Container>
     </ThemeProvider>
   );
-}
+};
 
 export default FarmerAdd;

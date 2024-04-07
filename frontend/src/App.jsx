@@ -42,7 +42,7 @@ function App() {
           <Route path="/consumer/:shipmentID" element={<Consumer/>} />
           <Route path="testPig" element={<TestPig/>} />
           <Route path="/testDash" element={<TestDash/>} />
-          <Route path="/test" element={<Test/>} />
+          <Route path="/test" element={<Test/>} />   
         </Routes>
       </BrowserRouter >
     </div>
