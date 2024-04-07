@@ -11,6 +11,7 @@ function TestPig() {
     const [pigHealth, setPigHealth] = useState('');
     const [transactionHash, setTransactionHash] = useState('');
 
+    
     useEffect(() => {
         async function initWeb3() {
             // Create an instance of Web3 using Ganache provider
