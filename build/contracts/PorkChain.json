@@ -7,7 +7,7 @@
   "sourceMap": "69:149:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;69:149:0;;;;;;;",
   "deployedSourceMap": "69:149:0:-;;;;;",
   "source": "// SPDX-License-Identifier: MIT\r\npragma solidity >=0.4.22 <0.9.0;\r\n\r\ncontract PorkChain {\r\n    struct Pig {\r\n        uint id;\r\n        string breed;\r\n        string birthDate;\r\n        string healthRecords;\r\n    }\r\n\r\n}",
-  "sourcePath": "D:\\Coding\\KMUTNB Coding\\Blockchain\\porkchain\\contracts\\PorkChain.sol",
+  "sourcePath": "C:\\Porkchain\\PorkchainJaa\\porkchainz\\contracts\\PorkChain.sol",
   "ast": {
     "absolutePath": "project:/contracts/PorkChain.sol",
     "exportedSymbols": {
@@ -346,12 +346,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x49289c4A846c9Ed41Da914516707de57E8dA3205",
-      "transactionHash": "0x3c0cef86ed21a88a9f40bd2a10ba52710b0bb6ef41bff1b875f2947e96a7573d"
+      "address": "0x4322bc18cE89bc3392e13872e0e4969Bd0953DC3",
+      "transactionHash": "0xf52d502c171997acb1df602e8bf4871677b9c34d0b4100691621603666a14bcd"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2024-04-06T18:27:51.905Z",
+  "updatedAt": "2024-04-07T04:27:34.558Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}
