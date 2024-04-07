@@ -1,0 +1,362 @@
+{
+  "contractName": "PorkChain",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.1+commit.c8a2cb62\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/PorkChain.sol\":\"PorkChain\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/PorkChain.sol\":{\"keccak256\":\"0xc849b2aaee8f48c880fd9853ec0f74b8709690bf058fc0753f8e342f7e54500b\",\"urls\":[\"bzzr://8a008385d63ca3c3013b1a31231d078cddbe59e5b4c247fff2d38ce4b03e3f86\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3fe6080604052600080fdfea165627a7a7230582050c8a4b50bd77dbe6086c71a24dae12b9acc5e4f10d0c8ab9cfaa1194cad78940029",
+  "deployedBytecode": "0x6080604052600080fdfea165627a7a7230582050c8a4b50bd77dbe6086c71a24dae12b9acc5e4f10d0c8ab9cfaa1194cad78940029",
+  "sourceMap": "69:149:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;69:149:0;;;;;;;",
+  "deployedSourceMap": "69:149:0:-;;;;;",
+  "source": "// SPDX-License-Identifier: MIT\r\npragma solidity >=0.4.22 <0.9.0;\r\n\r\ncontract PorkChain {\r\n    struct Pig {\r\n        uint id;\r\n        string breed;\r\n        string birthDate;\r\n        string healthRecords;\r\n    }\r\n\r\n}",
+  "sourcePath": "D:\\BC\\porkchainSC\\contracts\\PorkChain.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/PorkChain.sol",
+    "exportedSymbols": {
+      "PorkChain": [
+        11
+      ]
+    },
+    "id": 12,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.4",
+          ".22",
+          "<",
+          "0.9",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "33:32:0"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 11,
+        "linearizedBaseContracts": [
+          11
+        ],
+        "name": "PorkChain",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "PorkChain.Pig",
+            "id": 10,
+            "members": [
+              {
+                "constant": false,
+                "id": 3,
+                "name": "id",
+                "nodeType": "VariableDeclaration",
+                "scope": 10,
+                "src": "117:7:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 2,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "117:4:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 5,
+                "name": "breed",
+                "nodeType": "VariableDeclaration",
+                "scope": 10,
+                "src": "135:12:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 4,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "135:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 7,
+                "name": "birthDate",
+                "nodeType": "VariableDeclaration",
+                "scope": 10,
+                "src": "158:16:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 6,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "158:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 9,
+                "name": "healthRecords",
+                "nodeType": "VariableDeclaration",
+                "scope": 10,
+                "src": "185:20:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 8,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "185:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Pig",
+            "nodeType": "StructDefinition",
+            "scope": 11,
+            "src": "95:118:0",
+            "visibility": "public"
+          }
+        ],
+        "scope": 12,
+        "src": "69:149:0"
+      }
+    ],
+    "src": "33:185:0"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/PorkChain.sol",
+      "exportedSymbols": {
+        "PorkChain": [
+          11
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            ">=",
+            "0.4",
+            ".22",
+            "<",
+            "0.9",
+            ".0"
+          ]
+        },
+        "id": 1,
+        "name": "PragmaDirective",
+        "src": "33:32:0"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            11
+          ],
+          "name": "PorkChain",
+          "scope": 12
+        },
+        "children": [
+          {
+            "attributes": {
+              "canonicalName": "PorkChain.Pig",
+              "name": "Pig",
+              "scope": 11,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "id",
+                  "scope": 10,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "uint256",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "uint",
+                      "type": "uint256"
+                    },
+                    "id": 2,
+                    "name": "ElementaryTypeName",
+                    "src": "117:4:0"
+                  }
+                ],
+                "id": 3,
+                "name": "VariableDeclaration",
+                "src": "117:7:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "breed",
+                  "scope": 10,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "string",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "string",
+                      "type": "string"
+                    },
+                    "id": 4,
+                    "name": "ElementaryTypeName",
+                    "src": "135:6:0"
+                  }
+                ],
+                "id": 5,
+                "name": "VariableDeclaration",
+                "src": "135:12:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "birthDate",
+                  "scope": 10,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "string",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "string",
+                      "type": "string"
+                    },
+                    "id": 6,
+                    "name": "ElementaryTypeName",
+                    "src": "158:6:0"
+                  }
+                ],
+                "id": 7,
+                "name": "VariableDeclaration",
+                "src": "158:16:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "healthRecords",
+                  "scope": 10,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "string",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "string",
+                      "type": "string"
+                    },
+                    "id": 8,
+                    "name": "ElementaryTypeName",
+                    "src": "185:6:0"
+                  }
+                ],
+                "id": 9,
+                "name": "VariableDeclaration",
+                "src": "185:20:0"
+              }
+            ],
+            "id": 10,
+            "name": "StructDefinition",
+            "src": "95:118:0"
+          }
+        ],
+        "id": 11,
+        "name": "ContractDefinition",
+        "src": "69:149:0"
+      }
+    ],
+    "id": 12,
+    "name": "SourceUnit",
+    "src": "33:185:0"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.1+commit.c8a2cb62.Emscripten.clang"
+  },
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0xd98541311EB9C710FEd07bf3239D31eC875FCd92",
+      "transactionHash": "0x0bdab3078396614397fdacc92bac2f19334f0e9e41b67a27a643ca8496e1bccd"
+    }
+  },
+  "schemaVersion": "3.4.16",
+  "updatedAt": "2024-04-07T01:07:42.498Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

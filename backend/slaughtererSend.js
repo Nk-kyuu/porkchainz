@@ -1,3 +1,5 @@
+const Web3 = require('web3');
+//
 const express = require('express');
 const db = require('./database'); // เรียกใช้ไฟล์ database.js
 const bodyParser = require("body-parser");

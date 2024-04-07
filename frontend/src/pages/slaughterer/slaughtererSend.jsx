@@ -7,8 +7,14 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers';
 
+import Web3 from 'web3';
+//import ABI_PorkChain from '../../abis/PorkChain.json'; 
+
+
 const SlaughtererSend = () => {
   const defaultTheme = createTheme();
+
+  //const ABI = ABI_PorkChain; 
 
   const [formData, setFormData] = useState({
     source: '',
