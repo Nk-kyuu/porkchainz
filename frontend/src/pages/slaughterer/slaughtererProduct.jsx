@@ -58,7 +58,7 @@ function SlaughtererProduct() {
             <p>Product Information</p>
           </div>
         </div>
-        <div className="pig-table" style={{ fontSize: "13.5px", width: "80%", backgroundColor: "white", height: "300px" }}>
+        <div className="pig-table" style={{ fontSize: "13.5px", width: "80%", backgroundColor: "white", height: "340px" }}>
           <TableContainer component={Paper}>
             <Table style={{ minWidth: "700px" }}>
               <TableHead>
@@ -69,6 +69,7 @@ function SlaughtererProduct() {
                   <TableCell>productWeight</TableCell>
                   <TableCell>productDate</TableCell>
                   <TableCell>productStatus</TableCell>
+                  <TableCell>productHash</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -85,6 +86,7 @@ function SlaughtererProduct() {
                     <TableCell>{row.productWeight}</TableCell>
                     <TableCell>{row.productDate}</TableCell>
                     <TableCell>{row.productStatus}</TableCell>
+                    <TableCell>{row.productHash}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

@@ -1,0 +1,111 @@
+[
+    {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "products",
+        "outputs": [
+          {
+            "name": "productWeight",
+            "type": "uint8"
+          },
+          {
+            "name": "productID",
+            "type": "uint8"
+          },
+          {
+            "name": "productName",
+            "type": "string"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "productCount",
+        "outputs": [
+          {
+            "name": "",
+            "type": "uint8"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "name": "productWeight",
+            "type": "uint8"
+          },
+          {
+            "indexed": false,
+            "name": "productID",
+            "type": "uint8"
+          },
+          {
+            "indexed": false,
+            "name": "productName",
+            "type": "string"
+          }
+        ],
+        "name": "ProductAdded",
+        "type": "event"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "_productWeight",
+            "type": "uint8"
+          },
+          {
+            "name": "_productName",
+            "type": "string"
+          }
+        ],
+        "name": "addProduct",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "_productID",
+            "type": "uint8"
+          }
+        ],
+        "name": "getProductDataById",
+        "outputs": [
+          {
+            "name": "",
+            "type": "uint8"
+          },
+          {
+            "name": "",
+            "type": "string"
+          },
+          {
+            "name": "",
+            "type": "uint8"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      }
+
+]

@@ -17,6 +17,8 @@ import LoginAdmin from './pages/login/loginAdmin';
 import AddAdmin from './pages/admin/addAdmin';
 import Consumer from './pages/consumer/consumer'
 import TestPig from './pages/farmer/TestPig';
+import TestAddProduct from './pages/slaughterer/testAddProduct';
+import AddProduct from './pages/slaughterer/addProduct'
 function App() {
   return (
     <div className="App">
@@ -39,6 +41,8 @@ function App() {
           <Route path="/farmerAddBatch" element={<FarmerAddBatch />}/>
           <Route path="/consumer/:shipmentID" element={<Consumer/>} />
           <Route path="testPig" element={<TestPig/>} />
+          <Route path='/testAddProduct'element={<TestAddProduct/>} />
+          <Route path='/addProduct' element={<AddProduct/>} />
         </Routes>
       </BrowserRouter >
     </div>
