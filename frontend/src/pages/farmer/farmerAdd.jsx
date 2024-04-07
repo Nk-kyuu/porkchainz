@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Button, CssBaseline, Grid, Box, Typography, Container, MenuItem,TextField } from '@mui/material';
+import React, { useState } from 'react';
+import { Button, CssBaseline, Grid, Box, Typography, Container, MenuItem, TextField } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Navbar from "../../components/navbarFarmer";
 import axios from 'axios'; // เพิ่ม import สำหรับ axios
@@ -33,23 +33,13 @@ const FarmerAdd = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    // ตรวจสอบว่าทุกช่องมีข้อมูลหรือไม่
     if (!formData.pigWeight || !formData.pigStartDate || !formData.pigHealth || !formData.pigEndDate || !formData.pigBreed) {
-      alert('Please fill in all fields'); 
-      return; 
+      alert('Please fill in all fields'); // แสดงข้อความแจ้งเตือน
+      return; // ยกเลิกการทำงานของฟังก์ชันหากไม่มีข้อมูลที่ต้องการ
     }
-    
-    // Get farmerID from localStorage
-    const userID = localStorage.getItem('userID');
-    if (!userID) {
-      alert('No farmerID found. Please log in.'); 
-      return;
-    }
-    
-    // Add farmerID to formData
-    const dataToSend = { ...formData, userID }; 
-    console.log(dataToSend)
     try {
-      const response = await axios.post('http://localhost:5000/api/addPig', dataToSend);
+      const response = await axios.post('http://localhost:5000/api/addPig', formData);
       if (!response.data.success) {
         throw new Error('Failed to add pig');
       }
@@ -58,6 +48,7 @@ const FarmerAdd = () => {
       console.error('Error adding pig:', error);
     }
   };
+
   const currencies = [
     {
       value: 'DorocJerse',
@@ -75,12 +66,12 @@ const FarmerAdd = () => {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Navbar/>
+      <Navbar />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
-           sx={{
-            marginTop: 5,
+          sx={{
+            marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -101,7 +92,7 @@ const FarmerAdd = () => {
                   name="pigWeight"
                   fullWidth
                   id="pigWeight"
-                  placeholder="weight"
+                  label="weight"
                   autoFocus
                   onChange={handleChange}
                 />
@@ -109,18 +100,19 @@ const FarmerAdd = () => {
               <Grid item xs={12} sm={6}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
-                    placeholder="Start Date"
+                    label="Start Date"
                     value={formData.pigStartDate}
                     onChange={handleStartDateChange}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
+                  >
+                    {(params) => <TextField {...params} />}
+                  </DatePicker>
                 </LocalizationProvider>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
                   id="pigHealth"
-                  placeholder="health"
+                  label="health"
                   name="pigHealth"
                   autoComplete="health"
                   onChange={handleChange}
@@ -129,23 +121,23 @@ const FarmerAdd = () => {
               <Grid item xs={12} sm={6}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
-                  
-                    placeholder="End Date"
+                    label="End Date"
                     value={formData.pigEndDate}
                     onChange={handleEndDateChange}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
+                  >
+                    {(params) => <TextField {...params} />}
+                  </DatePicker>
                 </LocalizationProvider>
               </Grid>
               <Grid item xs={12} sm={4}>
                 <TextField
-                   id="pigBreed"
-                   placeholder="Breed"
-                   select
-                   name="pigBreed" // ตรงนี้ต้องตรงกับชื่อฟิลด์ในฐานข้อมูล
-                   value={formData.pigBreed}
-                   onChange={handleChange}
-                   helperText="Please select Breed"
+                  id="pigBreed"
+                  select
+                  label="Breed"
+                  name="pigBreed" // ตรงนี้ต้องตรงกับชื่อฟิลด์ในฐานข้อมูล
+                  value={formData.pigBreed}
+                  onChange={handleChange}
+                  helperText="Please select Breed"
                 >
                   {currencies.map((option) => (
                     <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
@@ -153,16 +145,16 @@ const FarmerAdd = () => {
                 </TextField>
               </Grid>
             </Grid>
-              <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="error"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Add
-                </Button>
-              </Box>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <Button
+                type="submit"
+                variant="contained"
+                color="error"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Add
+              </Button>
+            </Box>
           </Box>
         </Box>
       </Container>

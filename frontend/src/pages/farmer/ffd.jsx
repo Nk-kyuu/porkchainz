@@ -5,12 +5,13 @@ import axios from 'axios';
 import abiAddPig from '../../abi/ABI_AddPig';
 import Web3 from 'web3'
 
-const TestPig = () => {
+const Test = () => {
     const [web3, setWeb3] = useState(null);
     const [contract, setContract] = useState(null);
     const [account, setAccount] = useState('');
     const [pigWeight, setPigWeight] = useState('');
     const [pigHealth, setPigHealth] = useState('');
+    const [pigBreed, setPigBreed] = useState('');
     const [transactionHash, setTransactionHash] = useState('');
 
     useEffect(() => {
@@ -50,20 +51,22 @@ const TestPig = () => {
             const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
             const senderAddress = accounts[0];
             // Call the addPig function in the smart contract
-            const transaction = await contract.methods.addPig(pigWeight, pigHealth).send({ from: senderAddress, gas: 5000000 });
+            const transaction = await contract.methods.addPig(pigWeight, pigHealth, pigBreed).send({ from: senderAddress, gas: 5000000 });
             // Retrieve the transaction hash
             const txHash = transaction.transactionHash;
             setTransactionHash(txHash);
             // Store hash data in the backend database
-            await axios.post('http://localhost:5000/api/addPig', { pigWeight, pigHealth, transactionHash: txHash });
+            await axios.post('http://localhost:5000/api/addPig', { pigWeight, pigHealth, pigBreed, transactionHash: txHash });
             // Clear input fields after successful submission
             setPigWeight('');
             setPigHealth('');
+            setPigBreed('');
+            window.location = '/farmerDashPig'
         } catch (error) {
             console.error('Error submitting transaction:', error);
         }
     };
-    
+
 
     return (
         <ThemeProvider theme={createTheme()}>
@@ -101,19 +104,24 @@ const TestPig = () => {
                             fullWidth
                             sx={{ mb: 2 }}
                         />
+                        <TextField
+                            type="text"
+                            label="PigBreed"
+                            value={pigBreed}
+                            onChange={(e) => setPigBreed(e.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                        />
                         <Button
                             type="submit"
                             variant="contained"
                             color="error"
                             fullWidth
+
                         >
                             Add Pig
                         </Button>
-                        {transactionHash && (
-                            <Box mt={2}>
-                                <Typography variant="body1">Transaction Hash: {transactionHash}</Typography>
-                            </Box>
-                        )}
+
                     </Box>
                 </Box>
             </Container>
@@ -121,4 +129,4 @@ const TestPig = () => {
     );
 };
 
-export default TestPig;
+export default Test;
