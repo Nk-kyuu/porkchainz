@@ -8,7 +8,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers';
 
 
-const FarmerAdd = () => {
+const FarmerAdd = () => {  
   const defaultTheme = createTheme();
   const [formData, setFormData] = useState({
     pigWeight: '',

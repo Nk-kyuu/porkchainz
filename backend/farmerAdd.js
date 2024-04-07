@@ -26,7 +26,7 @@ farmerAdd.use(express.json());
 //       console.log('Pig added successfully');
 //       res.status(200).json({ success: true, message: 'Pig added successfully' });
 //     });
-//   });
+//   }); 
 // });
 farmerAdd.post('/api/storeHash', (req, res) => {
   const { hash } = req.body;

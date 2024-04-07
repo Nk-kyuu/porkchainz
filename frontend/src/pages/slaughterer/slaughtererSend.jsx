@@ -14,8 +14,6 @@ import Web3 from 'web3';
 const SlaughtererSend = () => {
   const defaultTheme = createTheme();
 
-  //const ABI = ABI_PorkChain; 
-
   const [formData, setFormData] = useState({
     source: '',
     destination: '',

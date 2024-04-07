@@ -5,7 +5,7 @@ import axios from 'axios'; // Import Axios for making HTTP requests
 
 function TestPig() {
     const [web3, setWeb3] = useState(null);
-    const [contract, setContract] = useState(null);
+    const [contract, setContract] = useState(null);  
     const [account, setAccount] = useState('');
     const [pigWeight, setPigWeight] = useState('');
     const [pigHealth, setPigHealth] = useState('');
