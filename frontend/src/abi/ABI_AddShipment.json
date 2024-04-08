@@ -1,0 +1,42 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "shipmentId",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "name": "destination",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "name": "source",
+        "type": "string"
+      }
+    ],
+    "name": "ShipmentCreated",
+    "type": "event"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_destination",
+        "type": "uint8"
+      },
+      {
+        "name": "_source",
+        "type": "string"
+      }
+    ],
+    "name": "addShipment",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
