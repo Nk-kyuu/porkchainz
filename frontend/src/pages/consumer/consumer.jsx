@@ -58,8 +58,7 @@ const Consumer = () => {
                                 <p>Farm: {row.farmName}</p>
                                 <p>Location: {row.farmLocation}</p>
                                 <p>Batch ID: {row.batchID}</p>
-                                <p>Start-date: {row.pigStartDate}</p>
-                                <p>End-date: {row.pigEndDate}</p>
+                                <p>date: {row.pigDate}</p>
                             </div>
                         ))}
                     </div>
