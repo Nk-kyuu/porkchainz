@@ -3,9 +3,10 @@ require('dotenv').config();
 
 const test = require('./test')
 const farmer = require('./farmer')
+
 //const batch = require('./batch')
 
-
+const addShipment = require('./addShipment');
 const batch = require('./batchTable');
 const pig = require('./pigTable'); // get data pig 
 const farmerAdd = require('./farmerAdd') //add pig**
@@ -47,7 +48,7 @@ app.use("/", farmer);
 app.use("/", pig);
 app.use("/", batch);
 app.use("/", addBatch)
-
+app.use("/", addShipment);
 app.use("/", product)
 app.use("/", farmerAdd);
 app.use("/", farmerAddBatch);

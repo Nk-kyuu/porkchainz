@@ -11,6 +11,7 @@ const TestPig = () => {
     const [account, setAccount] = useState('');
     const [pigWeight, setPigWeight] = useState('');
     const [pigHealth, setPigHealth] = useState('');
+    const [pigBreed, setPigBreed] = useState('');
     const [transactionHash, setTransactionHash] = useState('');
 
     useEffect(() => {

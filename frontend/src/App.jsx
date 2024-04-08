@@ -19,6 +19,8 @@ import Consumer from './pages/consumer/consumer'
 import TestPig from './pages/farmer/TestPig';
 import TestAddProduct from './pages/slaughterer/testAddProduct';
 import AddProduct from './pages/slaughterer/addProduct'
+import AddShipment from './pages/slaughterer/addShipment';
+
 function App() {
   return (
     <div className="App">
@@ -43,6 +45,7 @@ function App() {
           <Route path="testPig" element={<TestPig/>} />
           <Route path='/testAddProduct'element={<TestAddProduct/>} />
           <Route path='/addProduct' element={<AddProduct/>} />
+          <Route path="/addShipment" element={<AddShipment/>} />
         </Routes>
       </BrowserRouter >
     </div>
