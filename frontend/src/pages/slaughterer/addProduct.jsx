@@ -23,7 +23,7 @@ const AddProduct = () => {
                     setWeb3(web3Instance);
                     const accounts = await web3Instance.eth.getAccounts();
                     setAccount(accounts[0]);
-                    const contractAddress = '0x1e1361964b7839285b1c1b5733Bbd0a3B425Cc58';
+                    const contractAddress = '0x1b76D09b36F144d806089580B030AE6Fb6b71767';
                     const contractInstance = new web3Instance.eth.Contract(abiAddPro, contractAddress);
                     setContract(contractInstance);
                 } else {
