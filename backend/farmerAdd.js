@@ -8,7 +8,7 @@ farmerAdd.use(express.json());
 
 // farmerAdd.post('/api/addPig', (req, res) => {
 //   const { pigWeight, pigStartDate, pigEndDate, pigBreed, pigHealth, transactionHash,  userID } = req.body;
-  
+
 //   const farmerIDQuery = 'SELECT farmer.farmerID FROM farmer JOIN user ON user.userID = farmer.userID WHERE user.userID = ?';
 //   db.query(farmerIDQuery, [userID], (err, farmerIDResult) => {
 //     if (err) {
@@ -33,47 +33,47 @@ farmerAdd.use(express.json());
 farmerAdd.post('/api/addPig', async (req, res) => {
   const { pigWeight, pigHealth, transactionHash, userID } = req.body;
 
-const farmerIDQuery = 'SELECT farmer.farmerID FROM farmer JOIN user ON user.userID = farmer.userID WHERE user.userID = ?';
-db.query(farmerIDQuery, [userID], async (err, farmerIDResult) => {
-  if (err) {
-    return res.status(500).json({ success: false, message: 'Failed to fetch farmerID' });
-  }
-  if (farmerIDResult.length === 0) {
-    return res.status(404).json({ success: false, message: 'User not found' });
-  }
-  const farmerID = farmerIDResult[0].farmerID;
-  
-  try {
-    // Insert pig data into the database
-     db.query(
-      'INSERT INTO pig (pigWeight, pigHealth, pigHash, farmerID) VALUES (?, ?, ?, ?)',
-      [pigWeight, pigHealth, transactionHash, farmerID]
-    );
-
-    res.status(201).json({ message: 'Pig data added successfully' });
-  } catch (error) {
-    console.error('Error adding pig data:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-})
-});
-
-farmerAdd.post('/api/storeHash', (req, res) => {
-  const { hash } = req.body;
-
-  // Assuming you have a table named 'hashes' with a column named 'hash'
-  const insertQuery = 'INSERT INTO pig (pigHash) VALUES (?)';
-
-  db.query(insertQuery, [hash], (err, result) => {
+  const farmerIDQuery = 'SELECT farmer.farmerID FROM farmer JOIN user ON user.userID = farmer.userID WHERE user.userID = ?';
+  db.query(farmerIDQuery, [userID], async (err, farmerIDResult) => {
     if (err) {
-      console.error('Error storing hash:', err);
-      return res.status(500).json({ success: false, message: 'Failed to store hash' });
+      return res.status(500).json({ success: false, message: 'Failed to fetch farmerID' });
     }
+    if (farmerIDResult.length === 0) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+    const farmerID = farmerIDResult[0].farmerID;
 
-    console.log('Hash stored successfully');
-    res.status(200).json({ success: true, message: 'Hash stored successfully' });
-  });
+    try {
+      // Insert pig data into the database
+      db.query(
+        'INSERT INTO pig (pigWeight, pigHealth, pigHash, farmerID) VALUES (?, ?, ?, ?)',
+        [pigWeight, pigHealth, transactionHash, farmerID]
+      );
+
+      res.status(201).json({ message: 'Pig data added successfully' });
+    } catch (error) {
+      console.error('Error adding pig data:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  })
 });
+
+// farmerAdd.post('/api/storeHash', (req, res) => {
+//   const { hash } = req.body;
+
+//   // Assuming you have a table named 'hashes' with a column named 'hash'
+//   const insertQuery = 'INSERT INTO pig (pigHash) VALUES (?)';
+
+//   db.query(insertQuery, [hash], (err, result) => {
+//     if (err) {
+//       console.error('Error storing hash:', err);
+//       return res.status(500).json({ success: false, message: 'Failed to store hash' });
+//     }
+
+//     console.log('Hash stored successfully');
+//     res.status(200).json({ success: true, message: 'Hash stored successfully' });
+//   });
+// });
 
 
 module.exports = farmerAdd;

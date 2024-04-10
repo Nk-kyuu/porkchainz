@@ -25,7 +25,7 @@ const TestPig = () => {
                     const accounts = await web3Instance.eth.getAccounts();
                     setAccount(accounts[0]);
                     // Create an instance of the contract using ABI and contract address
-                    const contractAddress = '0xa41c9AFbFceefcC9AbBb4E477b5ff2060b4c8276'; // Use your contract address
+                    const contractAddress = '0x5252aB242F58Ce151f80C52754b914Ea6B718d9F'; // Use your contract address
                     const contractInstance = new web3Instance.eth.Contract(abiAddPig, contractAddress);
                     setContract(contractInstance);
                 } else {

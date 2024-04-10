@@ -1,33 +1,28 @@
-import { useState, useEffect} from 'react';
-import { Container, Typography, TextField, Button, Box } from '@mui/material';
-import {Web3} from 'web3';
-import PigContractABI from '../../abi/ABI_AddPig'; // Import the ABI of the PigContract
+import { useState, useEffect } from 'react';
+import { Container, Typography, TextField, Button, Box, Grid, Paper } from '@mui/material';
+import { Web3 } from 'web3';
+import abiAddPig from '../../abi/ABI_GetPig'; // Import the ABI of the PigContract
 
 const PigDashboard = () => {
     const [web3, setWeb3] = useState(null);
     const [contract, setContract] = useState(null);
     const [pigId, setPigId] = useState('');
     const [pigData, setPigData] = useState(null);
+    const [account, setAccount] = useState('');
 
     useEffect(() => {
         const initWeb3 = async () => {
             try {
                 if (window.ethereum) {
                     const web3Instance = new Web3(window.ethereum);
-                    setWeb3(web3Instance);
-
-                    // Request account access if needed
                     await window.ethereum.request({ method: 'eth_requestAccounts' });
-
-                    const networkId = await web3Instance.eth.net.getId();
-                    const deployedNetwork = PigContractABI.networks[networkId];
-                    if (!deployedNetwork) {
-                        throw new Error('Contract not deployed on the current network');
-                    }
-                    const contractInstance = new web3Instance.eth.Contract(
-                        PigContractABI.abi,
-                        deployedNetwork && deployedNetwork.address
-                    );
+                    setWeb3(web3Instance);
+                    // Set the default account
+                    const accounts = await web3Instance.eth.getAccounts();
+                    setAccount(accounts[0]);
+                    // Create an instance of the contract using ABI and contract address
+                    const contractAddress = '0x5252aB242F58Ce151f80C52754b914Ea6B718d9F'; // Use your contract address
+                    const contractInstance = new web3Instance.eth.Contract(abiAddPig, contractAddress);
                     setContract(contractInstance);
                 } else {
                     console.error('Please install MetaMask');
@@ -55,7 +50,7 @@ const PigDashboard = () => {
     return (
         <Container maxWidth="md">
             <Box my={4}>
-                <Typography variant="h4">Pig Dashboard</Typography>
+                <h4>Pig Dashboard</h4>
                 <Box my={2}>
                     <TextField
                         label="Enter Pig ID"
@@ -69,18 +64,20 @@ const PigDashboard = () => {
                         Get Pig Data
                     </Button>
                 </Box>
-                {pigData && (
-                    <Box my={2}>
-                        <Typography variant="h6">Pig ID: {pigData[0]}</Typography>
-                        <Typography variant="body1">Pig Weight: {pigData[1]}</Typography>
-                        <Typography variant="body1">Pig Health: {pigData[2]}</Typography>
-                    </Box>
+                {pigData ? (
+                    <div>
+                        <h6>Pig Data</h6>
+                        <div>Pig ID: {parseInt(pigData.pigID.toString())}</div>
+                        <div>Pig Weight: {parseInt(pigData.pigWeight.toString())}</div>
+                        <div>Pig Health: {pigData.pigHealth}</div>
+                    </div>
+                ) : (
+                    <div>No pig data available</div>
                 )}
             </Box>
         </Container>
     );
+    
 };
 
 export default PigDashboard;
-
-

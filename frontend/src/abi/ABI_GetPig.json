@@ -1,0 +1,29 @@
+[
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "_pigId",
+                "type": "uint8"
+            }
+        ],
+        "name": "getPigDataById",
+        "outputs": [
+            {
+                "name": "pigID",
+                "type": "uint8"
+            },
+            {
+                "name": "pigWeight",
+                "type": "uint8"
+            },
+            {
+                "name": "pigHealth",
+                "type": "string"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }
+]

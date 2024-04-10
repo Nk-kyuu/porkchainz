@@ -1,6 +1,6 @@
 import './App.css'
 import { BrowserRouter, Routes, Route, } from 'react-router-dom'
-import FarmerAdd from "./pages/farmer/farmerAdd"
+//import FarmerAdd from "./pages/farmer/farmerAdd"
 import FarmerDashBatch from "./pages/farmer/farmerDashBatch"
 import SlaughtererAdd from './pages/slaughterer/slaughtererAdd';
 import SlaughtererSend from './pages/slaughterer/slaughtererSend';
@@ -19,6 +19,7 @@ import Consumer from './pages/consumer/consumer'
 import TestPig from './pages/farmer/TestPig';
 import TestDash from './pages/farmer/testDash'
 import Test from './pages/farmer/ffd'
+import FarmerD from './pages/farmer/farmerD'
 function App() {
   return (
     <div className="App">
@@ -34,7 +35,7 @@ function App() {
           <Route path="/slaughtererProduct" element={<SlaughtererProduct />} />
           <Route path="/slaughtererAddShip" element={<SlaughtererAddShip />} />
           <Route path="/retailerDash" element={<RetailerDash />} />
-          <Route path="/farmerAdd" element={<FarmerAdd />} />
+          {/* <Route path="/farmerAdd" element={<FarmerAdd />} /> */}
           <Route path="/farmerDashBatch" element={<FarmerDashBatch />} />
           <Route path="/slaughtererAdd" element={<SlaughtererAdd />} />
           <Route path="/slaughtererSend" element={<SlaughtererSend />} />
@@ -43,6 +44,7 @@ function App() {
           <Route path="testPig" element={<TestPig/>} />
           <Route path="/testDash" element={<TestDash/>} />
           <Route path="/test" element={<Test/>} />   
+          <Route path="/farmerD" element={<FarmerD/>} />
         </Routes>
       </BrowserRouter >
     </div>

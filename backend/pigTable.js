@@ -29,6 +29,30 @@ pig.post('/pigInfo', jsonParser, (req, res) => {
     });
 });
 
+pig.post('/pigHash', jsonParser, (req, res) => {
+    const email = req.body.email;
+    const farmerIDQuery = 'SELECT farmer.farmerID FROM farmer JOIN user ON user.userID = farmer.userID WHERE user.email = ?';
+    db.query(farmerIDQuery, [email], (err, farmerIDResult) => {
+        if (err) {
+            console.error('Error fetching farmerID:', err);
+            return res.status(500).json({ success: false, message: 'Failed to fetch farmerID' });
+        }
+        if (farmerIDResult.length === 0) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+        const farmerID = farmerIDResult[0].farmerID;
+        const sqlQuery = 'SELECT pigHash FROM pig WHERE farmerID = ?';
+        db.query(sqlQuery, [farmerID], (err, result) => {
+            if (err) {
+                console.error('Error fetching pig information:', err);
+                return res.status(500).json({ success: false, message: 'Failed to fetch pig information' });
+            }
+            res.json(result);
+        });
+    });
+});
+
+
 pig.post('/pigFarmerID', jsonParser,(req, res) => {
     const email = req.body.email; 
 
